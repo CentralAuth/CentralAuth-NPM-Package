@@ -70,7 +70,10 @@ export const postApiV1InternalUserByTenantIdByUserId = (options) => {
 };
 /**
  * Delete an organization
+ *
  * WARNING! When you delete an organizations, all users and settings will be deleted. This action cannot be undone.
+ *
+ * @deprecated
  */
 export const deleteApiV1OrganizationById = (options) => {
     var _a;
@@ -88,6 +91,8 @@ export const deleteApiV1OrganizationById = (options) => {
 };
 /**
  * Get an organization
+ *
+ * @deprecated
  */
 export const getApiV1OrganizationById = (options) => {
     var _a;
@@ -105,6 +110,8 @@ export const getApiV1OrganizationById = (options) => {
 };
 /**
  * Update an existing organization
+ *
+ * @deprecated
  */
 export const postApiV1OrganizationById = (options) => {
     var _a;
@@ -121,7 +128,62 @@ export const postApiV1OrganizationById = (options) => {
         ], url: '/api/v1/organization/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
 };
 /**
+ * Delete an organization
+ *
+ * WARNING! When you delete an organizations, all users and settings will be deleted. This action cannot be undone.
+ */
+export const deleteApiV2OrganizationById = (options) => {
+    var _a;
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [
+            {
+                scheme: 'bearer',
+                type: 'http'
+            },
+            {
+                in: 'cookie',
+                name: 'accessToken',
+                type: 'apiKey'
+            }
+        ], url: '/api/v2/organization/{id}' }, options));
+};
+/**
+ * Get an organization
+ */
+export const getApiV2OrganizationById = (options) => {
+    var _a;
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
+            {
+                scheme: 'bearer',
+                type: 'http'
+            },
+            {
+                in: 'cookie',
+                name: 'accessToken',
+                type: 'apiKey'
+            }
+        ], url: '/api/v2/organization/{id}' }, options));
+};
+/**
+ * Update an existing organization
+ */
+export const postApiV2OrganizationById = (options) => {
+    var _a;
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
+            {
+                scheme: 'bearer',
+                type: 'http'
+            },
+            {
+                in: 'cookie',
+                name: 'accessToken',
+                type: 'apiKey'
+            }
+        ], url: '/api/v2/organization/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
+};
+/**
  * Create a new organization
+ *
+ * @deprecated
  */
 export const postApiV1Organization = (options) => {
     var _a;
@@ -136,6 +198,23 @@ export const postApiV1Organization = (options) => {
                 type: 'apiKey'
             }
         ], url: '/api/v1/organization' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
+};
+/**
+ * Create a new organization
+ */
+export const postApiV2Organization = (options) => {
+    var _a;
+    return ((_a = options === null || options === void 0 ? void 0 : options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
+            {
+                scheme: 'bearer',
+                type: 'http'
+            },
+            {
+                in: 'cookie',
+                name: 'accessToken',
+                type: 'apiKey'
+            }
+        ], url: '/api/v2/organization' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
 };
 /**
  * Request a new client secret for the organization
@@ -156,6 +235,7 @@ export const getApiV1OrganizationByIdRotateSecret = (options) => {
 };
 /**
  * Activate the newly created client secret for the organization
+ *
  * To create a new client secret, first use the /api/v1/organization/{id}/rotate_secret endpoint.
  */
 export const postApiV1OrganizationByIdActivateSecret = (options) => {
@@ -174,6 +254,7 @@ export const postApiV1OrganizationByIdActivateSecret = (options) => {
 };
 /**
  * Delete a tenant
+ *
  * WARNING! When you delete a tenant, all organizations, users and settings will be deleted. This action cannot be undone.
  */
 export const deleteApiV1TenantById = (options) => {
@@ -243,6 +324,7 @@ export const getApiV1InvoicesByTenantId = (options) => {
 };
 /**
  * Delete a user
+ *
  * Note that a user can create a new user object by logging in again. It is not necessary to create a new user object first.
  */
 export const deleteApiV1UserById = (options) => {
@@ -278,6 +360,7 @@ export const getApiV1UserById = (options) => {
 };
 /**
  * Update an existing user
+ *
  * Note that it is not possible to edit the email address of a user.
  */
 export const postApiV1UserById = (options) => {
@@ -296,6 +379,7 @@ export const postApiV1UserById = (options) => {
 };
 /**
  * Delete a user by email address
+ *
  * Note that a user can create a new user object by logging in again. It is not necessary to create a new user object first.
  */
 export const deleteApiV1UserByOrganizationIdByEmail = (options) => {
@@ -331,6 +415,7 @@ export const getApiV1UserByOrganizationIdByEmail = (options) => {
 };
 /**
  * Update an existing user by email address
+ *
  * Note that it is not possible to edit the email address of a user.
  */
 export const postApiV1UserByOrganizationIdByEmail = (options) => {
@@ -349,6 +434,7 @@ export const postApiV1UserByOrganizationIdByEmail = (options) => {
 };
 /**
  * Create a new user
+ *
  * Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically.
  */
 export const postApiV1User = (options) => {
@@ -367,6 +453,7 @@ export const postApiV1User = (options) => {
 };
 /**
  * Get a list of users
+ *
  * Get a pager object with all users in an organization
  */
 export const getApiV1UsersByOrganizationId = (options) => {
@@ -382,6 +469,25 @@ export const getApiV1UsersByOrganizationId = (options) => {
                 type: 'apiKey'
             }
         ], url: '/api/v1/users/{organizationId}' }, options));
+};
+/**
+ * Create a batch of users
+ *
+ * Any duplicate entries will be skipped. Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically.
+ */
+export const postApiV1UsersByOrganizationId = (options) => {
+    var _a;
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
+            {
+                scheme: 'bearer',
+                type: 'http'
+            },
+            {
+                in: 'cookie',
+                name: 'accessToken',
+                type: 'apiKey'
+            }
+        ], url: '/api/v1/users/{organizationId}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
 };
 /**
  * Delete an API key
@@ -470,6 +576,7 @@ export const getApiV1ApiKeysByOrganizationId = (options) => {
 };
 /**
  * Get a list of API requests
+ *
  * Get a pager object with all API requests made under this tenant
  */
 export const getApiV1ApiRequestsByTenantId = (options) => {
@@ -488,6 +595,7 @@ export const getApiV1ApiRequestsByTenantId = (options) => {
 };
 /**
  * Get a list of audit logs
+ *
  * Get a pager object with all audit logs created under a tenant
  */
 export const getApiV1AuditLogsByTenantId = (options) => {
@@ -506,6 +614,7 @@ export const getApiV1AuditLogsByTenantId = (options) => {
 };
 /**
  * Get a list of mail logs
+ *
  * Get a pager object with all mail logs created under the organizations of a tenant
  */
 export const getApiV1MailLogsByTenantId = (options) => {

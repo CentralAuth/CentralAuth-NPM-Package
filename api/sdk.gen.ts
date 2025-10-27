@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteApiV1ApiKeyByIdData, DeleteApiV1ApiKeyByIdErrors, DeleteApiV1ApiKeyByIdResponses, DeleteApiV1InternalUserByTenantIdByUserIdData, DeleteApiV1InternalUserByTenantIdByUserIdErrors, DeleteApiV1InternalUserByTenantIdByUserIdResponses, DeleteApiV1InvitedUserByIdData, DeleteApiV1InvitedUserByIdErrors, DeleteApiV1InvitedUserByIdResponses, DeleteApiV1OrganizationByIdData, DeleteApiV1OrganizationByIdErrors, DeleteApiV1OrganizationByIdResponses, DeleteApiV1TenantByIdData, DeleteApiV1TenantByIdErrors, DeleteApiV1TenantByIdResponses, DeleteApiV1UserByIdData, DeleteApiV1UserByIdErrors, DeleteApiV1UserByIdResponses, DeleteApiV1UserByOrganizationIdByEmailData, DeleteApiV1UserByOrganizationIdByEmailErrors, DeleteApiV1UserByOrganizationIdByEmailResponses, GetApiV1ApiKeyByIdData, GetApiV1ApiKeyByIdErrors, GetApiV1ApiKeyByIdResponses, GetApiV1ApiKeysByOrganizationIdData, GetApiV1ApiKeysByOrganizationIdErrors, GetApiV1ApiKeysByOrganizationIdResponses, GetApiV1ApiRequestsByTenantIdData, GetApiV1ApiRequestsByTenantIdErrors, GetApiV1ApiRequestsByTenantIdResponses, GetApiV1AuditLogsByTenantIdData, GetApiV1AuditLogsByTenantIdErrors, GetApiV1AuditLogsByTenantIdResponses, GetApiV1InvoicesByTenantIdData, GetApiV1InvoicesByTenantIdErrors, GetApiV1InvoicesByTenantIdResponses, GetApiV1MailLogsByTenantIdData, GetApiV1MailLogsByTenantIdErrors, GetApiV1MailLogsByTenantIdResponses, GetApiV1OrganizationByIdData, GetApiV1OrganizationByIdErrors, GetApiV1OrganizationByIdResponses, GetApiV1OrganizationByIdRotateSecretData, GetApiV1OrganizationByIdRotateSecretErrors, GetApiV1OrganizationByIdRotateSecretResponses, GetApiV1TenantByIdData, GetApiV1TenantByIdErrors, GetApiV1TenantByIdResponses, GetApiV1UserByIdData, GetApiV1UserByIdErrors, GetApiV1UserByIdResponses, GetApiV1UserByOrganizationIdByEmailData, GetApiV1UserByOrganizationIdByEmailErrors, GetApiV1UserByOrganizationIdByEmailResponses, GetApiV1UsersByOrganizationIdData, GetApiV1UsersByOrganizationIdErrors, GetApiV1UsersByOrganizationIdResponses, PostApiV1ApiKeyByIdData, PostApiV1ApiKeyByIdErrors, PostApiV1ApiKeyByIdResponses, PostApiV1ApiKeyData, PostApiV1ApiKeyErrors, PostApiV1ApiKeyResponses, PostApiV1InternalUserByTenantIdByUserIdData, PostApiV1InternalUserByTenantIdByUserIdErrors, PostApiV1InternalUserByTenantIdByUserIdResponses, PostApiV1InvitedUserData, PostApiV1InvitedUserErrors, PostApiV1InvitedUserResponses, PostApiV1OrganizationByIdActivateSecretData, PostApiV1OrganizationByIdActivateSecretErrors, PostApiV1OrganizationByIdActivateSecretResponses, PostApiV1OrganizationByIdData, PostApiV1OrganizationByIdErrors, PostApiV1OrganizationByIdResponses, PostApiV1OrganizationData, PostApiV1OrganizationErrors, PostApiV1OrganizationResponses, PostApiV1TenantByIdData, PostApiV1TenantByIdErrors, PostApiV1TenantByIdResponses, PostApiV1UserByIdData, PostApiV1UserByIdErrors, PostApiV1UserByIdResponses, PostApiV1UserByOrganizationIdByEmailData, PostApiV1UserByOrganizationIdByEmailErrors, PostApiV1UserByOrganizationIdByEmailResponses, PostApiV1UserData, PostApiV1UserErrors, PostApiV1UserResponses } from './types.gen';
+import type { DeleteApiV1ApiKeyByIdData, DeleteApiV1ApiKeyByIdErrors, DeleteApiV1ApiKeyByIdResponses, DeleteApiV1InternalUserByTenantIdByUserIdData, DeleteApiV1InternalUserByTenantIdByUserIdErrors, DeleteApiV1InternalUserByTenantIdByUserIdResponses, DeleteApiV1InvitedUserByIdData, DeleteApiV1InvitedUserByIdErrors, DeleteApiV1InvitedUserByIdResponses, DeleteApiV1OrganizationByIdData, DeleteApiV1OrganizationByIdErrors, DeleteApiV1OrganizationByIdResponses, DeleteApiV1TenantByIdData, DeleteApiV1TenantByIdErrors, DeleteApiV1TenantByIdResponses, DeleteApiV1UserByIdData, DeleteApiV1UserByIdErrors, DeleteApiV1UserByIdResponses, DeleteApiV1UserByOrganizationIdByEmailData, DeleteApiV1UserByOrganizationIdByEmailErrors, DeleteApiV1UserByOrganizationIdByEmailResponses, DeleteApiV2OrganizationByIdData, DeleteApiV2OrganizationByIdErrors, DeleteApiV2OrganizationByIdResponses, GetApiV1ApiKeyByIdData, GetApiV1ApiKeyByIdErrors, GetApiV1ApiKeyByIdResponses, GetApiV1ApiKeysByOrganizationIdData, GetApiV1ApiKeysByOrganizationIdErrors, GetApiV1ApiKeysByOrganizationIdResponses, GetApiV1ApiRequestsByTenantIdData, GetApiV1ApiRequestsByTenantIdErrors, GetApiV1ApiRequestsByTenantIdResponses, GetApiV1AuditLogsByTenantIdData, GetApiV1AuditLogsByTenantIdErrors, GetApiV1AuditLogsByTenantIdResponses, GetApiV1InvoicesByTenantIdData, GetApiV1InvoicesByTenantIdErrors, GetApiV1InvoicesByTenantIdResponses, GetApiV1MailLogsByTenantIdData, GetApiV1MailLogsByTenantIdErrors, GetApiV1MailLogsByTenantIdResponses, GetApiV1OrganizationByIdData, GetApiV1OrganizationByIdErrors, GetApiV1OrganizationByIdResponses, GetApiV1OrganizationByIdRotateSecretData, GetApiV1OrganizationByIdRotateSecretErrors, GetApiV1OrganizationByIdRotateSecretResponses, GetApiV1TenantByIdData, GetApiV1TenantByIdErrors, GetApiV1TenantByIdResponses, GetApiV1UserByIdData, GetApiV1UserByIdErrors, GetApiV1UserByIdResponses, GetApiV1UserByOrganizationIdByEmailData, GetApiV1UserByOrganizationIdByEmailErrors, GetApiV1UserByOrganizationIdByEmailResponses, GetApiV1UsersByOrganizationIdData, GetApiV1UsersByOrganizationIdErrors, GetApiV1UsersByOrganizationIdResponses, GetApiV2OrganizationByIdData, GetApiV2OrganizationByIdErrors, GetApiV2OrganizationByIdResponses, PostApiV1ApiKeyByIdData, PostApiV1ApiKeyByIdErrors, PostApiV1ApiKeyByIdResponses, PostApiV1ApiKeyData, PostApiV1ApiKeyErrors, PostApiV1ApiKeyResponses, PostApiV1InternalUserByTenantIdByUserIdData, PostApiV1InternalUserByTenantIdByUserIdErrors, PostApiV1InternalUserByTenantIdByUserIdResponses, PostApiV1InvitedUserData, PostApiV1InvitedUserErrors, PostApiV1InvitedUserResponses, PostApiV1OrganizationByIdActivateSecretData, PostApiV1OrganizationByIdActivateSecretErrors, PostApiV1OrganizationByIdActivateSecretResponses, PostApiV1OrganizationByIdData, PostApiV1OrganizationByIdErrors, PostApiV1OrganizationByIdResponses, PostApiV1OrganizationData, PostApiV1OrganizationErrors, PostApiV1OrganizationResponses, PostApiV1TenantByIdData, PostApiV1TenantByIdErrors, PostApiV1TenantByIdResponses, PostApiV1UserByIdData, PostApiV1UserByIdErrors, PostApiV1UserByIdResponses, PostApiV1UserByOrganizationIdByEmailData, PostApiV1UserByOrganizationIdByEmailErrors, PostApiV1UserByOrganizationIdByEmailResponses, PostApiV1UserData, PostApiV1UserErrors, PostApiV1UserResponses, PostApiV1UsersByOrganizationIdData, PostApiV1UsersByOrganizationIdErrors, PostApiV1UsersByOrganizationIdResponses, PostApiV2OrganizationByIdData, PostApiV2OrganizationByIdErrors, PostApiV2OrganizationByIdResponses, PostApiV2OrganizationData, PostApiV2OrganizationErrors, PostApiV2OrganizationResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -112,7 +112,10 @@ export const postApiV1InternalUserByTenantIdByUserId = <ThrowOnError extends boo
 
 /**
  * Delete an organization
+ *
  * WARNING! When you delete an organizations, all users and settings will be deleted. This action cannot be undone.
+ *
+ * @deprecated
  */
 export const deleteApiV1OrganizationById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1OrganizationByIdData, ThrowOnError>) => {
     return (options.client ?? client).delete<DeleteApiV1OrganizationByIdResponses, DeleteApiV1OrganizationByIdErrors, ThrowOnError>({
@@ -134,6 +137,8 @@ export const deleteApiV1OrganizationById = <ThrowOnError extends boolean = false
 
 /**
  * Get an organization
+ *
+ * @deprecated
  */
 export const getApiV1OrganizationById = <ThrowOnError extends boolean = false>(options: Options<GetApiV1OrganizationByIdData, ThrowOnError>) => {
     return (options.client ?? client).get<GetApiV1OrganizationByIdResponses, GetApiV1OrganizationByIdErrors, ThrowOnError>({
@@ -155,6 +160,8 @@ export const getApiV1OrganizationById = <ThrowOnError extends boolean = false>(o
 
 /**
  * Update an existing organization
+ *
+ * @deprecated
  */
 export const postApiV1OrganizationById = <ThrowOnError extends boolean = false>(options: Options<PostApiV1OrganizationByIdData, ThrowOnError>) => {
     return (options.client ?? client).post<PostApiV1OrganizationByIdResponses, PostApiV1OrganizationByIdErrors, ThrowOnError>({
@@ -179,7 +186,78 @@ export const postApiV1OrganizationById = <ThrowOnError extends boolean = false>(
 };
 
 /**
+ * Delete an organization
+ *
+ * WARNING! When you delete an organizations, all users and settings will be deleted. This action cannot be undone.
+ */
+export const deleteApiV2OrganizationById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV2OrganizationByIdData, ThrowOnError>) => {
+    return (options.client ?? client).delete<DeleteApiV2OrganizationByIdResponses, DeleteApiV2OrganizationByIdErrors, ThrowOnError>({
+        security: [
+            {
+                scheme: 'bearer',
+                type: 'http'
+            },
+            {
+                in: 'cookie',
+                name: 'accessToken',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v2/organization/{id}',
+        ...options
+    });
+};
+
+/**
+ * Get an organization
+ */
+export const getApiV2OrganizationById = <ThrowOnError extends boolean = false>(options: Options<GetApiV2OrganizationByIdData, ThrowOnError>) => {
+    return (options.client ?? client).get<GetApiV2OrganizationByIdResponses, GetApiV2OrganizationByIdErrors, ThrowOnError>({
+        security: [
+            {
+                scheme: 'bearer',
+                type: 'http'
+            },
+            {
+                in: 'cookie',
+                name: 'accessToken',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v2/organization/{id}',
+        ...options
+    });
+};
+
+/**
+ * Update an existing organization
+ */
+export const postApiV2OrganizationById = <ThrowOnError extends boolean = false>(options: Options<PostApiV2OrganizationByIdData, ThrowOnError>) => {
+    return (options.client ?? client).post<PostApiV2OrganizationByIdResponses, PostApiV2OrganizationByIdErrors, ThrowOnError>({
+        security: [
+            {
+                scheme: 'bearer',
+                type: 'http'
+            },
+            {
+                in: 'cookie',
+                name: 'accessToken',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v2/organization/{id}',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+};
+
+/**
  * Create a new organization
+ *
+ * @deprecated
  */
 export const postApiV1Organization = <ThrowOnError extends boolean = false>(options?: Options<PostApiV1OrganizationData, ThrowOnError>) => {
     return (options?.client ?? client).post<PostApiV1OrganizationResponses, PostApiV1OrganizationErrors, ThrowOnError>({
@@ -195,6 +273,31 @@ export const postApiV1Organization = <ThrowOnError extends boolean = false>(opti
             }
         ],
         url: '/api/v1/organization',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers
+        }
+    });
+};
+
+/**
+ * Create a new organization
+ */
+export const postApiV2Organization = <ThrowOnError extends boolean = false>(options?: Options<PostApiV2OrganizationData, ThrowOnError>) => {
+    return (options?.client ?? client).post<PostApiV2OrganizationResponses, PostApiV2OrganizationErrors, ThrowOnError>({
+        security: [
+            {
+                scheme: 'bearer',
+                type: 'http'
+            },
+            {
+                in: 'cookie',
+                name: 'accessToken',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v2/organization',
         ...options,
         headers: {
             'Content-Type': 'application/json',
@@ -226,6 +329,7 @@ export const getApiV1OrganizationByIdRotateSecret = <ThrowOnError extends boolea
 
 /**
  * Activate the newly created client secret for the organization
+ *
  * To create a new client secret, first use the /api/v1/organization/{id}/rotate_secret endpoint.
  */
 export const postApiV1OrganizationByIdActivateSecret = <ThrowOnError extends boolean = false>(options: Options<PostApiV1OrganizationByIdActivateSecretData, ThrowOnError>) => {
@@ -252,6 +356,7 @@ export const postApiV1OrganizationByIdActivateSecret = <ThrowOnError extends boo
 
 /**
  * Delete a tenant
+ *
  * WARNING! When you delete a tenant, all organizations, users and settings will be deleted. This action cannot be undone.
  */
 export const deleteApiV1TenantById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1TenantByIdData, ThrowOnError>) => {
@@ -341,6 +446,7 @@ export const getApiV1InvoicesByTenantId = <ThrowOnError extends boolean = false>
 
 /**
  * Delete a user
+ *
  * Note that a user can create a new user object by logging in again. It is not necessary to create a new user object first.
  */
 export const deleteApiV1UserById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1UserByIdData, ThrowOnError>) => {
@@ -384,6 +490,7 @@ export const getApiV1UserById = <ThrowOnError extends boolean = false>(options: 
 
 /**
  * Update an existing user
+ *
  * Note that it is not possible to edit the email address of a user.
  */
 export const postApiV1UserById = <ThrowOnError extends boolean = false>(options: Options<PostApiV1UserByIdData, ThrowOnError>) => {
@@ -410,6 +517,7 @@ export const postApiV1UserById = <ThrowOnError extends boolean = false>(options:
 
 /**
  * Delete a user by email address
+ *
  * Note that a user can create a new user object by logging in again. It is not necessary to create a new user object first.
  */
 export const deleteApiV1UserByOrganizationIdByEmail = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1UserByOrganizationIdByEmailData, ThrowOnError>) => {
@@ -453,6 +561,7 @@ export const getApiV1UserByOrganizationIdByEmail = <ThrowOnError extends boolean
 
 /**
  * Update an existing user by email address
+ *
  * Note that it is not possible to edit the email address of a user.
  */
 export const postApiV1UserByOrganizationIdByEmail = <ThrowOnError extends boolean = false>(options: Options<PostApiV1UserByOrganizationIdByEmailData, ThrowOnError>) => {
@@ -479,6 +588,7 @@ export const postApiV1UserByOrganizationIdByEmail = <ThrowOnError extends boolea
 
 /**
  * Create a new user
+ *
  * Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically.
  */
 export const postApiV1User = <ThrowOnError extends boolean = false>(options?: Options<PostApiV1UserData, ThrowOnError>) => {
@@ -505,6 +615,7 @@ export const postApiV1User = <ThrowOnError extends boolean = false>(options?: Op
 
 /**
  * Get a list of users
+ *
  * Get a pager object with all users in an organization
  */
 export const getApiV1UsersByOrganizationId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1UsersByOrganizationIdData, ThrowOnError>) => {
@@ -522,6 +633,33 @@ export const getApiV1UsersByOrganizationId = <ThrowOnError extends boolean = fal
         ],
         url: '/api/v1/users/{organizationId}',
         ...options
+    });
+};
+
+/**
+ * Create a batch of users
+ *
+ * Any duplicate entries will be skipped. Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically.
+ */
+export const postApiV1UsersByOrganizationId = <ThrowOnError extends boolean = false>(options: Options<PostApiV1UsersByOrganizationIdData, ThrowOnError>) => {
+    return (options.client ?? client).post<PostApiV1UsersByOrganizationIdResponses, PostApiV1UsersByOrganizationIdErrors, ThrowOnError>({
+        security: [
+            {
+                scheme: 'bearer',
+                type: 'http'
+            },
+            {
+                in: 'cookie',
+                name: 'accessToken',
+                type: 'apiKey'
+            }
+        ],
+        url: '/api/v1/users/{organizationId}',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
     });
 };
 
@@ -640,6 +778,7 @@ export const getApiV1ApiKeysByOrganizationId = <ThrowOnError extends boolean = f
 
 /**
  * Get a list of API requests
+ *
  * Get a pager object with all API requests made under this tenant
  */
 export const getApiV1ApiRequestsByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1ApiRequestsByTenantIdData, ThrowOnError>) => {
@@ -662,6 +801,7 @@ export const getApiV1ApiRequestsByTenantId = <ThrowOnError extends boolean = fal
 
 /**
  * Get a list of audit logs
+ *
  * Get a pager object with all audit logs created under a tenant
  */
 export const getApiV1AuditLogsByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1AuditLogsByTenantIdData, ThrowOnError>) => {
@@ -684,6 +824,7 @@ export const getApiV1AuditLogsByTenantId = <ThrowOnError extends boolean = false
 
 /**
  * Get a list of mail logs
+ *
  * Get a pager object with all mail logs created under the organizations of a tenant
  */
 export const getApiV1MailLogsByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1MailLogsByTenantIdData, ThrowOnError>) => {

@@ -23,7 +23,8 @@ import { getAuthToken } from '../core/auth.gen';
 import { jsonBodySerializer } from '../core/bodySerializer.gen';
 import { serializeArrayParam, serializeObjectParam, serializePrimitiveParam, } from '../core/pathSerializer.gen';
 import { getUrl } from '../core/utils.gen';
-export const createQuerySerializer = ({ allowReserved, array, object, } = {}) => {
+export const createQuerySerializer = (_a = {}) => {
+    var { parameters = {} } = _a, args = __rest(_a, ["parameters"]);
     const querySerializer = (queryParams) => {
         const search = [];
         if (queryParams && typeof queryParams === 'object') {
@@ -32,19 +33,20 @@ export const createQuerySerializer = ({ allowReserved, array, object, } = {}) =>
                 if (value === undefined || value === null) {
                     continue;
                 }
+                const options = parameters[name] || args;
                 if (Array.isArray(value)) {
-                    const serializedArray = serializeArrayParam(Object.assign({ allowReserved, explode: true, name, style: 'form', value }, array));
+                    const serializedArray = serializeArrayParam(Object.assign({ allowReserved: options.allowReserved, explode: true, name, style: 'form', value }, options.array));
                     if (serializedArray)
                         search.push(serializedArray);
                 }
                 else if (typeof value === 'object') {
-                    const serializedObject = serializeObjectParam(Object.assign({ allowReserved, explode: true, name, style: 'deepObject', value: value }, object));
+                    const serializedObject = serializeObjectParam(Object.assign({ allowReserved: options.allowReserved, explode: true, name, style: 'deepObject', value: value }, options.object));
                     if (serializedObject)
                         search.push(serializedObject);
                 }
                 else {
                     const serializedPrimitive = serializePrimitiveParam({
-                        allowReserved,
+                        allowReserved: options.allowReserved,
                         name,
                         value: value,
                     });

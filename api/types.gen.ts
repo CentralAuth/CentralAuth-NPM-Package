@@ -131,7 +131,15 @@ export type Organization = {
      * The datetime when the new client secret key has been created.
      */
     readonly newClientSecretDate?: string;
+    /**
+     * The automatically assigned domain for this organization.
+     */
+    domain?: string | null;
     customDomain?: string | null;
+    /**
+     * Indicates if the custom domain has been verified.
+     */
+    readonly customDomainVerified?: boolean;
     /**
      * Indicates if email connections are enabled for this organization.
      */
@@ -627,6 +635,10 @@ export type OrganizationWritable = {
     tenantId: string;
     name: string;
     logo?: string | null;
+    /**
+     * The automatically assigned domain for this organization.
+     */
+    domain?: string | null;
     customDomain?: string | null;
     /**
      * Indicates if email connections are enabled for this organization.
@@ -1408,6 +1420,299 @@ export type PostApiV1OrganizationByIdResponses = {
 
 export type PostApiV1OrganizationByIdResponse = PostApiV1OrganizationByIdResponses[keyof PostApiV1OrganizationByIdResponses];
 
+export type DeleteApiV2OrganizationByIdData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v2/organization/{id}';
+};
+
+export type DeleteApiV2OrganizationByIdErrors = {
+    /**
+     * Bad request
+     */
+    400: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * No permission
+     */
+    403: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Not found
+     */
+    404: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Invalid method
+     */
+    405: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Too many requests
+     */
+    429: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Deployment error
+     */
+    502: unknown;
+    /**
+     * Service unavailable
+     */
+    503: unknown;
+    /**
+     * Gateway timeout
+     */
+    504: unknown;
+};
+
+export type DeleteApiV2OrganizationByIdError = DeleteApiV2OrganizationByIdErrors[keyof DeleteApiV2OrganizationByIdErrors];
+
+export type DeleteApiV2OrganizationByIdResponses = {
+    /**
+     * Success
+     */
+    200: unknown;
+};
+
+export type GetApiV2OrganizationByIdData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v2/organization/{id}';
+};
+
+export type GetApiV2OrganizationByIdErrors = {
+    /**
+     * Bad request
+     */
+    400: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * No permission
+     */
+    403: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Not found
+     */
+    404: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Invalid method
+     */
+    405: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Too many requests
+     */
+    429: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Deployment error
+     */
+    502: unknown;
+    /**
+     * Service unavailable
+     */
+    503: unknown;
+    /**
+     * Gateway timeout
+     */
+    504: unknown;
+};
+
+export type GetApiV2OrganizationByIdError = GetApiV2OrganizationByIdErrors[keyof GetApiV2OrganizationByIdErrors];
+
+export type GetApiV2OrganizationByIdResponses = {
+    /**
+     * An organization object with whitelist items, OAuth providers and settings
+     */
+    200: Organization;
+};
+
+export type GetApiV2OrganizationByIdResponse = GetApiV2OrganizationByIdResponses[keyof GetApiV2OrganizationByIdResponses];
+
+export type PostApiV2OrganizationByIdData = {
+    body?: {
+        name?: string;
+        logo?: string | null;
+        customDomain?: string | null;
+        /**
+         * Indicates if email connections are enabled for this organization.
+         */
+        emailConnectionEnabled?: boolean;
+        /**
+         * Indicates if passkey connections are enabled for this organization.
+         */
+        passkeyConnectionEnabled?: boolean;
+        overrideParentSettings?: boolean;
+        settings?: {
+            maxSessionTime?: number;
+            maxInactivityTime?: number;
+            allowLocalhost?: boolean;
+            checkReferrer?: boolean;
+            hijackProtection?: boolean;
+            hijackProtectionIp?: boolean;
+            hijackProtectionUserAgent?: boolean;
+            hijackProtectionDeviceId?: boolean;
+            autoLogin?: boolean;
+            defaultLoginMethod?: 'local' | 'remote' | 'userPick';
+            defaultLoginAttemptType?: 'link' | 'challenge' | 'code';
+            useGlobalSmtp?: boolean;
+            smtpHost?: string | null;
+            smtpPort?: number | null;
+            smtpFrom?: string | null;
+            smtpUser?: string | null;
+            smtpPass?: string | null;
+        };
+        whitelistItems?: Array<{
+            value: string;
+        }>;
+        appRegistrations?: Array<{
+            /**
+             * Bundle ID or package name for the native app.
+             */
+            bundleId: string;
+            /**
+             * App link or universal link to open the app after authentication.
+             */
+            appLink: string;
+        }>;
+        themeSettings?: {
+            /**
+             * Layout of the login block on the login page
+             */
+            loginBlockLayout?: 'default' | 'compact';
+            /**
+             * Layout of the login page
+             */
+            loginPageLayout?: 'default' | 'alignLeft' | 'alignRight' | 'fullLeft' | 'fullRight' | 'compact';
+            /**
+             * URL of the image to use on the login page
+             */
+            imageUrl?: string | null;
+            /**
+             * Google Font name to use on the login page
+             */
+            customFont?: string | null;
+            /**
+             * Primary color used on the login page
+             */
+            primaryColor?: string;
+            /**
+             * Background color used on the login page
+             */
+            backgroundColor?: string;
+            /**
+             * Content color used on the login page
+             */
+            contentColor?: string;
+            /**
+             * Neutral color used on the login page
+             */
+            neutralColor?: string;
+        };
+        oAuthProviders?: Array<{
+            type?: 'google' | 'apple' | 'microsoft' | 'github';
+            useOwnCredentials?: boolean;
+            clientId?: string | null;
+            clientSecret?: string | null;
+        }>;
+    };
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/api/v2/organization/{id}';
+};
+
+export type PostApiV2OrganizationByIdErrors = {
+    /**
+     * Bad request
+     */
+    400: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * No permission
+     */
+    403: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Not found
+     */
+    404: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Invalid method
+     */
+    405: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Too many requests
+     */
+    429: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Deployment error
+     */
+    502: unknown;
+    /**
+     * Service unavailable
+     */
+    503: unknown;
+    /**
+     * Gateway timeout
+     */
+    504: unknown;
+};
+
+export type PostApiV2OrganizationByIdError = PostApiV2OrganizationByIdErrors[keyof PostApiV2OrganizationByIdErrors];
+
+export type PostApiV2OrganizationByIdResponses = {
+    /**
+     * An organization object with whitelist items, OAuth providers and settings
+     */
+    200: Organization;
+};
+
+export type PostApiV2OrganizationByIdResponse = PostApiV2OrganizationByIdResponses[keyof PostApiV2OrganizationByIdResponses];
+
 export type PostApiV1OrganizationData = {
     body?: {
         tenantId: string;
@@ -1561,6 +1866,160 @@ export type PostApiV1OrganizationResponses = {
 };
 
 export type PostApiV1OrganizationResponse = PostApiV1OrganizationResponses[keyof PostApiV1OrganizationResponses];
+
+export type PostApiV2OrganizationData = {
+    body?: {
+        tenantId: string;
+        name: string;
+        logo?: string | null;
+        customDomain?: string | null;
+        /**
+         * Indicates if email connections are enabled for this organization.
+         */
+        emailConnectionEnabled?: boolean;
+        /**
+         * Indicates if passkey connections are enabled for this organization.
+         */
+        passkeyConnectionEnabled?: boolean;
+        overrideParentSettings?: boolean;
+        settings?: {
+            maxSessionTime?: number;
+            maxInactivityTime?: number;
+            allowLocalhost?: boolean;
+            checkReferrer?: boolean;
+            hijackProtection?: boolean;
+            hijackProtectionIp?: boolean;
+            hijackProtectionUserAgent?: boolean;
+            hijackProtectionDeviceId?: boolean;
+            autoLogin?: boolean;
+            defaultLoginMethod?: 'local' | 'remote' | 'userPick';
+            defaultLoginAttemptType?: 'link' | 'challenge' | 'code';
+            useGlobalSmtp?: boolean;
+            smtpHost?: string | null;
+            smtpPort?: number | null;
+            smtpFrom?: string | null;
+            smtpUser?: string | null;
+            smtpPass?: string | null;
+        };
+        whitelistItems?: Array<{
+            value: string;
+        }>;
+        appRegistrations?: Array<{
+            /**
+             * Bundle ID or package name for the native app.
+             */
+            bundleId: string;
+            /**
+             * App link or universal link to open the app after authentication.
+             */
+            appLink: string;
+        }>;
+        oAuthProviders?: Array<{
+            type: 'google' | 'apple' | 'microsoft' | 'github';
+            useOwnCredentials?: boolean;
+            clientId: string | null;
+            clientSecret: string | null;
+        }>;
+        themeSettings?: {
+            /**
+             * Layout of the login block on the login page
+             */
+            loginBlockLayout?: 'default' | 'compact';
+            /**
+             * Layout of the login page
+             */
+            loginPageLayout?: 'default' | 'alignLeft' | 'alignRight' | 'fullLeft' | 'fullRight' | 'compact';
+            /**
+             * URL of the image to use on the login page
+             */
+            imageUrl?: string | null;
+            /**
+             * Google Font name to use on the login page
+             */
+            customFont?: string | null;
+            /**
+             * Primary color used on the login page
+             */
+            primaryColor?: string;
+            /**
+             * Background color used on the login page
+             */
+            backgroundColor?: string;
+            /**
+             * Content color used on the login page
+             */
+            contentColor?: string;
+            /**
+             * Neutral color used on the login page
+             */
+            neutralColor?: string;
+        };
+    };
+    path?: never;
+    query?: never;
+    url: '/api/v2/organization';
+};
+
+export type PostApiV2OrganizationErrors = {
+    /**
+     * Bad request
+     */
+    400: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * No permission
+     */
+    403: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Not found
+     */
+    404: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Invalid method
+     */
+    405: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Too many requests
+     */
+    429: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Deployment error
+     */
+    502: unknown;
+    /**
+     * Service unavailable
+     */
+    503: unknown;
+    /**
+     * Gateway timeout
+     */
+    504: unknown;
+};
+
+export type PostApiV2OrganizationError = PostApiV2OrganizationErrors[keyof PostApiV2OrganizationErrors];
+
+export type PostApiV2OrganizationResponses = {
+    /**
+     * An organization object with whitelist items, OAuth providers and settings
+     */
+    200: Organization;
+};
+
+export type PostApiV2OrganizationResponse = PostApiV2OrganizationResponses[keyof PostApiV2OrganizationResponses];
 
 export type GetApiV1OrganizationByIdRotateSecretData = {
     body?: never;
@@ -2588,6 +3047,90 @@ export type GetApiV1UsersByOrganizationIdResponses = {
 };
 
 export type GetApiV1UsersByOrganizationIdResponse = GetApiV1UsersByOrganizationIdResponses[keyof GetApiV1UsersByOrganizationIdResponses];
+
+export type PostApiV1UsersByOrganizationIdData = {
+    /**
+     * An array of users to create. Maximum 1.000 users at once.
+     */
+    body?: Array<{
+        /**
+         * An email address unique for this user.
+         */
+        email: string;
+        /**
+         * Flag whether this user has verified their email address.
+         */
+        verified?: boolean;
+        /**
+         * Flag whether this user is blocked.
+         */
+        blocked?: boolean;
+    }>;
+    path: {
+        organizationId: string;
+    };
+    query?: never;
+    url: '/api/v1/users/{organizationId}';
+};
+
+export type PostApiV1UsersByOrganizationIdErrors = {
+    /**
+     * Bad request
+     */
+    400: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * No permission
+     */
+    403: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Not found
+     */
+    404: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Invalid method
+     */
+    405: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Too many requests
+     */
+    429: {
+        errorCode?: 'genericError' | 'noPermission' | 'tooManyRequests' | 'missingFields' | 'sessionMissing' | 'sessionNotVerified' | 'sessionExpired' | 'sessionInactive' | 'sessionInvalid' | 'domainInvalid' | 'loginAttemptMissing' | 'loginAttemptExpired' | 'loginAttemptInvalid' | 'passkeyDataMissing' | 'passkeyDataExpired' | 'passkeyDataInvalid' | 'passkeyWrongOrganization' | 'callbackUrlInvalid' | 'connectionMissing' | 'organizationIdMissing' | 'callbackUrlMissing' | 'tokenMissing' | 'tokenInvalid' | 'stateMissing' | 'stateInvalid' | 'codeChallengeMissing' | 'codeChallengeInvalid' | 'captchaInvalid' | 'entityMissing' | 'entityInvalid';
+        message?: string;
+    };
+    /**
+     * Deployment error
+     */
+    502: unknown;
+    /**
+     * Service unavailable
+     */
+    503: unknown;
+    /**
+     * Gateway timeout
+     */
+    504: unknown;
+};
+
+export type PostApiV1UsersByOrganizationIdError = PostApiV1UsersByOrganizationIdErrors[keyof PostApiV1UsersByOrganizationIdErrors];
+
+export type PostApiV1UsersByOrganizationIdResponses = {
+    /**
+     * An empty response on success
+     */
+    200: unknown;
+};
 
 export type DeleteApiV1ApiKeyByIdData = {
     body?: never;
