@@ -72,65 +72,6 @@ export const postApiV1InternalUserByTenantIdByUserId = (options) => {
  * Delete an organization
  *
  * WARNING! When you delete an organizations, all users and settings will be deleted. This action cannot be undone.
- *
- * @deprecated
- */
-export const deleteApiV1OrganizationById = (options) => {
-    var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ], url: '/api/v1/organization/{id}' }, options));
-};
-/**
- * Get an organization
- *
- * @deprecated
- */
-export const getApiV1OrganizationById = (options) => {
-    var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ], url: '/api/v1/organization/{id}' }, options));
-};
-/**
- * Update an existing organization
- *
- * @deprecated
- */
-export const postApiV1OrganizationById = (options) => {
-    var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ], url: '/api/v1/organization/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
-};
-/**
- * Delete an organization
- *
- * WARNING! When you delete an organizations, all users and settings will be deleted. This action cannot be undone.
  */
 export const deleteApiV2OrganizationById = (options) => {
     var _a;
@@ -179,25 +120,6 @@ export const postApiV2OrganizationById = (options) => {
                 type: 'apiKey'
             }
         ], url: '/api/v2/organization/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
-};
-/**
- * Create a new organization
- *
- * @deprecated
- */
-export const postApiV1Organization = (options) => {
-    var _a;
-    return ((_a = options === null || options === void 0 ? void 0 : options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ], url: '/api/v1/organization' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
 };
 /**
  * Create a new organization
