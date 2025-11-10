@@ -63,6 +63,8 @@ export type Translations = Partial<{
     emailCodeBody: string;
     emailWaitUntil: string;
     emailBodyWarning: string;
+    emailBodyUndoText: string;
+    emailBodyUndoLink: string;
     emailChallengeText: string;
     login: string;
     loginWithPasskey: string;
@@ -73,6 +75,8 @@ export type Translations = Partial<{
     loginAttemptSuccess: string;
     loginAttemptError: string;
     loginAttemptInteractMessage: string;
+    loginAttemptUndoSuccess: string;
+    loginAttemptUndoError: string;
     undo: string;
 }>;
 export type LoginParams = {
