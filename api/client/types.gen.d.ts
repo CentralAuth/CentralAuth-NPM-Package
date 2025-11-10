@@ -92,7 +92,7 @@ type BuildUrlFn = <TData extends {
     path?: Record<string, unknown>;
     query?: Record<string, unknown>;
     url: string;
-}>(options: Pick<TData, 'url'> & Options<TData>) => string;
+}>(options: TData & Options<TData>) => string;
 export type Client = CoreClient<RequestFn, Config, MethodFn, BuildUrlFn, SseFn> & {
     interceptors: Middleware<Request, Response, unknown, ResolvedRequestOptions>;
 };
@@ -113,12 +113,5 @@ export interface TDataShape {
     url: string;
 }
 type OmitKeys<T, K> = Pick<T, Exclude<keyof T, K>>;
-export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown, TResponseStyle extends ResponseStyle = 'fields'> = OmitKeys<RequestOptions<TResponse, TResponseStyle, ThrowOnError>, 'body' | 'path' | 'query' | 'url'> & Omit<TData, 'url'>;
-export type OptionsLegacyParser<TData = unknown, ThrowOnError extends boolean = boolean, TResponseStyle extends ResponseStyle = 'fields'> = TData extends {
-    body?: any;
-} ? TData extends {
-    headers?: any;
-} ? OmitKeys<RequestOptions<unknown, TResponseStyle, ThrowOnError>, 'body' | 'headers' | 'url'> & TData : OmitKeys<RequestOptions<unknown, TResponseStyle, ThrowOnError>, 'body' | 'url'> & TData & Pick<RequestOptions<unknown, TResponseStyle, ThrowOnError>, 'headers'> : TData extends {
-    headers?: any;
-} ? OmitKeys<RequestOptions<unknown, TResponseStyle, ThrowOnError>, 'headers' | 'url'> & TData & Pick<RequestOptions<unknown, TResponseStyle, ThrowOnError>, 'body'> : OmitKeys<RequestOptions<unknown, TResponseStyle, ThrowOnError>, 'url'> & TData;
+export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown, TResponseStyle extends ResponseStyle = 'fields'> = OmitKeys<RequestOptions<TResponse, TResponseStyle, ThrowOnError>, 'body' | 'path' | 'query' | 'url'> & ([TData] extends [never] ? unknown : Omit<TData, 'url'>);
 export {};

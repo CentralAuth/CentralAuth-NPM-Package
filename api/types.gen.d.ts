@@ -60,7 +60,7 @@ export type NativeAppRegistration = {
 export type OAuthProvider = {
     readonly id?: string;
     readonly organizationId?: string;
-    type: 'google' | 'apple' | 'microsoft' | 'github';
+    type: 'google' | 'apple' | 'microsoft' | 'facebook' | 'instagram' | 'x' | 'reddit' | 'github';
     useOwnCredentials?: boolean;
     clientId: string | null;
     clientSecret: string | null;
@@ -367,7 +367,7 @@ export type User = {
     readonly lastLogin?: string | null;
     readonly connections?: Array<{
         id?: string;
-        type?: 'email' | 'passkey' | 'google' | 'apple' | 'microsoft' | 'github';
+        type?: 'email' | 'passkey' | 'google' | 'apple' | 'microsoft' | 'facebook' | 'instagram' | 'x' | 'reddit' | 'github';
         userId?: string;
         readonly created?: string;
         readonly updated?: string;
@@ -563,7 +563,7 @@ export type NativeAppRegistrationWritable = {
     appLink: string;
 };
 export type OAuthProviderWritable = {
-    type: 'google' | 'apple' | 'microsoft' | 'github';
+    type: 'google' | 'apple' | 'microsoft' | 'facebook' | 'instagram' | 'x' | 'reddit' | 'github';
     useOwnCredentials?: boolean;
     clientId: string | null;
     clientSecret: string | null;
@@ -1279,7 +1279,7 @@ export type PostApiV2OrganizationByIdData = {
             neutralColor?: string;
         };
         oAuthProviders?: Array<{
-            type?: 'google' | 'apple' | 'microsoft' | 'github';
+            type?: 'google' | 'apple' | 'microsoft' | 'facebook' | 'instagram' | 'x' | 'reddit' | 'github';
             useOwnCredentials?: boolean;
             clientId?: string | null;
             clientSecret?: string | null;
@@ -1396,7 +1396,7 @@ export type PostApiV2OrganizationData = {
             appLink: string;
         }>;
         oAuthProviders?: Array<{
-            type: 'google' | 'apple' | 'microsoft' | 'github';
+            type: 'google' | 'apple' | 'microsoft' | 'facebook' | 'instagram' | 'x' | 'reddit' | 'github';
             useOwnCredentials?: boolean;
             clientId: string | null;
             clientSecret: string | null;

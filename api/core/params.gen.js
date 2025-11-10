@@ -19,6 +19,11 @@ const buildKeyMap = (fields, map) => {
                 });
             }
         }
+        else if ('key' in config) {
+            map.set(config.key, {
+                map: config.map,
+            });
+        }
         else if (config.args) {
             buildKeyMap(config.args, map);
         }
@@ -33,7 +38,6 @@ const stripEmptySlots = (params) => {
     }
 };
 export const buildClientParams = (args, fields) => {
-    var _a;
     const params = {
         body: {},
         headers: {},
@@ -53,7 +57,9 @@ export const buildClientParams = (args, fields) => {
             if (config.key) {
                 const field = map.get(config.key);
                 const name = field.map || config.key;
-                params[field.in][name] = arg;
+                if (field.in) {
+                    params[field.in][name] = arg;
+                }
             }
             else {
                 params.body = arg;
@@ -63,8 +69,13 @@ export const buildClientParams = (args, fields) => {
             for (const [key, value] of Object.entries(arg !== null && arg !== void 0 ? arg : {})) {
                 const field = map.get(key);
                 if (field) {
-                    const name = field.map || key;
-                    params[field.in][name] = value;
+                    if (field.in) {
+                        const name = field.map || key;
+                        params[field.in][name] = value;
+                    }
+                    else {
+                        params[field.map] = value;
+                    }
                 }
                 else {
                     const extra = extraPrefixes.find(([prefix]) => key.startsWith(prefix));
@@ -72,8 +83,8 @@ export const buildClientParams = (args, fields) => {
                         const [prefix, slot] = extra;
                         params[slot][key.slice(prefix.length)] = value;
                     }
-                    else {
-                        for (const [slot, allowed] of Object.entries((_a = config.allowExtra) !== null && _a !== void 0 ? _a : {})) {
+                    else if ('allowExtra' in config && config.allowExtra) {
+                        for (const [slot, allowed] of Object.entries(config.allowExtra)) {
                             if (allowed) {
                                 params[slot][key] = value;
                                 break;

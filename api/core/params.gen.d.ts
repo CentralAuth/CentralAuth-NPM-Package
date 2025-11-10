@@ -17,6 +17,16 @@ export type Field = {
      */
     key?: string;
     map?: string;
+} | {
+    /**
+     * Field name. This is the name we want the user to see and use.
+     */
+    key: string;
+    /**
+     * Field mapped name. This is the name we want to use in the request.
+     * If `in` is omitted, `map` aliases `key` to the transport layer.
+     */
+    map: Slot;
 };
 export interface Fields {
     allowExtra?: Partial<Record<Slot, boolean>>;
