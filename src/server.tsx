@@ -66,7 +66,7 @@ export class CentralAuthClass {
     });
     if (unsafeIncludeUser) {
       this.unsafeIncludeUser = true;
-      console.warn(`[CENTRALAUTH DEBUG] Unsafe ID token will be used for ${clientId || "CentralAuth"}.`);
+      console.log(`[CENTRALAUTH DEBUG] Unsafe ID token will be used for ${clientId || "CentralAuth"}.`);
     }
   }
 
@@ -89,7 +89,7 @@ export class CentralAuthClass {
 
     if (error) {
       if (this.debug)
-        console.warn(`[CENTRALAUTH DEBUG] Data check failed for client ${this.clientId || "CentralAuth"} in ${action}: ${error.message}`);
+        console.log(`[CENTRALAUTH DEBUG] Data check failed for client ${this.clientId || "CentralAuth"} in ${action}: ${error.message}`);
       throw new ValidationError(error);
     }
   }
@@ -114,7 +114,7 @@ export class CentralAuthClass {
       return decodedToken;
     } catch (error: any) {
       if (this.debug)
-        console.warn(`[CENTRALAUTH DEBUG] Failed to decode token for client ${this.clientId || "CentralAuth"}: ${error.message}`, `Token: ${this.token}`);
+        console.log(`[CENTRALAUTH DEBUG] Failed to decode token for client ${this.clientId || "CentralAuth"}: ${error.message}`, `Token: ${this.token}`);
       throw new ValidationError({ errorCode: error?.name, message: error?.message });
     }
   }
@@ -210,7 +210,7 @@ export class CentralAuthClass {
         } catch (error: any) {
           const errorData = error.response?.data as ErrorObject;
           if (this.debug)
-            console.warn(`[CENTRALAUTH DEBUG] Failed to fetch user data from the server for client ${this.clientId || "CentralAuth"}: ${errorData?.message || error.message}`);
+            console.log(`[CENTRALAUTH DEBUG] Failed to fetch user data from the server for client ${this.clientId || "CentralAuth"}: ${errorData?.message || error.message}`);
           throw new ValidationError(errorData || { errorCode: "networkError", message: error.message });
         }
       }
@@ -409,7 +409,7 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
       const stateVerification = await onStateReceived(req, state);
       if (!stateVerification) {
         if (this.debug)
-          console.warn(`[CENTRALAUTH DEBUG] State verification failed for client ${this.clientId || "CentralAuth"}`);
+          console.log(`[CENTRALAUTH DEBUG] State verification failed for client ${this.clientId || "CentralAuth"}`);
         throw new ValidationError({ errorCode: "stateInvalid", message: "State verification failed." });
       }
     }
@@ -418,13 +418,13 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
       //When the error code is set, something went wrong in the login procedure
       //Throw a ValidationError
       if (this.debug)
-        console.warn(`[CENTRALAUTH DEBUG] Error in login procedure for client ${this.clientId || "CentralAuth"}: ${errorMessage}`);
+        console.log(`[CENTRALAUTH DEBUG] Error in login procedure for client ${this.clientId || "CentralAuth"}: ${errorMessage}`);
       throw new ValidationError({ errorCode: errorCode as ErrorCode, message: errorMessage || "" });
     }
 
     if (!sessionId) {
       if (this.debug)
-        console.warn(`[CENTRALAUTH DEBUG] Callback could not be processed for client ${this.clientId || "CentralAuth"}, missing code.`);
+        console.log(`[CENTRALAUTH DEBUG] Callback could not be processed for client ${this.clientId || "CentralAuth"}, missing code.`);
       throw new ValidationError({ errorCode: "missingFields", message: "The code is missing in the callback URL." });
     }
 
@@ -490,7 +490,7 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
       //When an error occurs, assume the user session is not valid anymore
       //Delete the cookie
       if (this.debug)
-        console.warn(`[CENTRALAUTH DEBUG] Error fetching user data from cache or CentralAuth server or validation error for client ${this.clientId || "CentralAuth"}: ${error?.message}`);
+        console.log(`[CENTRALAUTH DEBUG] Error fetching user data from cache or CentralAuth server or validation error for client ${this.clientId || "CentralAuth"}: ${error?.message}`);
       return Response.json(null, {
         headers: {
           "Set-Cookie": `${this.unsafeIncludeUser ? "id_token" : "access_token"}= ; Path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax; Secure`
@@ -526,7 +526,7 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
       }
     } catch (error: any) {
       if (this.debug)
-        console.warn(`[CENTRALAUTH DEBUG] Error logging out session-wide for client ${this.clientId || "CentralAuth"}: ${error?.message}`);
+        console.log(`[CENTRALAUTH DEBUG] Error logging out session-wide for client ${this.clientId || "CentralAuth"}: ${error?.message}`);
     } finally {
       //Unset the cookie and redirect to the returnTo URL
       return new Response(null,

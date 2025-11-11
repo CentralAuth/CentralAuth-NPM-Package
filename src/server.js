@@ -56,7 +56,7 @@ export class CentralAuthClass {
                 error = { errorCode: "tokenMissing", message: "The JSON Web Token is missing. This means the user is not logged in or the token is invalid." };
             if (error) {
                 if (this.debug)
-                    console.warn(`[CENTRALAUTH DEBUG] Data check failed for client ${this.clientId || "CentralAuth"} in ${action}: ${error.message}`);
+                    console.log(`[CENTRALAUTH DEBUG] Data check failed for client ${this.clientId || "CentralAuth"} in ${action}: ${error.message}`);
                 throw new ValidationError(error);
             }
         };
@@ -79,7 +79,7 @@ export class CentralAuthClass {
             }
             catch (error) {
                 if (this.debug)
-                    console.warn(`[CENTRALAUTH DEBUG] Failed to decode token for client ${this.clientId || "CentralAuth"}: ${error.message}`, `Token: ${this.token}`);
+                    console.log(`[CENTRALAUTH DEBUG] Failed to decode token for client ${this.clientId || "CentralAuth"}: ${error.message}`, `Token: ${this.token}`);
                 throw new ValidationError({ errorCode: error === null || error === void 0 ? void 0 : error.name, message: error === null || error === void 0 ? void 0 : error.message });
             }
         });
@@ -163,7 +163,7 @@ export class CentralAuthClass {
                     catch (error) {
                         const errorData = (_a = error.response) === null || _a === void 0 ? void 0 : _a.data;
                         if (this.debug)
-                            console.warn(`[CENTRALAUTH DEBUG] Failed to fetch user data from the server for client ${this.clientId || "CentralAuth"}: ${(errorData === null || errorData === void 0 ? void 0 : errorData.message) || error.message}`);
+                            console.log(`[CENTRALAUTH DEBUG] Failed to fetch user data from the server for client ${this.clientId || "CentralAuth"}: ${(errorData === null || errorData === void 0 ? void 0 : errorData.message) || error.message}`);
                         throw new ValidationError(errorData || { errorCode: "networkError", message: error.message });
                     }
                 }
@@ -331,7 +331,7 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
                 const stateVerification = yield onStateReceived(req, state);
                 if (!stateVerification) {
                     if (this.debug)
-                        console.warn(`[CENTRALAUTH DEBUG] State verification failed for client ${this.clientId || "CentralAuth"}`);
+                        console.log(`[CENTRALAUTH DEBUG] State verification failed for client ${this.clientId || "CentralAuth"}`);
                     throw new ValidationError({ errorCode: "stateInvalid", message: "State verification failed." });
                 }
             }
@@ -339,12 +339,12 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
                 //When the error code is set, something went wrong in the login procedure
                 //Throw a ValidationError
                 if (this.debug)
-                    console.warn(`[CENTRALAUTH DEBUG] Error in login procedure for client ${this.clientId || "CentralAuth"}: ${errorMessage}`);
+                    console.log(`[CENTRALAUTH DEBUG] Error in login procedure for client ${this.clientId || "CentralAuth"}: ${errorMessage}`);
                 throw new ValidationError({ errorCode: errorCode, message: errorMessage || "" });
             }
             if (!sessionId) {
                 if (this.debug)
-                    console.warn(`[CENTRALAUTH DEBUG] Callback could not be processed for client ${this.clientId || "CentralAuth"}, missing code.`);
+                    console.log(`[CENTRALAUTH DEBUG] Callback could not be processed for client ${this.clientId || "CentralAuth"}, missing code.`);
                 throw new ValidationError({ errorCode: "missingFields", message: "The code is missing in the callback URL." });
             }
             //Get an access JWT based on the given code
@@ -395,7 +395,7 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
                 //When an error occurs, assume the user session is not valid anymore
                 //Delete the cookie
                 if (this.debug)
-                    console.warn(`[CENTRALAUTH DEBUG] Error fetching user data from cache or CentralAuth server or validation error for client ${this.clientId || "CentralAuth"}: ${error === null || error === void 0 ? void 0 : error.message}`);
+                    console.log(`[CENTRALAUTH DEBUG] Error fetching user data from cache or CentralAuth server or validation error for client ${this.clientId || "CentralAuth"}: ${error === null || error === void 0 ? void 0 : error.message}`);
                 return Response.json(null, {
                     headers: {
                         "Set-Cookie": `${this.unsafeIncludeUser ? "id_token" : "access_token"}= ; Path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax; Secure`
@@ -428,7 +428,7 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
             }
             catch (error) {
                 if (this.debug)
-                    console.warn(`[CENTRALAUTH DEBUG] Error logging out session-wide for client ${this.clientId || "CentralAuth"}: ${error === null || error === void 0 ? void 0 : error.message}`);
+                    console.log(`[CENTRALAUTH DEBUG] Error logging out session-wide for client ${this.clientId || "CentralAuth"}: ${error === null || error === void 0 ? void 0 : error.message}`);
             }
             finally {
                 //Unset the cookie and redirect to the returnTo URL
@@ -454,7 +454,7 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
         });
         if (unsafeIncludeUser) {
             this.unsafeIncludeUser = true;
-            console.warn(`[CENTRALAUTH DEBUG] Unsafe ID token will be used for ${clientId || "CentralAuth"}.`);
+            console.log(`[CENTRALAUTH DEBUG] Unsafe ID token will be used for ${clientId || "CentralAuth"}.`);
         }
     }
 }
