@@ -1,10 +1,12 @@
 import type { ComponentType, FC, ReactElement, ReactNode } from "react";
-import { BasePaths, ErrorObject } from "./types";
+import { BasePaths } from "./types";
 
 export type ReactNativeCallbackParams = {
   code?: string;
   state?: string;
-} & Partial<ErrorObject>
+  error?: string;
+  error_description?: string;
+}
 
 export type WithCentralAuthAutomaticLogin = <T extends { [key: string]: any }>(
   Component: ComponentType<T>,

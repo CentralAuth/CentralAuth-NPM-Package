@@ -98,9 +98,9 @@ export const useCentralAuth = () => {
   }, [clientId, authBaseUrl, callbackUrl, appId, deviceId]);
 
   //Handle the callback from CentralAuth
-  const handleCallback = useCallback(async ({ code, state, errorCode, message }: ReactNativeCallbackParams) => {
-    if (message || !code)
-      throw new ValidationError({ errorCode: errorCode as ErrorCode, message });
+  const handleCallback = useCallback(async ({ code, state, error, error_description }: ReactNativeCallbackParams) => {
+    if (error_description || !code)
+      throw new ValidationError({ errorCode: error as ErrorCode || "codeChallengeInvalid", message: error_description || "Code verification failed" });
 
     //Get the code verifier and state from secure storage
     const codeVerifier = await getItemAsync("code_verifier");

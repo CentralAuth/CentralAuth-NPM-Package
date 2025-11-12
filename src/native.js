@@ -94,9 +94,9 @@ export const useCentralAuth = () => {
         yield WebBrowser.openAuthSessionAsync(loginURL.toString(), callbackUrl);
     }), [clientId, authBaseUrl, callbackUrl, appId, deviceId]);
     //Handle the callback from CentralAuth
-    const handleCallback = useCallback((_a) => __awaiter(void 0, [_a], void 0, function* ({ code, state, errorCode, message }) {
-        if (message || !code)
-            throw new ValidationError({ errorCode: errorCode, message });
+    const handleCallback = useCallback((_a) => __awaiter(void 0, [_a], void 0, function* ({ code, state, error, error_description }) {
+        if (error_description || !code)
+            throw new ValidationError({ errorCode: error || "codeChallengeInvalid", message: error_description || "Code verification failed" });
         //Get the code verifier and state from secure storage
         const codeVerifier = yield getItemAsync("code_verifier");
         const storedState = yield getItemAsync("state");
