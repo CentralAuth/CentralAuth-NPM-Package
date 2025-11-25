@@ -1,6 +1,6 @@
 import React from "react";
 import { CentralAuthProviderProps, ReactNativeCallbackParams } from "./react.types";
-import { CentralAuthContextInterface, TokenResponse } from "./types";
+import { CentralAuthContextInterface, LoginParams, TokenResponse } from "./types";
 /**
  * This function takes a string input, applies SHA256 hashing, and converts the result
  * to base64url encoding by replacing URL-unsafe characters and removing padding.
@@ -49,7 +49,7 @@ export declare const hash: (string: string) => Promise<string>;
  * ```
  */
 export declare const useCentralAuth: () => {
-    login: () => Promise<void>;
+    login: (config?: Pick<LoginParams, "email" | "errorMessage" | "translations">) => Promise<void>;
     handleCallback: ({ code, state, error, error_description }: ReactNativeCallbackParams) => Promise<TokenResponse>;
     logout: () => Promise<void>;
     accessToken: string | null | undefined;

@@ -70,7 +70,7 @@ export const useCentralAuth = () => {
     //Get the auth context data
     const { clientId, authBaseUrl, callbackUrl, appId, deviceId, accessToken, idToken, setAccessToken, setIdToken, deleteAccessToken, deleteIdToken } = useContext(CentralAuthContext);
     // Handle login logic
-    const login = useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
+    const login = useCallback((config) => __awaiter(void 0, void 0, void 0, function* () {
         //Create a random state and store it in secure storage
         const state = randomUUID();
         yield setItemAsync("state", state);
@@ -90,6 +90,12 @@ export const useCentralAuth = () => {
         loginURL.searchParams.append("code_challenge_method", "S256");
         loginURL.searchParams.append("app_id", appId);
         loginURL.searchParams.append("device_id", deviceId || "");
+        if (config === null || config === void 0 ? void 0 : config.email)
+            loginURL.searchParams.append("email", config.email);
+        if (config === null || config === void 0 ? void 0 : config.errorMessage)
+            loginURL.searchParams.append("error_description", config.errorMessage);
+        if (config === null || config === void 0 ? void 0 : config.translations)
+            loginURL.searchParams.append("translations", Buffer.from(JSON.stringify(config.translations)).toString("base64"));
         //Open the URL in a Web Browser tab
         yield WebBrowser.openAuthSessionAsync(loginURL.toString(), callbackUrl);
     }), [clientId, authBaseUrl, callbackUrl, appId, deviceId]);

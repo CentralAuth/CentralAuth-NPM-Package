@@ -60,7 +60,7 @@ export type NativeAppRegistration = {
 export type OAuthProvider = {
     readonly id?: string;
     readonly organizationId?: string;
-    type: 'google' | 'apple' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
+    type: 'google' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
     useOwnCredentials?: boolean;
     clientId: string | null;
     clientSecret: string | null;
@@ -138,6 +138,10 @@ export type Organization = {
      * Indicates if passkey connections are enabled for this organization.
      */
     passkeyConnectionEnabled?: boolean;
+    /**
+     * Indicates if CentralAuth app connections are enabled for this organization.
+     */
+    centralAuthAppConnectionEnabled?: boolean;
     overrideParentSettings?: boolean;
     readonly organizationSettingsId?: string;
     readonly created?: string;
@@ -367,7 +371,7 @@ export type User = {
     readonly lastLogin?: string | null;
     readonly connections?: Array<{
         id?: string;
-        type?: 'email' | 'passkey' | 'google' | 'apple' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
+        type?: 'email' | 'passkey' | 'centralauth' | 'google' | 'apple' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
         userId?: string;
         readonly created?: string;
         readonly updated?: string;
@@ -563,7 +567,7 @@ export type NativeAppRegistrationWritable = {
     appLink: string;
 };
 export type OAuthProviderWritable = {
-    type: 'google' | 'apple' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
+    type: 'google' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
     useOwnCredentials?: boolean;
     clientId: string | null;
     clientSecret: string | null;
@@ -619,6 +623,10 @@ export type OrganizationWritable = {
      * Indicates if passkey connections are enabled for this organization.
      */
     passkeyConnectionEnabled?: boolean;
+    /**
+     * Indicates if CentralAuth app connections are enabled for this organization.
+     */
+    centralAuthAppConnectionEnabled?: boolean;
     overrideParentSettings?: boolean;
     settings?: OrganizationSettingsWritable;
     whitelistItems?: Array<WhitelistItemWritable>;
@@ -1211,6 +1219,10 @@ export type PostApiV2OrganizationByIdData = {
          * Indicates if passkey connections are enabled for this organization.
          */
         passkeyConnectionEnabled?: boolean;
+        /**
+         * Indicates if CentralAuth app connections are enabled for this organization.
+         */
+        centralAuthAppConnectionEnabled?: boolean;
         overrideParentSettings?: boolean;
         settings?: {
             maxSessionTime?: number;
@@ -1279,7 +1291,7 @@ export type PostApiV2OrganizationByIdData = {
             neutralColor?: string;
         };
         oAuthProviders?: Array<{
-            type?: 'google' | 'apple' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
+            type?: 'google' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
             useOwnCredentials?: boolean;
             clientId?: string | null;
             clientSecret?: string | null;
@@ -1362,6 +1374,10 @@ export type PostApiV2OrganizationData = {
          * Indicates if passkey connections are enabled for this organization.
          */
         passkeyConnectionEnabled?: boolean;
+        /**
+         * Indicates if CentralAuth app connections are enabled for this organization.
+         */
+        centralAuthAppConnectionEnabled?: boolean;
         overrideParentSettings?: boolean;
         settings?: {
             maxSessionTime?: number;
@@ -1396,7 +1412,7 @@ export type PostApiV2OrganizationData = {
             appLink: string;
         }>;
         oAuthProviders?: Array<{
-            type: 'google' | 'apple' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
+            type: 'google' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
             useOwnCredentials?: boolean;
             clientId: string | null;
             clientSecret: string | null;

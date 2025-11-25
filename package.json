@@ -1,8 +1,30 @@
 {
   "name": "centralauth",
-  "version": "0.2.37",
+  "version": "0.2.38",
   "description": "Official package for CentralAuth",
   "type": "module",
+  "exports": {
+    "./client": {
+      "types": "./src/client.d.ts",
+      "default": "./src/client.js"
+    },
+    "./server": {
+      "types": "./src/server.d.ts",
+      "default": "./src/server.js"
+    },
+    "./native": {
+      "types": "./src/native.d.ts",
+      "default": "./src/native.js"
+    },
+    "./types": {
+      "types": "./src/types.d.ts",
+      "default": "./src/types.js"
+    },
+    "./react.types": {
+      "types": "./src/react.types.d.ts",
+      "default": "./src/react.types.js"
+    }
+  },
   "scripts": {
     "build": "rm tsconfig.tsbuildinfo && openapi-ts && npx tsc"
   },
