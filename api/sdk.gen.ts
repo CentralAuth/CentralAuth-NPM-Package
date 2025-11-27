@@ -21,724 +21,476 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 /**
  * Delete an invited admin
  */
-export const deleteApiV1InvitedUserById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1InvitedUserByIdData, ThrowOnError>) => {
-    return (options.client ?? client).delete<DeleteApiV1InvitedUserByIdResponses, DeleteApiV1InvitedUserByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/invited_user/{id}',
-        ...options
-    });
-};
+export const deleteApiV1InvitedUserById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1InvitedUserByIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiV1InvitedUserByIdResponses, DeleteApiV1InvitedUserByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/invited_user/{id}',
+    ...options
+});
 
 /**
  * Invite an new admin to the tenant
  */
-export const postApiV1InvitedUser = <ThrowOnError extends boolean = false>(options?: Options<PostApiV1InvitedUserData, ThrowOnError>) => {
-    return (options?.client ?? client).post<PostApiV1InvitedUserResponses, PostApiV1InvitedUserErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/invited_user',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options?.headers
-        }
-    });
-};
+export const postApiV1InvitedUser = <ThrowOnError extends boolean = false>(options?: Options<PostApiV1InvitedUserData, ThrowOnError>) => (options?.client ?? client).post<PostApiV1InvitedUserResponses, PostApiV1InvitedUserErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/invited_user',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
 
 /**
  * Delete an internal user (admin) on a tenant
  */
-export const deleteApiV1InternalUserByTenantIdByUserId = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1InternalUserByTenantIdByUserIdData, ThrowOnError>) => {
-    return (options.client ?? client).delete<DeleteApiV1InternalUserByTenantIdByUserIdResponses, DeleteApiV1InternalUserByTenantIdByUserIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/internal_user/{tenantId}/{userId}',
-        ...options
-    });
-};
+export const deleteApiV1InternalUserByTenantIdByUserId = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1InternalUserByTenantIdByUserIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiV1InternalUserByTenantIdByUserIdResponses, DeleteApiV1InternalUserByTenantIdByUserIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/internal_user/{tenantId}/{userId}',
+    ...options
+});
 
 /**
  * Update an existing internal user (admin) on a tenant
  */
-export const postApiV1InternalUserByTenantIdByUserId = <ThrowOnError extends boolean = false>(options: Options<PostApiV1InternalUserByTenantIdByUserIdData, ThrowOnError>) => {
-    return (options.client ?? client).post<PostApiV1InternalUserByTenantIdByUserIdResponses, PostApiV1InternalUserByTenantIdByUserIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/internal_user/{tenantId}/{userId}',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-};
+export const postApiV1InternalUserByTenantIdByUserId = <ThrowOnError extends boolean = false>(options: Options<PostApiV1InternalUserByTenantIdByUserIdData, ThrowOnError>) => (options.client ?? client).post<PostApiV1InternalUserByTenantIdByUserIdResponses, PostApiV1InternalUserByTenantIdByUserIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/internal_user/{tenantId}/{userId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 /**
  * Delete an organization
  *
  * WARNING! When you delete an organizations, all users and settings will be deleted. This action cannot be undone.
  */
-export const deleteApiV2OrganizationById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV2OrganizationByIdData, ThrowOnError>) => {
-    return (options.client ?? client).delete<DeleteApiV2OrganizationByIdResponses, DeleteApiV2OrganizationByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v2/organization/{id}',
-        ...options
-    });
-};
+export const deleteApiV2OrganizationById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV2OrganizationByIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiV2OrganizationByIdResponses, DeleteApiV2OrganizationByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v2/organization/{id}',
+    ...options
+});
 
 /**
  * Get an organization
  */
-export const getApiV2OrganizationById = <ThrowOnError extends boolean = false>(options: Options<GetApiV2OrganizationByIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV2OrganizationByIdResponses, GetApiV2OrganizationByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v2/organization/{id}',
-        ...options
-    });
-};
+export const getApiV2OrganizationById = <ThrowOnError extends boolean = false>(options: Options<GetApiV2OrganizationByIdData, ThrowOnError>) => (options.client ?? client).get<GetApiV2OrganizationByIdResponses, GetApiV2OrganizationByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v2/organization/{id}',
+    ...options
+});
 
 /**
  * Update an existing organization
  */
-export const postApiV2OrganizationById = <ThrowOnError extends boolean = false>(options: Options<PostApiV2OrganizationByIdData, ThrowOnError>) => {
-    return (options.client ?? client).post<PostApiV2OrganizationByIdResponses, PostApiV2OrganizationByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v2/organization/{id}',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-};
+export const postApiV2OrganizationById = <ThrowOnError extends boolean = false>(options: Options<PostApiV2OrganizationByIdData, ThrowOnError>) => (options.client ?? client).post<PostApiV2OrganizationByIdResponses, PostApiV2OrganizationByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v2/organization/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 /**
  * Create a new organization
  */
-export const postApiV2Organization = <ThrowOnError extends boolean = false>(options?: Options<PostApiV2OrganizationData, ThrowOnError>) => {
-    return (options?.client ?? client).post<PostApiV2OrganizationResponses, PostApiV2OrganizationErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v2/organization',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options?.headers
-        }
-    });
-};
+export const postApiV2Organization = <ThrowOnError extends boolean = false>(options?: Options<PostApiV2OrganizationData, ThrowOnError>) => (options?.client ?? client).post<PostApiV2OrganizationResponses, PostApiV2OrganizationErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v2/organization',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
 
 /**
  * Request a new client secret for the organization
  */
-export const getApiV1OrganizationByIdRotateSecret = <ThrowOnError extends boolean = false>(options: Options<GetApiV1OrganizationByIdRotateSecretData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1OrganizationByIdRotateSecretResponses, GetApiV1OrganizationByIdRotateSecretErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/organization/{id}/rotate_secret',
-        ...options
-    });
-};
+export const getApiV1OrganizationByIdRotateSecret = <ThrowOnError extends boolean = false>(options: Options<GetApiV1OrganizationByIdRotateSecretData, ThrowOnError>) => (options.client ?? client).get<GetApiV1OrganizationByIdRotateSecretResponses, GetApiV1OrganizationByIdRotateSecretErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/organization/{id}/rotate_secret',
+    ...options
+});
 
 /**
  * Activate the newly created client secret for the organization
  *
  * To create a new client secret, first use the /api/v1/organization/{id}/rotate_secret endpoint.
  */
-export const postApiV1OrganizationByIdActivateSecret = <ThrowOnError extends boolean = false>(options: Options<PostApiV1OrganizationByIdActivateSecretData, ThrowOnError>) => {
-    return (options.client ?? client).post<PostApiV1OrganizationByIdActivateSecretResponses, PostApiV1OrganizationByIdActivateSecretErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/organization/{id}/activate_secret',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-};
+export const postApiV1OrganizationByIdActivateSecret = <ThrowOnError extends boolean = false>(options: Options<PostApiV1OrganizationByIdActivateSecretData, ThrowOnError>) => (options.client ?? client).post<PostApiV1OrganizationByIdActivateSecretResponses, PostApiV1OrganizationByIdActivateSecretErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/organization/{id}/activate_secret',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 /**
  * Delete a tenant
  *
  * WARNING! When you delete a tenant, all organizations, users and settings will be deleted. This action cannot be undone.
  */
-export const deleteApiV1TenantById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1TenantByIdData, ThrowOnError>) => {
-    return (options.client ?? client).delete<DeleteApiV1TenantByIdResponses, DeleteApiV1TenantByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/tenant/{id}',
-        ...options
-    });
-};
+export const deleteApiV1TenantById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1TenantByIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiV1TenantByIdResponses, DeleteApiV1TenantByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/tenant/{id}',
+    ...options
+});
 
 /**
  * Get a tenant
  */
-export const getApiV1TenantById = <ThrowOnError extends boolean = false>(options: Options<GetApiV1TenantByIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1TenantByIdResponses, GetApiV1TenantByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/tenant/{id}',
-        ...options
-    });
-};
+export const getApiV1TenantById = <ThrowOnError extends boolean = false>(options: Options<GetApiV1TenantByIdData, ThrowOnError>) => (options.client ?? client).get<GetApiV1TenantByIdResponses, GetApiV1TenantByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/tenant/{id}',
+    ...options
+});
 
 /**
  * Update an existing tenant
  */
-export const postApiV1TenantById = <ThrowOnError extends boolean = false>(options: Options<PostApiV1TenantByIdData, ThrowOnError>) => {
-    return (options.client ?? client).post<PostApiV1TenantByIdResponses, PostApiV1TenantByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/tenant/{id}',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-};
+export const postApiV1TenantById = <ThrowOnError extends boolean = false>(options: Options<PostApiV1TenantByIdData, ThrowOnError>) => (options.client ?? client).post<PostApiV1TenantByIdResponses, PostApiV1TenantByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/tenant/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 /**
  * Get all invoices for a tenant
  */
-export const getApiV1InvoicesByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1InvoicesByTenantIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1InvoicesByTenantIdResponses, GetApiV1InvoicesByTenantIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/invoices/{tenantId}',
-        ...options
-    });
-};
+export const getApiV1InvoicesByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1InvoicesByTenantIdData, ThrowOnError>) => (options.client ?? client).get<GetApiV1InvoicesByTenantIdResponses, GetApiV1InvoicesByTenantIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/invoices/{tenantId}',
+    ...options
+});
 
 /**
  * Delete a user
  *
  * Note that a user can create a new user object by logging in again. It is not necessary to create a new user object first.
  */
-export const deleteApiV1UserById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1UserByIdData, ThrowOnError>) => {
-    return (options.client ?? client).delete<DeleteApiV1UserByIdResponses, DeleteApiV1UserByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/user/{id}',
-        ...options
-    });
-};
+export const deleteApiV1UserById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1UserByIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiV1UserByIdResponses, DeleteApiV1UserByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/user/{id}',
+    ...options
+});
 
 /**
  * Get a user
  */
-export const getApiV1UserById = <ThrowOnError extends boolean = false>(options: Options<GetApiV1UserByIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1UserByIdResponses, GetApiV1UserByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/user/{id}',
-        ...options
-    });
-};
+export const getApiV1UserById = <ThrowOnError extends boolean = false>(options: Options<GetApiV1UserByIdData, ThrowOnError>) => (options.client ?? client).get<GetApiV1UserByIdResponses, GetApiV1UserByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/user/{id}',
+    ...options
+});
 
 /**
  * Update an existing user
  *
  * Note that it is not possible to edit the email address of a user.
  */
-export const postApiV1UserById = <ThrowOnError extends boolean = false>(options: Options<PostApiV1UserByIdData, ThrowOnError>) => {
-    return (options.client ?? client).post<PostApiV1UserByIdResponses, PostApiV1UserByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/user/{id}',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-};
+export const postApiV1UserById = <ThrowOnError extends boolean = false>(options: Options<PostApiV1UserByIdData, ThrowOnError>) => (options.client ?? client).post<PostApiV1UserByIdResponses, PostApiV1UserByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/user/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 /**
  * Delete a user by email address
  *
  * Note that a user can create a new user object by logging in again. It is not necessary to create a new user object first.
  */
-export const deleteApiV1UserByOrganizationIdByEmail = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1UserByOrganizationIdByEmailData, ThrowOnError>) => {
-    return (options.client ?? client).delete<DeleteApiV1UserByOrganizationIdByEmailResponses, DeleteApiV1UserByOrganizationIdByEmailErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/user/{organizationId}/{email}',
-        ...options
-    });
-};
+export const deleteApiV1UserByOrganizationIdByEmail = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1UserByOrganizationIdByEmailData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiV1UserByOrganizationIdByEmailResponses, DeleteApiV1UserByOrganizationIdByEmailErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/user/{organizationId}/{email}',
+    ...options
+});
 
 /**
  * Get a user by email address
  */
-export const getApiV1UserByOrganizationIdByEmail = <ThrowOnError extends boolean = false>(options: Options<GetApiV1UserByOrganizationIdByEmailData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1UserByOrganizationIdByEmailResponses, GetApiV1UserByOrganizationIdByEmailErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/user/{organizationId}/{email}',
-        ...options
-    });
-};
+export const getApiV1UserByOrganizationIdByEmail = <ThrowOnError extends boolean = false>(options: Options<GetApiV1UserByOrganizationIdByEmailData, ThrowOnError>) => (options.client ?? client).get<GetApiV1UserByOrganizationIdByEmailResponses, GetApiV1UserByOrganizationIdByEmailErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/user/{organizationId}/{email}',
+    ...options
+});
 
 /**
  * Update an existing user by email address
  *
  * Note that it is not possible to edit the email address of a user.
  */
-export const postApiV1UserByOrganizationIdByEmail = <ThrowOnError extends boolean = false>(options: Options<PostApiV1UserByOrganizationIdByEmailData, ThrowOnError>) => {
-    return (options.client ?? client).post<PostApiV1UserByOrganizationIdByEmailResponses, PostApiV1UserByOrganizationIdByEmailErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/user/{organizationId}/{email}',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-};
+export const postApiV1UserByOrganizationIdByEmail = <ThrowOnError extends boolean = false>(options: Options<PostApiV1UserByOrganizationIdByEmailData, ThrowOnError>) => (options.client ?? client).post<PostApiV1UserByOrganizationIdByEmailResponses, PostApiV1UserByOrganizationIdByEmailErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/user/{organizationId}/{email}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 /**
  * Create a new user
  *
  * Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically.
  */
-export const postApiV1User = <ThrowOnError extends boolean = false>(options?: Options<PostApiV1UserData, ThrowOnError>) => {
-    return (options?.client ?? client).post<PostApiV1UserResponses, PostApiV1UserErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/user',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options?.headers
-        }
-    });
-};
+export const postApiV1User = <ThrowOnError extends boolean = false>(options?: Options<PostApiV1UserData, ThrowOnError>) => (options?.client ?? client).post<PostApiV1UserResponses, PostApiV1UserErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/user',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
 
 /**
  * Get a list of users
  *
  * Get a pager object with all users in an organization
  */
-export const getApiV1UsersByOrganizationId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1UsersByOrganizationIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1UsersByOrganizationIdResponses, GetApiV1UsersByOrganizationIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/users/{organizationId}',
-        ...options
-    });
-};
+export const getApiV1UsersByOrganizationId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1UsersByOrganizationIdData, ThrowOnError>) => (options.client ?? client).get<GetApiV1UsersByOrganizationIdResponses, GetApiV1UsersByOrganizationIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/users/{organizationId}',
+    ...options
+});
 
 /**
  * Create a batch of users
  *
  * Any duplicate entries will be skipped. Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically.
  */
-export const postApiV1UsersByOrganizationId = <ThrowOnError extends boolean = false>(options: Options<PostApiV1UsersByOrganizationIdData, ThrowOnError>) => {
-    return (options.client ?? client).post<PostApiV1UsersByOrganizationIdResponses, PostApiV1UsersByOrganizationIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/users/{organizationId}',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-};
+export const postApiV1UsersByOrganizationId = <ThrowOnError extends boolean = false>(options: Options<PostApiV1UsersByOrganizationIdData, ThrowOnError>) => (options.client ?? client).post<PostApiV1UsersByOrganizationIdResponses, PostApiV1UsersByOrganizationIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/users/{organizationId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 /**
  * Delete an API key
  */
-export const deleteApiV1ApiKeyById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1ApiKeyByIdData, ThrowOnError>) => {
-    return (options.client ?? client).delete<DeleteApiV1ApiKeyByIdResponses, DeleteApiV1ApiKeyByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/api_key/{id}',
-        ...options
-    });
-};
+export const deleteApiV1ApiKeyById = <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1ApiKeyByIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiV1ApiKeyByIdResponses, DeleteApiV1ApiKeyByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/api_key/{id}',
+    ...options
+});
 
 /**
  * Get an API key
  */
-export const getApiV1ApiKeyById = <ThrowOnError extends boolean = false>(options: Options<GetApiV1ApiKeyByIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1ApiKeyByIdResponses, GetApiV1ApiKeyByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/api_key/{id}',
-        ...options
-    });
-};
+export const getApiV1ApiKeyById = <ThrowOnError extends boolean = false>(options: Options<GetApiV1ApiKeyByIdData, ThrowOnError>) => (options.client ?? client).get<GetApiV1ApiKeyByIdResponses, GetApiV1ApiKeyByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/api_key/{id}',
+    ...options
+});
 
 /**
  * Update an existing API key
  */
-export const postApiV1ApiKeyById = <ThrowOnError extends boolean = false>(options: Options<PostApiV1ApiKeyByIdData, ThrowOnError>) => {
-    return (options.client ?? client).post<PostApiV1ApiKeyByIdResponses, PostApiV1ApiKeyByIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/api_key/{id}',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options.headers
-        }
-    });
-};
+export const postApiV1ApiKeyById = <ThrowOnError extends boolean = false>(options: Options<PostApiV1ApiKeyByIdData, ThrowOnError>) => (options.client ?? client).post<PostApiV1ApiKeyByIdResponses, PostApiV1ApiKeyByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/api_key/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 /**
  * Create a new API key
  */
-export const postApiV1ApiKey = <ThrowOnError extends boolean = false>(options?: Options<PostApiV1ApiKeyData, ThrowOnError>) => {
-    return (options?.client ?? client).post<PostApiV1ApiKeyResponses, PostApiV1ApiKeyErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/api_key',
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            ...options?.headers
-        }
-    });
-};
+export const postApiV1ApiKey = <ThrowOnError extends boolean = false>(options?: Options<PostApiV1ApiKeyData, ThrowOnError>) => (options?.client ?? client).post<PostApiV1ApiKeyResponses, PostApiV1ApiKeyErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/api_key',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
 
 /**
  * Get all API keys for a tenant or organization
  */
-export const getApiV1ApiKeysByOrganizationId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1ApiKeysByOrganizationIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1ApiKeysByOrganizationIdResponses, GetApiV1ApiKeysByOrganizationIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/api_keys/{organizationId}',
-        ...options
-    });
-};
+export const getApiV1ApiKeysByOrganizationId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1ApiKeysByOrganizationIdData, ThrowOnError>) => (options.client ?? client).get<GetApiV1ApiKeysByOrganizationIdResponses, GetApiV1ApiKeysByOrganizationIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/api_keys/{organizationId}',
+    ...options
+});
 
 /**
  * Get a list of API requests
  *
  * Get a pager object with all API requests made under this tenant
  */
-export const getApiV1ApiRequestsByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1ApiRequestsByTenantIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1ApiRequestsByTenantIdResponses, GetApiV1ApiRequestsByTenantIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/api_requests/{tenantId}',
-        ...options
-    });
-};
+export const getApiV1ApiRequestsByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1ApiRequestsByTenantIdData, ThrowOnError>) => (options.client ?? client).get<GetApiV1ApiRequestsByTenantIdResponses, GetApiV1ApiRequestsByTenantIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/api_requests/{tenantId}',
+    ...options
+});
 
 /**
  * Get a list of audit logs
  *
  * Get a pager object with all audit logs created under a tenant
  */
-export const getApiV1AuditLogsByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1AuditLogsByTenantIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1AuditLogsByTenantIdResponses, GetApiV1AuditLogsByTenantIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/audit_logs/{tenantId}',
-        ...options
-    });
-};
+export const getApiV1AuditLogsByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1AuditLogsByTenantIdData, ThrowOnError>) => (options.client ?? client).get<GetApiV1AuditLogsByTenantIdResponses, GetApiV1AuditLogsByTenantIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/audit_logs/{tenantId}',
+    ...options
+});
 
 /**
  * Get a list of mail logs
  *
  * Get a pager object with all mail logs created under the organizations of a tenant
  */
-export const getApiV1MailLogsByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1MailLogsByTenantIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<GetApiV1MailLogsByTenantIdResponses, GetApiV1MailLogsByTenantIdErrors, ThrowOnError>({
-        security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
-                in: 'cookie',
-                name: 'accessToken',
-                type: 'apiKey'
-            }
-        ],
-        url: '/api/v1/mail_logs/{tenantId}',
-        ...options
-    });
-};
+export const getApiV1MailLogsByTenantId = <ThrowOnError extends boolean = false>(options: Options<GetApiV1MailLogsByTenantIdData, ThrowOnError>) => (options.client ?? client).get<GetApiV1MailLogsByTenantIdResponses, GetApiV1MailLogsByTenantIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, {
+            in: 'cookie',
+            name: 'accessToken',
+            type: 'apiKey'
+        }],
+    url: '/api/v1/mail_logs/{tenantId}',
+    ...options
+});

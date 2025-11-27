@@ -5,68 +5,44 @@ import { client } from './client.gen';
  */
 export const deleteApiV1InvitedUserById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/invited_user/{id}' }, options));
+            }], url: '/api/v1/invited_user/{id}' }, options));
 };
 /**
  * Invite an new admin to the tenant
  */
 export const postApiV1InvitedUser = (options) => {
     var _a;
-    return ((_a = options === null || options === void 0 ? void 0 : options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options === null || options === void 0 ? void 0 : options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/invited_user' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
+            }], url: '/api/v1/invited_user' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
 };
 /**
  * Delete an internal user (admin) on a tenant
  */
 export const deleteApiV1InternalUserByTenantIdByUserId = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/internal_user/{tenantId}/{userId}' }, options));
+            }], url: '/api/v1/internal_user/{tenantId}/{userId}' }, options));
 };
 /**
  * Update an existing internal user (admin) on a tenant
  */
 export const postApiV1InternalUserByTenantIdByUserId = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/internal_user/{tenantId}/{userId}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
+            }], url: '/api/v1/internal_user/{tenantId}/{userId}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
 };
 /**
  * Delete an organization
@@ -75,85 +51,55 @@ export const postApiV1InternalUserByTenantIdByUserId = (options) => {
  */
 export const deleteApiV2OrganizationById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v2/organization/{id}' }, options));
+            }], url: '/api/v2/organization/{id}' }, options));
 };
 /**
  * Get an organization
  */
 export const getApiV2OrganizationById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v2/organization/{id}' }, options));
+            }], url: '/api/v2/organization/{id}' }, options));
 };
 /**
  * Update an existing organization
  */
 export const postApiV2OrganizationById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v2/organization/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
+            }], url: '/api/v2/organization/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
 };
 /**
  * Create a new organization
  */
 export const postApiV2Organization = (options) => {
     var _a;
-    return ((_a = options === null || options === void 0 ? void 0 : options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options === null || options === void 0 ? void 0 : options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v2/organization' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
+            }], url: '/api/v2/organization' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
 };
 /**
  * Request a new client secret for the organization
  */
 export const getApiV1OrganizationByIdRotateSecret = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/organization/{id}/rotate_secret' }, options));
+            }], url: '/api/v1/organization/{id}/rotate_secret' }, options));
 };
 /**
  * Activate the newly created client secret for the organization
@@ -162,17 +108,11 @@ export const getApiV1OrganizationByIdRotateSecret = (options) => {
  */
 export const postApiV1OrganizationByIdActivateSecret = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/organization/{id}/activate_secret' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
+            }], url: '/api/v1/organization/{id}/activate_secret' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
 };
 /**
  * Delete a tenant
@@ -181,68 +121,44 @@ export const postApiV1OrganizationByIdActivateSecret = (options) => {
  */
 export const deleteApiV1TenantById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/tenant/{id}' }, options));
+            }], url: '/api/v1/tenant/{id}' }, options));
 };
 /**
  * Get a tenant
  */
 export const getApiV1TenantById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/tenant/{id}' }, options));
+            }], url: '/api/v1/tenant/{id}' }, options));
 };
 /**
  * Update an existing tenant
  */
 export const postApiV1TenantById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/tenant/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
+            }], url: '/api/v1/tenant/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
 };
 /**
  * Get all invoices for a tenant
  */
 export const getApiV1InvoicesByTenantId = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/invoices/{tenantId}' }, options));
+            }], url: '/api/v1/invoices/{tenantId}' }, options));
 };
 /**
  * Delete a user
@@ -251,34 +167,22 @@ export const getApiV1InvoicesByTenantId = (options) => {
  */
 export const deleteApiV1UserById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/user/{id}' }, options));
+            }], url: '/api/v1/user/{id}' }, options));
 };
 /**
  * Get a user
  */
 export const getApiV1UserById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/user/{id}' }, options));
+            }], url: '/api/v1/user/{id}' }, options));
 };
 /**
  * Update an existing user
@@ -287,17 +191,11 @@ export const getApiV1UserById = (options) => {
  */
 export const postApiV1UserById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/user/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
+            }], url: '/api/v1/user/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
 };
 /**
  * Delete a user by email address
@@ -306,34 +204,22 @@ export const postApiV1UserById = (options) => {
  */
 export const deleteApiV1UserByOrganizationIdByEmail = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/user/{organizationId}/{email}' }, options));
+            }], url: '/api/v1/user/{organizationId}/{email}' }, options));
 };
 /**
  * Get a user by email address
  */
 export const getApiV1UserByOrganizationIdByEmail = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/user/{organizationId}/{email}' }, options));
+            }], url: '/api/v1/user/{organizationId}/{email}' }, options));
 };
 /**
  * Update an existing user by email address
@@ -342,17 +228,11 @@ export const getApiV1UserByOrganizationIdByEmail = (options) => {
  */
 export const postApiV1UserByOrganizationIdByEmail = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/user/{organizationId}/{email}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
+            }], url: '/api/v1/user/{organizationId}/{email}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
 };
 /**
  * Create a new user
@@ -361,17 +241,11 @@ export const postApiV1UserByOrganizationIdByEmail = (options) => {
  */
 export const postApiV1User = (options) => {
     var _a;
-    return ((_a = options === null || options === void 0 ? void 0 : options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options === null || options === void 0 ? void 0 : options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/user' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
+            }], url: '/api/v1/user' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
 };
 /**
  * Get a list of users
@@ -380,17 +254,11 @@ export const postApiV1User = (options) => {
  */
 export const getApiV1UsersByOrganizationId = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/users/{organizationId}' }, options));
+            }], url: '/api/v1/users/{organizationId}' }, options));
 };
 /**
  * Create a batch of users
@@ -399,102 +267,66 @@ export const getApiV1UsersByOrganizationId = (options) => {
  */
 export const postApiV1UsersByOrganizationId = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/users/{organizationId}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
+            }], url: '/api/v1/users/{organizationId}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
 };
 /**
  * Delete an API key
  */
 export const deleteApiV1ApiKeyById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).delete(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/api_key/{id}' }, options));
+            }], url: '/api/v1/api_key/{id}' }, options));
 };
 /**
  * Get an API key
  */
 export const getApiV1ApiKeyById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/api_key/{id}' }, options));
+            }], url: '/api/v1/api_key/{id}' }, options));
 };
 /**
  * Update an existing API key
  */
 export const postApiV1ApiKeyById = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/api_key/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
+            }], url: '/api/v1/api_key/{id}' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options.headers) }));
 };
 /**
  * Create a new API key
  */
 export const postApiV1ApiKey = (options) => {
     var _a;
-    return ((_a = options === null || options === void 0 ? void 0 : options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options === null || options === void 0 ? void 0 : options.client) !== null && _a !== void 0 ? _a : client).post(Object.assign(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/api_key' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
+            }], url: '/api/v1/api_key' }, options), { headers: Object.assign({ 'Content-Type': 'application/json' }, options === null || options === void 0 ? void 0 : options.headers) }));
 };
 /**
  * Get all API keys for a tenant or organization
  */
 export const getApiV1ApiKeysByOrganizationId = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/api_keys/{organizationId}' }, options));
+            }], url: '/api/v1/api_keys/{organizationId}' }, options));
 };
 /**
  * Get a list of API requests
@@ -503,17 +335,11 @@ export const getApiV1ApiKeysByOrganizationId = (options) => {
  */
 export const getApiV1ApiRequestsByTenantId = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/api_requests/{tenantId}' }, options));
+            }], url: '/api/v1/api_requests/{tenantId}' }, options));
 };
 /**
  * Get a list of audit logs
@@ -522,17 +348,11 @@ export const getApiV1ApiRequestsByTenantId = (options) => {
  */
 export const getApiV1AuditLogsByTenantId = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/audit_logs/{tenantId}' }, options));
+            }], url: '/api/v1/audit_logs/{tenantId}' }, options));
 };
 /**
  * Get a list of mail logs
@@ -541,16 +361,10 @@ export const getApiV1AuditLogsByTenantId = (options) => {
  */
 export const getApiV1MailLogsByTenantId = (options) => {
     var _a;
-    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [
-            {
-                scheme: 'bearer',
-                type: 'http'
-            },
-            {
+    return ((_a = options.client) !== null && _a !== void 0 ? _a : client).get(Object.assign({ security: [{ scheme: 'bearer', type: 'http' }, {
                 in: 'cookie',
                 name: 'accessToken',
                 type: 'apiKey'
-            }
-        ], url: '/api/v1/mail_logs/{tenantId}' }, options));
+            }], url: '/api/v1/mail_logs/{tenantId}' }, options));
 };
 //# sourceMappingURL=sdk.gen.js.map

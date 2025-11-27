@@ -52,7 +52,31 @@ export const createClient = (config = {}) => {
         // fetch must be assigned here, otherwise it would throw the error:
         // TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
         const _fetch = opts.fetch;
-        let response = yield _fetch(request);
+        let response;
+        try {
+            response = yield _fetch(request);
+        }
+        catch (error) {
+            // Handle fetch exceptions (AbortError, network errors, etc.)
+            let finalError = error;
+            for (const fn of interceptors.error.fns) {
+                if (fn) {
+                    finalError = (yield fn(error, undefined, request, opts));
+                }
+            }
+            finalError = finalError || {};
+            if (opts.throwOnError) {
+                throw finalError;
+            }
+            // Return error response
+            return opts.responseStyle === 'data'
+                ? undefined
+                : {
+                    error: finalError,
+                    request,
+                    response: undefined,
+                };
+        }
         for (const fn of interceptors.response.fns) {
             if (fn) {
                 response = yield fn(response, request, opts);
