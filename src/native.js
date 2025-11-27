@@ -7,11 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { Buffer } from 'buffer';
 import { CryptoDigestAlgorithm, CryptoEncoding, digestStringAsync, randomUUID } from "expo-crypto";
 import { deleteItemAsync, getItem, getItemAsync, setItemAsync } from 'expo-secure-store';
 import * as WebBrowser from "expo-web-browser";
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { ValidationError } from "./server";
+// Polyfill Buffer for React Native
+global.Buffer = Buffer;
 /**
  * This function takes a string input, applies SHA256 hashing, and converts the result
  * to base64url encoding by replacing URL-unsafe characters and removing padding.
