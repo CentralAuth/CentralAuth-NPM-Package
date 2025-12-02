@@ -1,6 +1,6 @@
 {
   "name": "centralauth",
-  "version": "0.2.41",
+  "version": "0.2.42",
   "description": "Official package for CentralAuth",
   "type": "module",
   "exports": {
@@ -45,7 +45,7 @@
     "@hey-api/openapi-ts": "^0.88.0",
     "axios": "^1.13.2",
     "axios-cache-interceptor": "^1.8.3",
-    "jose": "^6.1.1"
+    "jose": "^6.1.2"
   },
   "peerDependencies": {
     "expo-crypto": ">=15.0.0",
@@ -57,14 +57,14 @@
     "swr": "^2.3.6"
   },
   "devDependencies": {
-    "@types/node": "^24.10.0",
-    "@types/react": "^19.2.2",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
     "expo-crypto": "^15.0.7",
     "expo-device": "^8.0.9",
-    "expo-linking": "^8.0.8",
+    "expo-linking": "^8.0.9",
     "expo-secure-store": "^15.0.7",
     "expo-web-browser": "^15.0.9",
-    "swr": "^2.3.6",
+    "swr": "^2.3.7",
     "typescript": "^5.9.3"
   }
 }
