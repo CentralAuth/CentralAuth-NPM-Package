@@ -60,6 +60,8 @@ export type Translations = Partial<{
   loginPageEmailError: string;
   loginPageAppIntro: string;
   loginPageAppQRlabel: string;
+  loginPageAppThisDeviceText: string;
+  loginPageAppOtherDeviceText: string;
   loginPageCaptcha: string;
   loginPageCaptchaChallengeText: string;
   loginPageCaptchaPuzzleText: string;
