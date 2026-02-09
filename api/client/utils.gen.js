@@ -73,8 +73,7 @@ export const getParseAs = (contentType) => {
     if (!cleanContent) {
         return;
     }
-    if (cleanContent.startsWith('application/json') ||
-        cleanContent.endsWith('+json')) {
+    if (cleanContent.startsWith('application/json') || cleanContent.endsWith('+json')) {
         return 'json';
     }
     if (cleanContent === 'multipart/form-data') {
@@ -160,9 +159,7 @@ export const mergeHeaders = (...headers) => {
         if (!header) {
             continue;
         }
-        const iterator = header instanceof Headers
-            ? headersEntries(header)
-            : Object.entries(header);
+        const iterator = header instanceof Headers ? headersEntries(header) : Object.entries(header);
         for (const [key, value] of iterator) {
             if (value === null) {
                 mergedHeaders.delete(key);

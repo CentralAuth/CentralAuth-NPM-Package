@@ -62,9 +62,7 @@ export const serializeArrayParam = ({ allowReserved, explode, name, style, value
         });
     })
         .join(separator);
-    return style === 'label' || style === 'matrix'
-        ? separator + joinedValues
-        : joinedValues;
+    return style === 'label' || style === 'matrix' ? separator + joinedValues : joinedValues;
 };
 export const serializePrimitiveParam = ({ allowReserved, name, value, }) => {
     if (value === undefined || value === null) {
@@ -82,11 +80,7 @@ export const serializeObjectParam = ({ allowReserved, explode, name, style, valu
     if (style !== 'deepObject' && !explode) {
         let values = [];
         Object.entries(value).forEach(([key, v]) => {
-            values = [
-                ...values,
-                key,
-                allowReserved ? v : encodeURIComponent(v),
-            ];
+            values = [...values, key, allowReserved ? v : encodeURIComponent(v)];
         });
         const joinedValues = values.join(',');
         switch (style) {
@@ -108,8 +102,6 @@ export const serializeObjectParam = ({ allowReserved, explode, name, style, valu
         value: v,
     }))
         .join(separator);
-    return style === 'label' || style === 'matrix'
-        ? separator + joinedValues
-        : joinedValues;
+    return style === 'label' || style === 'matrix' ? separator + joinedValues : joinedValues;
 };
 //# sourceMappingURL=pathSerializer.gen.js.map

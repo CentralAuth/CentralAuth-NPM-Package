@@ -78,7 +78,7 @@ export declare const getApiV1InvoicesByTenantId: <ThrowOnError extends boolean =
 /**
  * Delete a user
  *
- * Note that a user can create a new user object by logging in again. It is not necessary to create a new user object first.
+ * Note that a user can create a new user object by logging in to your organization, unless user creation is disabled. It is not necessary to create a new user object first. If you have disabled user creation, you can manage your users through the API or the dashboard.
  */
 export declare const deleteApiV1UserById: <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1UserByIdData, ThrowOnError>) => import("./client").RequestResult<DeleteApiV1UserByIdResponses, DeleteApiV1UserByIdErrors, ThrowOnError, "fields">;
 /**
@@ -94,7 +94,7 @@ export declare const postApiV1UserById: <ThrowOnError extends boolean = false>(o
 /**
  * Delete a user by email address
  *
- * Note that a user can create a new user object by logging in again. It is not necessary to create a new user object first.
+ * Note that a user can create a new user object by logging in to your organization, unless user creation is disabled. It is not necessary to create a new user object first. If you have disabled user creation, you can manage your users through the API or the dashboard.
  */
 export declare const deleteApiV1UserByOrganizationIdByEmail: <ThrowOnError extends boolean = false>(options: Options<DeleteApiV1UserByOrganizationIdByEmailData, ThrowOnError>) => import("./client").RequestResult<DeleteApiV1UserByOrganizationIdByEmailResponses, DeleteApiV1UserByOrganizationIdByEmailErrors, ThrowOnError, "fields">;
 /**
@@ -110,7 +110,7 @@ export declare const postApiV1UserByOrganizationIdByEmail: <ThrowOnError extends
 /**
  * Create a new user
  *
- * Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically.
+ * Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically, unless user creation is disabled.
  */
 export declare const postApiV1User: <ThrowOnError extends boolean = false>(options?: Options<PostApiV1UserData, ThrowOnError>) => import("./client").RequestResult<PostApiV1UserResponses, PostApiV1UserErrors, ThrowOnError, "fields">;
 /**
@@ -122,7 +122,7 @@ export declare const getApiV1UsersByOrganizationId: <ThrowOnError extends boolea
 /**
  * Create a batch of users
  *
- * Any duplicate entries will be skipped. Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically.
+ * Any duplicate entries will be skipped. Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically, unless user creation is disabled.
  */
 export declare const postApiV1UsersByOrganizationId: <ThrowOnError extends boolean = false>(options: Options<PostApiV1UsersByOrganizationIdData, ThrowOnError>) => import("./client").RequestResult<PostApiV1UsersByOrganizationIdResponses, PostApiV1UsersByOrganizationIdErrors, ThrowOnError, "fields">;
 /**

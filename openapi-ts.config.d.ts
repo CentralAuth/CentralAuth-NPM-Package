@@ -1,17 +1,2 @@
-declare const _default: Promise<{
-    input: "https://centralauth.com/api/openapi";
-    output: string;
-    parser: {
-        transforms: {
-            readWrite: {
-                enabled: true;
-            };
-        };
-    };
-    plugins: ("@hey-api/client-fetch" | {
-        name: "@hey-api/typescript";
-    } | {
-        name: "@hey-api/sdk";
-    })[];
-}>;
+declare const _default: Promise<import("@hey-api/openapi-ts").UserConfig>;
 export default _default;

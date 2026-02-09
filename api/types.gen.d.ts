@@ -20,10 +20,59 @@ export type InternalUser = {
     readonly userId?: string;
     roleId: 'Admin' | 'OrganizationAdmin' | 'FinancialAdmin' | 'UserAdmin';
 };
+export type Organization = {
+    readonly id?: string;
+    tenantId: string;
+    name: string;
+    logo?: string | null;
+    /**
+     * The client secret key for the organization. When creating a new organization, the client secret will be readable once. After that, the client secret will be encrypted and cannot be retrieved.
+     */
+    readonly clientSecret?: string;
+    /**
+     * The new client secret key for the organization to be rotated.
+     */
+    readonly newClientSecret?: string;
+    /**
+     * The datetime when the new client secret key has been created.
+     */
+    readonly newClientSecretDate?: string;
+    /**
+     * The automatically assigned domain for this organization.
+     */
+    domain?: string | null;
+    customDomain?: string | null;
+    /**
+     * Indicates if the custom domain has been verified.
+     */
+    readonly customDomainVerified?: boolean;
+    /**
+     * Indicates if email connections are enabled for this organization.
+     */
+    emailConnectionEnabled?: boolean;
+    /**
+     * Indicates if passkey connections are enabled for this organization.
+     */
+    passkeyConnectionEnabled?: boolean;
+    /**
+     * Indicates if CentralAuth app connections are enabled for this organization.
+     */
+    centralAuthAppConnectionEnabled?: boolean;
+    overrideParentSettings?: boolean;
+    readonly organizationSettingsId?: string;
+    readonly created?: string;
+    readonly updated?: string;
+    settings?: OrganizationSettings;
+    whitelistItems?: Array<WhitelistItem>;
+    appRegistrations?: Array<NativeAppRegistration>;
+    oAuthProviders?: Array<OAuthProvider>;
+    themeSettings?: ThemeSettings;
+};
 export type OrganizationSettings = {
     readonly id?: string;
     maxSessionTime?: number;
     maxInactivityTime?: number;
+    enableUserCreation?: boolean;
     allowLocalhost?: boolean;
     checkReferrer?: boolean;
     hijackProtection?: boolean;
@@ -86,7 +135,7 @@ export type ThemeSettings = {
     /**
      * Google Font name to use on the login page
      */
-    customFont?: string | null;
+    customFont?: string;
     /**
      * Primary color used on the login page
      */
@@ -103,135 +152,6 @@ export type ThemeSettings = {
      * Neutral color used on the login page
      */
     neutralColor?: string;
-};
-export type Organization = {
-    readonly id?: string;
-    tenantId: string;
-    name: string;
-    logo?: string | null;
-    /**
-     * The client secret key for the organization. When creating a new organization, the client secret will be readable once. After that, the client secret will be encrypted and cannot be retrieved.
-     */
-    readonly clientSecret?: string;
-    /**
-     * The new client secret key for the organization to be rotated.
-     */
-    readonly newClientSecret?: string;
-    /**
-     * The datetime when the new client secret key has been created.
-     */
-    readonly newClientSecretDate?: string;
-    /**
-     * The automatically assigned domain for this organization.
-     */
-    domain?: string | null;
-    customDomain?: string | null;
-    /**
-     * Indicates if the custom domain has been verified.
-     */
-    readonly customDomainVerified?: boolean;
-    /**
-     * Indicates if email connections are enabled for this organization.
-     */
-    emailConnectionEnabled?: boolean;
-    /**
-     * Indicates if passkey connections are enabled for this organization.
-     */
-    passkeyConnectionEnabled?: boolean;
-    /**
-     * Indicates if CentralAuth app connections are enabled for this organization.
-     */
-    centralAuthAppConnectionEnabled?: boolean;
-    overrideParentSettings?: boolean;
-    readonly organizationSettingsId?: string;
-    readonly created?: string;
-    readonly updated?: string;
-    settings?: OrganizationSettings;
-    whitelistItems?: Array<WhitelistItem>;
-    appRegistrations?: Array<NativeAppRegistration>;
-    oAuthProviders?: Array<OAuthProvider>;
-    themeSettings?: ThemeSettings;
-};
-export type Role = {
-    id?: 'Admin' | 'OrganizationAdmin' | 'FinancialAdmin' | 'UserAdmin';
-    name: string;
-    permissions: Array<{
-        id?: 'updateTenant' | 'deleteTenant' | 'createOrganization' | 'updateOrganization' | 'deleteOrganization' | 'manageBilling' | 'createUser' | 'updateUser' | 'deleteUser' | 'viewAllUsers';
-        name?: string;
-    }>;
-};
-export type BillingInfo = {
-    readonly id: string;
-    readonly tenantDataId: string;
-    /**
-     * The currency for the invoices
-     */
-    currency: 'EUR' | 'USD' | 'GBP' | 'JPY' | 'CNY';
-    /**
-     * Email address to send the invoices to
-     */
-    invoiceEmailAddress: string;
-    /**
-     * Billing address line 1 for the invoices
-     */
-    addressLine: string;
-    /**
-     * Billing address line 2 for the invoices
-     */
-    addressLine2?: string | null;
-    /**
-     * Zip or postal code for the invoices
-     */
-    zipPostalCode: string;
-    /**
-     * City for the invoices
-     */
-    city: string;
-    /**
-     * Country for the invoices
-     */
-    country: 'AF' | 'AL' | 'DZ' | 'AS' | 'AD' | 'AO' | 'AI' | 'AQ' | 'AG' | 'AR' | 'AM' | 'AW' | 'AU' | 'AT' | 'AZ' | 'BS' | 'BH' | 'BD' | 'BB' | 'BY' | 'BE' | 'BZ' | 'BJ' | 'BM' | 'BT' | 'BO' | 'BQ' | 'BA' | 'BW' | 'BV' | 'BR' | 'IO' | 'BN' | 'BG' | 'BF' | 'BI' | 'KH' | 'CM' | 'CA' | 'CV' | 'KY' | 'CF' | 'TD' | 'CL' | 'CN' | 'CX' | 'CC' | 'CO' | 'KM' | 'CG' | 'CD' | 'CK' | 'CR' | 'HR' | 'CU' | 'CW' | 'CY' | 'CZ' | 'CI' | 'DK' | 'DJ' | 'DM' | 'DO' | 'EC' | 'EG' | 'SV' | 'GQ' | 'ER' | 'EE' | 'SZ' | 'ET' | 'FK' | 'FO' | 'FJ' | 'FI' | 'FR' | 'GF' | 'PF' | 'TF' | 'GA' | 'GM' | 'GE' | 'DE' | 'GH' | 'GI' | 'GR' | 'GL' | 'GD' | 'GP' | 'GU' | 'GT' | 'GG' | 'GN' | 'GW' | 'GY' | 'HT' | 'HM' | 'VA' | 'HN' | 'HK' | 'HU' | 'IS' | 'IN' | 'ID' | 'IR' | 'IQ' | 'IE' | 'IM' | 'IT' | 'JM' | 'JP' | 'JE' | 'JO' | 'KZ' | 'KE' | 'KI' | 'KP' | 'KR' | 'KW' | 'KG' | 'LA' | 'LV' | 'LB' | 'LS' | 'LR' | 'LY' | 'LI' | 'LT' | 'LU' | 'MO' | 'MK' | 'MG' | 'MW' | 'MY' | 'MV' | 'ML' | 'MT' | 'MH' | 'MQ' | 'MR' | 'MU' | 'YT' | 'MX' | 'FM' | 'MD' | 'MC' | 'MN' | 'ME' | 'MS' | 'MA' | 'MZ' | 'MM' | 'NA' | 'NR' | 'NP' | 'NL' | 'NC' | 'NZ' | 'NI' | 'NE' | 'NG' | 'NU' | 'NF' | 'MP' | 'NO' | 'OM' | 'PK' | 'PW' | 'PS' | 'PA' | 'PG' | 'PY' | 'PE' | 'PH' | 'PN' | 'PL' | 'PT' | 'PR' | 'QA' | 'RO' | 'RW' | 'RE' | 'BL' | 'SH' | 'KN' | 'LC' | 'MF' | 'PM' | 'VC' | 'WS' | 'SM' | 'ST' | 'SA' | 'SN' | 'RS' | 'SC' | 'SL' | 'SG' | 'SX' | 'SK' | 'SI' | 'SB' | 'SO' | 'ZA' | 'GS' | 'SS' | 'ES' | 'LK' | 'SD' | 'SR' | 'SJ' | 'SE' | 'CH' | 'SY' | 'TW' | 'TJ' | 'TZ' | 'TH' | 'TL' | 'TG' | 'TK' | 'TO' | 'TT' | 'TN' | 'TR' | 'TM' | 'TC' | 'TV' | 'UG' | 'UA' | 'AE' | 'GB' | 'US' | 'UM' | 'UY' | 'UZ' | 'VU' | 'VE' | 'VN' | 'VG' | 'VI' | 'WF' | 'EH' | 'YE' | 'ZM' | 'ZW' | 'AX';
-    /**
-     * VAT number for the invoices
-     */
-    vatNumber: string;
-};
-export type TenantData = {
-    readonly id?: string;
-    /**
-     * Indicates if the tenant is active or not
-     */
-    readonly active: boolean;
-    /**
-     * The tier of the tenant, used for billing and feature access
-     */
-    tier: 'free' | 'basic' | 'pro' | 'enterprise';
-    /**
-     * The tier to be set at the start of the next billing period
-     */
-    nextTier?: 'free' | 'basic' | 'pro' | 'enterprise';
-    /**
-     * Custom subscription discount percentage for the tenant
-     */
-    readonly discountPercentage: number;
-    /**
-     * ID of the customer in Mollie
-     */
-    readonly customerId?: string | null;
-    /**
-     * ID of the customer relation in e-Boekhouden
-     */
-    readonly relationId?: number | null;
-    /**
-     * ID of the mandate in Mollie
-     */
-    readonly mandateId?: string | null;
-    /**
-     * The start date of the subscription for the tenant
-     */
-    readonly subscriptionStart?: string | null;
-    readonly tenantId?: string;
-    billingInfo: BillingInfo;
 };
 export type Tenant = {
     readonly id?: string;
@@ -285,6 +205,87 @@ export type Tenant = {
     readonly invitedUsers?: Array<InvitedUser>;
     settings?: OrganizationSettings;
     tenantData: TenantData;
+};
+export type Role = {
+    id?: 'Admin' | 'OrganizationAdmin' | 'FinancialAdmin' | 'UserAdmin';
+    name: string;
+    permissions: Array<{
+        id?: 'updateTenant' | 'deleteTenant' | 'createOrganization' | 'updateOrganization' | 'deleteOrganization' | 'manageBilling' | 'createUser' | 'updateUser' | 'deleteUser' | 'viewAllUsers';
+        name?: string;
+    }>;
+};
+export type TenantData = {
+    readonly id?: string;
+    /**
+     * Indicates if the tenant is active or not
+     */
+    readonly active: boolean;
+    /**
+     * The tier of the tenant, used for billing and feature access
+     */
+    tier: 'free' | 'basic' | 'pro' | 'enterprise';
+    /**
+     * The tier to be set at the start of the next billing period
+     */
+    nextTier?: 'free' | 'basic' | 'pro' | 'enterprise' | null;
+    /**
+     * Custom subscription discount percentage for the tenant
+     */
+    readonly discountPercentage: number;
+    /**
+     * ID of the customer in Mollie
+     */
+    readonly customerId?: string | null;
+    /**
+     * ID of the customer relation in e-Boekhouden
+     */
+    readonly relationId?: number | null;
+    /**
+     * ID of the mandate in Mollie
+     */
+    readonly mandateId?: string | null;
+    /**
+     * The start date of the subscription for the tenant
+     */
+    readonly subscriptionStart?: string | null;
+    readonly tenantId?: string;
+    billingInfo: BillingInfo;
+};
+export type BillingInfo = {
+    readonly id: string;
+    readonly tenantDataId: string;
+    /**
+     * The currency for the invoices
+     */
+    currency: 'EUR' | 'USD' | 'GBP' | 'JPY' | 'CNY';
+    /**
+     * Email address to send the invoices to
+     */
+    invoiceEmailAddress: string;
+    /**
+     * Billing address line 1 for the invoices
+     */
+    addressLine: string;
+    /**
+     * Billing address line 2 for the invoices
+     */
+    addressLine2?: string | null;
+    /**
+     * Zip or postal code for the invoices
+     */
+    zipPostalCode: string;
+    /**
+     * City for the invoices
+     */
+    city: string;
+    /**
+     * Country for the invoices
+     */
+    country: 'AF' | 'AL' | 'DZ' | 'AS' | 'AD' | 'AO' | 'AI' | 'AQ' | 'AG' | 'AR' | 'AM' | 'AW' | 'AU' | 'AT' | 'AZ' | 'BS' | 'BH' | 'BD' | 'BB' | 'BY' | 'BE' | 'BZ' | 'BJ' | 'BM' | 'BT' | 'BO' | 'BQ' | 'BA' | 'BW' | 'BV' | 'BR' | 'IO' | 'BN' | 'BG' | 'BF' | 'BI' | 'KH' | 'CM' | 'CA' | 'CV' | 'KY' | 'CF' | 'TD' | 'CL' | 'CN' | 'CX' | 'CC' | 'CO' | 'KM' | 'CG' | 'CD' | 'CK' | 'CR' | 'HR' | 'CU' | 'CW' | 'CY' | 'CZ' | 'CI' | 'DK' | 'DJ' | 'DM' | 'DO' | 'EC' | 'EG' | 'SV' | 'GQ' | 'ER' | 'EE' | 'SZ' | 'ET' | 'FK' | 'FO' | 'FJ' | 'FI' | 'FR' | 'GF' | 'PF' | 'TF' | 'GA' | 'GM' | 'GE' | 'DE' | 'GH' | 'GI' | 'GR' | 'GL' | 'GD' | 'GP' | 'GU' | 'GT' | 'GG' | 'GN' | 'GW' | 'GY' | 'HT' | 'HM' | 'VA' | 'HN' | 'HK' | 'HU' | 'IS' | 'IN' | 'ID' | 'IR' | 'IQ' | 'IE' | 'IM' | 'IT' | 'JM' | 'JP' | 'JE' | 'JO' | 'KZ' | 'KE' | 'KI' | 'KP' | 'KR' | 'KW' | 'KG' | 'LA' | 'LV' | 'LB' | 'LS' | 'LR' | 'LY' | 'LI' | 'LT' | 'LU' | 'MO' | 'MK' | 'MG' | 'MW' | 'MY' | 'MV' | 'ML' | 'MT' | 'MH' | 'MQ' | 'MR' | 'MU' | 'YT' | 'MX' | 'FM' | 'MD' | 'MC' | 'MN' | 'ME' | 'MS' | 'MA' | 'MZ' | 'MM' | 'NA' | 'NR' | 'NP' | 'NL' | 'NC' | 'NZ' | 'NI' | 'NE' | 'NG' | 'NU' | 'NF' | 'MP' | 'NO' | 'OM' | 'PK' | 'PW' | 'PS' | 'PA' | 'PG' | 'PY' | 'PE' | 'PH' | 'PN' | 'PL' | 'PT' | 'PR' | 'QA' | 'RO' | 'RW' | 'RE' | 'BL' | 'SH' | 'KN' | 'LC' | 'MF' | 'PM' | 'VC' | 'WS' | 'SM' | 'ST' | 'SA' | 'SN' | 'RS' | 'SC' | 'SL' | 'SG' | 'SX' | 'SK' | 'SI' | 'SB' | 'SO' | 'ZA' | 'GS' | 'SS' | 'ES' | 'LK' | 'SD' | 'SR' | 'SJ' | 'SE' | 'CH' | 'SY' | 'TW' | 'TJ' | 'TZ' | 'TH' | 'TL' | 'TG' | 'TK' | 'TO' | 'TT' | 'TN' | 'TR' | 'TM' | 'TC' | 'TV' | 'UG' | 'UA' | 'AE' | 'GB' | 'US' | 'UM' | 'UY' | 'UZ' | 'VU' | 'VE' | 'VN' | 'VG' | 'VI' | 'WF' | 'EH' | 'YE' | 'ZM' | 'ZW' | 'AX';
+    /**
+     * VAT number for the invoices
+     */
+    vatNumber: string;
 };
 export type Invoice = {
     readonly id: string;
@@ -534,9 +535,38 @@ export type InvitedUserWritable = {
 export type InternalUserWritable = {
     roleId: 'Admin' | 'OrganizationAdmin' | 'FinancialAdmin' | 'UserAdmin';
 };
+export type OrganizationWritable = {
+    tenantId: string;
+    name: string;
+    logo?: string | null;
+    /**
+     * The automatically assigned domain for this organization.
+     */
+    domain?: string | null;
+    customDomain?: string | null;
+    /**
+     * Indicates if email connections are enabled for this organization.
+     */
+    emailConnectionEnabled?: boolean;
+    /**
+     * Indicates if passkey connections are enabled for this organization.
+     */
+    passkeyConnectionEnabled?: boolean;
+    /**
+     * Indicates if CentralAuth app connections are enabled for this organization.
+     */
+    centralAuthAppConnectionEnabled?: boolean;
+    overrideParentSettings?: boolean;
+    settings?: OrganizationSettingsWritable;
+    whitelistItems?: Array<WhitelistItemWritable>;
+    appRegistrations?: Array<NativeAppRegistrationWritable>;
+    oAuthProviders?: Array<OAuthProviderWritable>;
+    themeSettings?: ThemeSettingsWritable;
+};
 export type OrganizationSettingsWritable = {
     maxSessionTime?: number;
     maxInactivityTime?: number;
+    enableUserCreation?: boolean;
     allowLocalhost?: boolean;
     checkReferrer?: boolean;
     hijackProtection?: boolean;
@@ -588,7 +618,7 @@ export type ThemeSettingsWritable = {
     /**
      * Google Font name to use on the login page
      */
-    customFont?: string | null;
+    customFont?: string;
     /**
      * Primary color used on the login page
      */
@@ -606,39 +636,25 @@ export type ThemeSettingsWritable = {
      */
     neutralColor?: string;
 };
-export type OrganizationWritable = {
-    tenantId: string;
+export type TenantWritable = {
+    formId: string;
     name: string;
     logo?: string | null;
     /**
-     * The automatically assigned domain for this organization.
+     * Indicates if the tenant is whitelabeled or not
      */
-    domain?: string | null;
-    customDomain?: string | null;
-    /**
-     * Indicates if email connections are enabled for this organization.
-     */
-    emailConnectionEnabled?: boolean;
-    /**
-     * Indicates if passkey connections are enabled for this organization.
-     */
-    passkeyConnectionEnabled?: boolean;
-    /**
-     * Indicates if CentralAuth app connections are enabled for this organization.
-     */
-    centralAuthAppConnectionEnabled?: boolean;
-    overrideParentSettings?: boolean;
+    whitelabel: boolean;
     settings?: OrganizationSettingsWritable;
-    whitelistItems?: Array<WhitelistItemWritable>;
-    appRegistrations?: Array<NativeAppRegistrationWritable>;
-    oAuthProviders?: Array<OAuthProviderWritable>;
-    themeSettings?: ThemeSettingsWritable;
+    tenantData: TenantDataWritable;
 };
 export type RoleWritable = {
     name: string;
     permissions: Array<{
         name?: string;
     }>;
+};
+export type TenantDataWritable = {
+    billingInfo: BillingInfoWritable;
 };
 export type BillingInfoWritable = {
     /**
@@ -673,20 +689,6 @@ export type BillingInfoWritable = {
      * VAT number for the invoices
      */
     vatNumber: string;
-};
-export type TenantDataWritable = {
-    billingInfo: BillingInfoWritable;
-};
-export type TenantWritable = {
-    formId: string;
-    name: string;
-    logo?: string | null;
-    /**
-     * Indicates if the tenant is whitelabeled or not
-     */
-    whitelabel: boolean;
-    settings?: OrganizationSettingsWritable;
-    tenantData: TenantDataWritable;
 };
 export type UserWritable = {
     /**
@@ -1227,6 +1229,7 @@ export type PostApiV2OrganizationByIdData = {
         settings?: {
             maxSessionTime?: number;
             maxInactivityTime?: number;
+            enableUserCreation?: boolean;
             allowLocalhost?: boolean;
             checkReferrer?: boolean;
             hijackProtection?: boolean;
@@ -1272,7 +1275,7 @@ export type PostApiV2OrganizationByIdData = {
             /**
              * Google Font name to use on the login page
              */
-            customFont?: string | null;
+            customFont?: string;
             /**
              * Primary color used on the login page
              */
@@ -1382,6 +1385,7 @@ export type PostApiV2OrganizationData = {
         settings?: {
             maxSessionTime?: number;
             maxInactivityTime?: number;
+            enableUserCreation?: boolean;
             allowLocalhost?: boolean;
             checkReferrer?: boolean;
             hijackProtection?: boolean;
@@ -1433,7 +1437,7 @@ export type PostApiV2OrganizationData = {
             /**
              * Google Font name to use on the login page
              */
-            customFont?: string | null;
+            customFont?: string;
             /**
              * Primary color used on the login page
              */

@@ -3,9 +3,7 @@
  * Replacer that converts non-JSON values (bigint, Date, etc.) to safe substitutes.
  */
 export const queryKeyJsonReplacer = (_key, value) => {
-    if (value === undefined ||
-        typeof value === 'function' ||
-        typeof value === 'symbol') {
+    if (value === undefined || typeof value === 'function' || typeof value === 'symbol') {
         return undefined;
     }
     if (typeof value === 'bigint') {
@@ -69,14 +67,10 @@ export const serializeQueryKeyValue = (value) => {
     if (value === null) {
         return null;
     }
-    if (typeof value === 'string' ||
-        typeof value === 'number' ||
-        typeof value === 'boolean') {
+    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
         return value;
     }
-    if (value === undefined ||
-        typeof value === 'function' ||
-        typeof value === 'symbol') {
+    if (value === undefined || typeof value === 'function' || typeof value === 'symbol') {
         return undefined;
     }
     if (typeof value === 'bigint') {
@@ -88,8 +82,7 @@ export const serializeQueryKeyValue = (value) => {
     if (Array.isArray(value)) {
         return stringifyToJsonValue(value);
     }
-    if (typeof URLSearchParams !== 'undefined' &&
-        value instanceof URLSearchParams) {
+    if (typeof URLSearchParams !== 'undefined' && value instanceof URLSearchParams) {
         return serializeSearchParams(value);
     }
     if (isPlainObject(value)) {

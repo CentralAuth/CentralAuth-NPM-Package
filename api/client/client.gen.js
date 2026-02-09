@@ -90,8 +90,7 @@ export const createClient = (config = {}) => {
             const parseAs = (_a = (opts.parseAs === 'auto'
                 ? getParseAs(response.headers.get('Content-Type'))
                 : opts.parseAs)) !== null && _a !== void 0 ? _a : 'json';
-            if (response.status === 204 ||
-                response.headers.get('Content-Length') === '0') {
+            if (response.status === 204 || response.headers.get('Content-Length') === '0') {
                 let emptyData;
                 switch (parseAs) {
                     case 'arrayBuffer':
@@ -119,10 +118,16 @@ export const createClient = (config = {}) => {
                 case 'arrayBuffer':
                 case 'blob':
                 case 'formData':
-                case 'json':
                 case 'text':
                     data = yield response[parseAs]();
                     break;
+                case 'json': {
+                    // Some servers return 200 with no Content-Length and empty body.
+                    // response.json() would throw; read as text and parse if non-empty.
+                    const text = yield response.text();
+                    data = text ? JSON.parse(text) : {};
+                    break;
+                }
                 case 'stream':
                     return opts.responseStyle === 'data'
                         ? response.body
@@ -175,7 +180,7 @@ export const createClient = (config = {}) => {
                     }
                 }
                 return request;
-            }), url }));
+            }), serializedBody: getValidRequestBody(opts), url }));
     });
     return {
         buildUrl,

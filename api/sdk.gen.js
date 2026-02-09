@@ -163,7 +163,7 @@ export const getApiV1InvoicesByTenantId = (options) => {
 /**
  * Delete a user
  *
- * Note that a user can create a new user object by logging in again. It is not necessary to create a new user object first.
+ * Note that a user can create a new user object by logging in to your organization, unless user creation is disabled. It is not necessary to create a new user object first. If you have disabled user creation, you can manage your users through the API or the dashboard.
  */
 export const deleteApiV1UserById = (options) => {
     var _a;
@@ -200,7 +200,7 @@ export const postApiV1UserById = (options) => {
 /**
  * Delete a user by email address
  *
- * Note that a user can create a new user object by logging in again. It is not necessary to create a new user object first.
+ * Note that a user can create a new user object by logging in to your organization, unless user creation is disabled. It is not necessary to create a new user object first. If you have disabled user creation, you can manage your users through the API or the dashboard.
  */
 export const deleteApiV1UserByOrganizationIdByEmail = (options) => {
     var _a;
@@ -237,7 +237,7 @@ export const postApiV1UserByOrganizationIdByEmail = (options) => {
 /**
  * Create a new user
  *
- * Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically.
+ * Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically, unless user creation is disabled.
  */
 export const postApiV1User = (options) => {
     var _a;
@@ -263,7 +263,7 @@ export const getApiV1UsersByOrganizationId = (options) => {
 /**
  * Create a batch of users
  *
- * Any duplicate entries will be skipped. Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically.
+ * Any duplicate entries will be skipped. Note that it is not necessary to create a user before this user can log in. When a user does not exist when they try to log for in the first time, the user will be created automatically, unless user creation is disabled.
  */
 export const postApiV1UsersByOrganizationId = (options) => {
     var _a;

@@ -58,9 +58,7 @@ export const createSseClient = (_a) => {
                         throw new Error(`SSE failed: ${response.status} ${response.statusText}`);
                     if (!response.body)
                         throw new Error('No body in SSE response');
-                    const reader = response.body
-                        .pipeThrough(new TextDecoderStream())
-                        .getReader();
+                    const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
                     let buffer = '';
                     const abortHandler = () => {
                         try {
@@ -77,6 +75,8 @@ export const createSseClient = (_a) => {
                             if (done)
                                 break;
                             buffer += value;
+                            // Normalize line endings: CRLF -> LF, then CR -> LF
+                            buffer = buffer.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
                             const chunks = buffer.split('\n\n');
                             buffer = (_c = chunks.pop()) !== null && _c !== void 0 ? _c : '';
                             for (const chunk of chunks) {
@@ -141,8 +141,7 @@ export const createSseClient = (_a) => {
                 catch (error) {
                     // connection failed or aborted; retry after delay
                     onSseError === null || onSseError === void 0 ? void 0 : onSseError(error);
-                    if (sseMaxRetryAttempts !== undefined &&
-                        attempt >= sseMaxRetryAttempts) {
+                    if (sseMaxRetryAttempts !== undefined && attempt >= sseMaxRetryAttempts) {
                         break; // stop after firing error
                     }
                     // exponential backoff: double retry each attempt, cap at 30s
