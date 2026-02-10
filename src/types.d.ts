@@ -27,6 +27,7 @@ export type User = {
     created: Date;
     updated: Date;
     lastLogin: Date | null;
+    affirmationDate?: Date;
 };
 export type JWTPayload = {
     sessionId: string;
@@ -40,6 +41,7 @@ export type BasePaths = {
 export type Translations = Partial<{
     emailAddress: string;
     loginPageIntro: string;
+    loginPageAffirmIntro: string;
     loginPagePasskeyAuthentication: string;
     loginPagePasskeyRegistration: string;
     loginPagePasskeyIntro: string;
@@ -90,6 +92,7 @@ export type LoginParams = {
     errorMessage?: string | null;
     translations?: Translations | null;
     embed?: boolean | null;
+    affirmExistingSession?: boolean;
 };
 export type DirectAuthenticationParams = {
     email: string;

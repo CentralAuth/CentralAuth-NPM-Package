@@ -33,6 +33,7 @@ export type User = {
   created: Date;
   updated: Date;
   lastLogin: Date | null;
+  affirmationDate?: Date;
 }
 
 //Type for the payload of the JWT
@@ -51,6 +52,7 @@ export type BasePaths = {
 export type Translations = Partial<{
   emailAddress: string;
   loginPageIntro: string;
+  loginPageAffirmIntro: string;
   loginPagePasskeyAuthentication: string;
   loginPagePasskeyRegistration: string;
   loginPagePasskeyIntro: string;
@@ -103,6 +105,7 @@ export type LoginParams = {
   errorMessage?: string | null;
   translations?: Translations | null;
   embed?: boolean | null;
+  affirmExistingSession?: boolean;
 }
 
 //Type for the parameters of the direct authentication method

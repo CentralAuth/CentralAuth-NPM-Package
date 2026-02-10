@@ -27,6 +27,7 @@ export declare class CentralAuthClass {
     private getUserAgent;
     private getIPAddress;
     private getUser;
+    private getUserFromServer;
     private setTokenFromCookie;
     private setTokenFromTokenBearer;
     getUserData: (headers: Headers) => Promise<User | null>;

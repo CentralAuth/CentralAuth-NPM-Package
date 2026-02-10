@@ -160,8 +160,9 @@ export class CentralAuthClass {
     return ip ? ip.split(",")[0] : "0.0.0.0";
   }
 
-  //Private method to get the user data from the ID token or the CentralAuth server
-  //Will throw an error when the request fails
+  //Private method to get the (cached) user data from the ID token or the CentralAuth server
+  //To get the user data directly from the CentralAuth server, use the getUserFromServer method
+  //Saves the user data in this object when fetched from the server to prevent multiple calls to the server in the same session
   private getUser = async (headers: Headers) => {
     if (this.userData)
       return this.userData;
@@ -173,47 +174,54 @@ export class CentralAuthClass {
       const jwtPayload = await this.getDecodedToken();
       const { user } = jwtPayload;
 
-      //Get the IP address and user agent from the headers
-      const ipAddress = this.getIPAddress(headers);
-      const userAgent = this.getUserAgent(headers);
-
-      //Get the device ID from the headers if set (only used for native apps)
-      const deviceId = headers.get("device-id");
-
       this.checkData("user");
 
       if (this.unsafeIncludeUser && user)
         this.userData = user;
       else {
-        //Get the user and session data from the CentralAuth server
-        const requestHeaders: Record<string, string> = {
-          "Content-Type": "text/plain",
-          "Authorization": `Basic ${Buffer.from(`${this.clientId || ""}:${this.secret}`).toString("base64")}`,
-          "user-agent": userAgent, //Set the user agent to the user agent of the current request
-          "auth-ip": ipAddress //Set the custom auth-ip header with the IP address of the current request
-        };
-
-        //Set the device ID header if present
-        if (deviceId) requestHeaders["device-id"] = deviceId;
-
-        //Construct the URL
-        const requestUrl = new URL(`${this.authBaseUrl}/api/v1/userinfo`);
-        const callbackUrl = new URL(this.callbackUrl!);
-        requestUrl.searchParams.set("domain", callbackUrl.origin);
-
-        try {
-          const response = await this.axios.post(requestUrl.toString(), this.token, {
-            headers: requestHeaders
-          });
-
-          this.userData = response.data as User;
-        } catch (error: any) {
-          const errorData = error.response?.data as ErrorObject;
-          if (this.debug)
-            console.log(`[CENTRALAUTH DEBUG] Failed to fetch user data from the server for client ${this.clientId || "CentralAuth"}: ${errorData?.message || error.message}`);
-          throw new ValidationError(errorData || { errorCode: "networkError", message: error.message });
-        }
+        this.userData = await this.getUserFromServer(headers, this.token);
       }
+    }
+  }
+
+  //Private method to get the user data from the CentralAuth server
+  //Will throw an error when the request fails
+  //Returns the user data, but doesn't save it in this object
+  private getUserFromServer = async (headers: Headers, token: string) => {
+    //Get the IP address and user agent from the headers
+    const ipAddress = this.getIPAddress(headers);
+    const userAgent = this.getUserAgent(headers);
+
+    //Get the device ID from the headers if set (only used for native apps)
+    const deviceId = headers.get("device-id");
+
+    //Get the user and session data from the CentralAuth server
+    const requestHeaders: Record<string, string> = {
+      "Content-Type": "text/plain",
+      "Authorization": `Basic ${Buffer.from(`${this.clientId || ""}:${this.secret}`).toString("base64")}`,
+      "user-agent": userAgent, //Set the user agent to the user agent of the current request
+      "auth-ip": ipAddress //Set the custom auth-ip header with the IP address of the current request
+    };
+
+    //Set the device ID header if present
+    if (deviceId) requestHeaders["device-id"] = deviceId;
+
+    //Construct the URL
+    const requestUrl = new URL(`${this.authBaseUrl}/api/v1/userinfo`);
+    const callbackUrl = new URL(this.callbackUrl!);
+    requestUrl.searchParams.set("domain", callbackUrl.origin);
+
+    try {
+      const response = await this.axios.post(requestUrl.toString(), token, {
+        headers: requestHeaders
+      });
+
+      return response.data as User;
+    } catch (error: any) {
+      const errorData = error.response?.data as ErrorObject;
+      if (this.debug)
+        console.log(`[CENTRALAUTH DEBUG] Failed to fetch user data from the server for client ${this.clientId || "CentralAuth"}: ${errorData?.message || error.message}`);
+      throw new ValidationError(errorData || { errorCode: "networkError", message: error.message });
     }
   }
 
@@ -342,6 +350,9 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
     //Add embed boolean when given
     if (config?.embed)
       authorizationUriParams.embed = "1";
+    //Add affirmExistingSession boolean when given
+    if (config?.affirmExistingSession)
+      authorizationUriParams.affirm = "1";
 
     //Set the code verifier to a random UUID and calculate the SHA256 hash as code challenge
     //Store the code verifier in the cookie and set the code challenge as URI param to the login page
@@ -399,6 +410,11 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
     const state = searchParams.get("state");
     const errorCode = searchParams.get("error");
     const errorMessage = searchParams.get("error_description");
+    const affirmExistingSession = searchParams.get("affirm") === "1";
+
+    //If the affirmExistingSession parameter is set to true, it means the user has an existing session and needs to be affirmed to continue
+    //Get the current user data based on the token in the cookie and compare it to the affirmed user data later in the callback
+    const existingUserData = affirmExistingSession ? await this.getUserData(req.headers) : null;
 
     //Get the code verifier from the cookies
     const cookies = parseCookie(headerList.get("cookie"));
@@ -432,7 +448,6 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
     const headers = new Headers();
     headers.set("Authorization", `Basic ${Buffer.from(`${this.clientId || ""}:${this.secret}`).toString("base64")}`);
 
-
     const formData = new FormData();
     formData.append("code", sessionId);
     formData.append("redirect_uri", this.callbackUrl);
@@ -453,8 +468,19 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
     //Parse the token response
     const tokenResponse = await tokenObject.json() as TokenResponse;
     //Set the token in this object based on the unsafeIncludeUser flag
-    this.token = this.unsafeIncludeUser ? tokenResponse.id_token : tokenResponse.access_token;
+    const newToken = this.unsafeIncludeUser ? tokenResponse.id_token : tokenResponse.access_token;
 
+    //When affirmExistingSession is true, compare the existing user data with the new user data after login
+    if (affirmExistingSession) {
+      //Get the new user data without setting it in this object yet
+      const newUserData = await this.getUserFromServer(req.headers, newToken);
+
+      //If the email address in the existing user data is different from the email address in the new user data, it means a different user has logged in and the session should not be continued
+      if (existingUserData?.email !== newUserData.email)
+        throw new ValidationError({ errorCode: "sessionInvalid", message: "Affirmed user is not the same as the currently logged in user." });
+    }
+
+    this.token = newToken;
     this.checkData("verify");
 
     //Populate the user data based on the token
