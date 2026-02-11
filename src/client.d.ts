@@ -1,5 +1,12 @@
+import { ReactNode } from "react";
 import type { WithCentralAuthAutomaticLogin } from "./react.types";
 import type { BasePaths, User } from "./types";
+export declare const AffirmationRequired: ({ user, affirmationNeededAfter, config, children }: {
+    user: User;
+    affirmationNeededAfter: number;
+    config?: Pick<BasePaths, "affirmationPath">;
+    children: ReactNode;
+}) => ReactNode;
 export declare const useUser: (config?: Pick<BasePaths, "profilePath">) => {
     user: User | null | undefined;
     error: any;

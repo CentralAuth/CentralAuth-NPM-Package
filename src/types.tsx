@@ -47,6 +47,7 @@ export type BasePaths = {
   loginPath?: string;
   logoutPath?: string;
   profilePath?: string;
+  affirmationPath?: string;
 }
 
 export type Translations = Partial<{
