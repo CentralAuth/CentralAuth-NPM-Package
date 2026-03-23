@@ -1,6 +1,6 @@
 import type { ArrayStyle, ObjectStyle, SerializerOptions } from './pathSerializer.gen';
 export type QuerySerializer = (query: Record<string, unknown>) => string;
-export type BodySerializer = (body: any) => any;
+export type BodySerializer = (body: unknown) => unknown;
 type QuerySerializerOptionsObject = {
     allowReserved?: boolean;
     array?: Partial<SerializerOptions<ArrayStyle>>;
@@ -14,12 +14,12 @@ export type QuerySerializerOptions = QuerySerializerOptionsObject & {
     parameters?: Record<string, QuerySerializerOptionsObject>;
 };
 export declare const formDataBodySerializer: {
-    bodySerializer: <T extends Record<string, any> | Array<Record<string, any>>>(body: T) => FormData;
+    bodySerializer: (body: unknown) => FormData;
 };
 export declare const jsonBodySerializer: {
-    bodySerializer: <T>(body: T) => string;
+    bodySerializer: (body: unknown) => string;
 };
 export declare const urlSearchParamsBodySerializer: {
-    bodySerializer: <T extends Record<string, any> | Array<Record<string, any>>>(body: T) => string;
+    bodySerializer: (body: unknown) => string;
 };
 export {};

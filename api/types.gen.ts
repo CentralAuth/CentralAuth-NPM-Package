@@ -105,13 +105,21 @@ export type WhitelistItem = {
 export type NativeAppRegistration = {
     readonly id?: string;
     /**
-     * Bundle ID or package name for the native app.
+     * The type of the native app, e.g. mobile or desktop.
+     */
+    type: 'mobile' | 'desktop';
+    /**
+     * App ID or package name for the native app.
      */
     bundleId: string;
     /**
-     * App link or universal link to open the app after authentication.
+     * App link, universal link or loopback URL to open the app after authentication.
      */
     appLink: string;
+    /**
+     * The certificate thumbprint for the app to verify the authentication response. This field is only relevant for desktop apps.
+     */
+    certificateThumbprint?: string | null;
     readonly organizationId: string;
 };
 
@@ -206,7 +214,7 @@ export type Tenant = {
              */
             readonly updated?: string;
             /**
-             * The date and time when this user last logged in.
+             * A datetime object of the day when the user was last active.
              */
             readonly lastLogin?: string | null;
         };
@@ -383,7 +391,7 @@ export type User = {
      */
     readonly updated?: string;
     /**
-     * The date and time when this user last logged in.
+     * A datetime object of the day when the user was last active.
      */
     readonly lastLogin?: string | null;
     readonly connections?: Array<{
@@ -615,13 +623,21 @@ export type WhitelistItemWritable = {
 
 export type NativeAppRegistrationWritable = {
     /**
-     * Bundle ID or package name for the native app.
+     * The type of the native app, e.g. mobile or desktop.
+     */
+    type: 'mobile' | 'desktop';
+    /**
+     * App ID or package name for the native app.
      */
     bundleId: string;
     /**
-     * App link or universal link to open the app after authentication.
+     * App link, universal link or loopback URL to open the app after authentication.
      */
     appLink: string;
+    /**
+     * The certificate thumbprint for the app to verify the authentication response. This field is only relevant for desktop apps.
+     */
+    certificateThumbprint?: string | null;
 };
 
 export type OAuthProviderWritable = {
@@ -1316,16 +1332,6 @@ export type PostApiV2OrganizationByIdData = {
         whitelistItems?: Array<{
             value: string;
         }>;
-        appRegistrations?: Array<{
-            /**
-             * Bundle ID or package name for the native app.
-             */
-            bundleId: string;
-            /**
-             * App link or universal link to open the app after authentication.
-             */
-            appLink: string;
-        }>;
         themeSettings?: {
             /**
              * Layout of the login block on the login page
@@ -1360,6 +1366,24 @@ export type PostApiV2OrganizationByIdData = {
              */
             neutralColor?: string;
         };
+        appRegistrations?: Array<{
+            /**
+             * The type of the native app, e.g. mobile or desktop.
+             */
+            type: 'mobile' | 'desktop';
+            /**
+             * App ID or package name for the native app.
+             */
+            bundleId: string;
+            /**
+             * App link, universal link or loopback URL to open the app after authentication.
+             */
+            appLink: string;
+            /**
+             * The certificate thumbprint for the app to verify the authentication response. This field is only relevant for desktop apps.
+             */
+            certificateThumbprint?: string | null;
+        }>;
         oAuthProviders?: Array<{
             type?: 'google' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';
             useOwnCredentials?: boolean;
@@ -1479,13 +1503,21 @@ export type PostApiV2OrganizationData = {
         }>;
         appRegistrations?: Array<{
             /**
-             * Bundle ID or package name for the native app.
+             * The type of the native app, e.g. mobile or desktop.
+             */
+            type: 'mobile' | 'desktop';
+            /**
+             * App ID or package name for the native app.
              */
             bundleId: string;
             /**
-             * App link or universal link to open the app after authentication.
+             * App link, universal link or loopback URL to open the app after authentication.
              */
             appLink: string;
+            /**
+             * The certificate thumbprint for the app to verify the authentication response. This field is only relevant for desktop apps.
+             */
+            certificateThumbprint?: string | null;
         }>;
         oAuthProviders?: Array<{
             type: 'google' | 'microsoft' | 'facebook' | 'linkedin' | 'x' | 'reddit' | 'github';

@@ -182,8 +182,9 @@ export const createClient = (config = {}) => {
                 return request;
             }), serializedBody: getValidRequestBody(opts), url }));
     });
+    const _buildUrl = (options) => buildUrl(Object.assign(Object.assign({}, _config), options));
     return {
-        buildUrl,
+        buildUrl: _buildUrl,
         connect: makeMethodFn('CONNECT'),
         delete: makeMethodFn('DELETE'),
         get: makeMethodFn('GET'),
