@@ -75,7 +75,7 @@ export function getValidRequestBody(options) {
             const hasSerializedBody = options.serializedBody !== undefined && options.serializedBody !== '';
             return hasSerializedBody ? options.serializedBody : null;
         }
-        // not all clients implement a serializedBody property (i.e. client-axios)
+        // not all clients implement a serializedBody property (i.e., client-axios)
         return options.body !== '' ? options.body : null;
     }
     // plain/text body
