@@ -69,6 +69,6 @@
     "expo-secure-store": "^55.0.9",
     "expo-web-browser": "^55.0.10",
     "swr": "^2.4.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   }
 }
