@@ -1,12 +1,17 @@
 "use strict";
 "use client";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.withCentralAuthAutomaticLogin = exports.useUserRequired = exports.useUser = exports.AffirmationRequired = void 0;
 const react_1 = require("react");
-const swr_1 = __importDefault(require("swr"));
 //This component checks if the children need affirmation to be rendered. If so, the user will be redirected to the affirmation API route.
 //Param affirmationNeededAfter is the time in seconds after which the user needs to affirm again. This is checked by comparing the current time with the affirmationDate of the user. If the affirmationDate is older than the affirmationNeededAfter value, the user needs to affirm again.
 //Param config can be used when the API route for affirmation is different from the default /api/auth/affirm
@@ -33,12 +38,44 @@ const AffirmationRequired = ({ user, affirmationNeededAfter, config, children })
     return affirmationNeeded ? null : children;
 };
 exports.AffirmationRequired = AffirmationRequired;
-//React hook to declaratively get the currently logged in user via SWR. See https://swr.vercel.app for more info on SWR.
+//React hook to declaratively get the currently logged in user.
 //Param config can be used when the API route for /user is different from the default /api/auth/user
 //Will return null when the user is not logged in or on error, and undefined when the request is still active
 //The error object will be populated with the fetcher error when the request failed
 const useUser = (config) => {
-    const { data: user, error, isLoading, isValidating } = (0, swr_1.default)((config === null || config === void 0 ? void 0 : config.profilePath) || "/api/auth/user", (resource, init) => fetch(resource, init).then(res => res.json()), {});
+    const [user, setUser] = (0, react_1.useState)(undefined);
+    const [error, setError] = (0, react_1.useState)(null);
+    const [isLoading, setIsLoading] = (0, react_1.useState)(true);
+    const [isValidating, setIsValidating] = (0, react_1.useState)(true);
+    (0, react_1.useEffect)(() => {
+        const controller = new AbortController();
+        const profilePath = (config === null || config === void 0 ? void 0 : config.profilePath) || "/api/auth/user";
+        setIsLoading(true);
+        setIsValidating(true);
+        setError(null);
+        fetch(profilePath, { signal: controller.signal })
+            .then((response) => __awaiter(void 0, void 0, void 0, function* () {
+            if (!response.ok)
+                throw new Error(`Failed to fetch user profile: ${response.status}`);
+            return response.json();
+        }))
+            .then(userData => {
+            setUser(userData);
+        })
+            .catch(fetchError => {
+            if (fetchError.name !== "AbortError") {
+                setError(fetchError);
+                setUser(null);
+            }
+        })
+            .finally(() => {
+            if (!controller.signal.aborted) {
+                setIsLoading(false);
+                setIsValidating(false);
+            }
+        });
+        return () => controller.abort();
+    }, [config === null || config === void 0 ? void 0 : config.profilePath]);
     return { user: !error ? user : null, error, isLoading, isValidating };
 };
 exports.useUser = useUser;

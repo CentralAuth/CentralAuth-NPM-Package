@@ -9,7 +9,7 @@ export declare const AffirmationRequired: ({ user, affirmationNeededAfter, confi
 }) => ReactNode;
 export declare const useUser: (config?: Pick<BasePaths, "profilePath">) => {
     user: User | null | undefined;
-    error: any;
+    error: unknown;
     isLoading: boolean;
     isValidating: boolean;
 };

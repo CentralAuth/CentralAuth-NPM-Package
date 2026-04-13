@@ -1,6 +1,6 @@
 {
   "name": "centralauth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Official package for CentralAuth",
   "type": "module",
   "exports": {
@@ -70,8 +70,7 @@
     "expo-linking": "^55.0.0",
     "expo-secure-store": "^55.0.0",
     "expo-web-browser": "^55.0.0",
-    "react": "^18.0.0 || ^19.0.0",
-    "swr": "^2.4.0"
+    "react": "^18.0.0 || ^19.0.0"
   },
   "peerDependenciesMeta": {
     "expo-crypto": {
@@ -88,9 +87,6 @@
     },
     "expo-web-browser": {
       "optional": true
-    },
-    "swr": {
-      "optional": true
     }
   },
   "devDependencies": {
@@ -101,7 +97,6 @@
     "expo-linking": "^55.0.8",
     "expo-secure-store": "^55.0.9",
     "expo-web-browser": "^55.0.10",
-    "swr": "^2.4.0",
     "typescript": "^6.0.2"
   }
 }

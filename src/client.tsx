@@ -1,7 +1,6 @@
 "use client"
 
 import { ReactElement, ReactNode, createElement, useEffect, useMemo, useState } from "react";
-import useSWR from "swr";
 import type { WithCentralAuthAutomaticLogin } from "./react.types.js";
 import type { BasePaths, User } from "./types.js";
 
@@ -34,16 +33,49 @@ export const AffirmationRequired = ({ user, affirmationNeededAfter, config, chil
 }
 
 
-//React hook to declaratively get the currently logged in user via SWR. See https://swr.vercel.app for more info on SWR.
+//React hook to declaratively get the currently logged in user.
 //Param config can be used when the API route for /user is different from the default /api/auth/user
 //Will return null when the user is not logged in or on error, and undefined when the request is still active
 //The error object will be populated with the fetcher error when the request failed
 export const useUser = (config?: Pick<BasePaths, "profilePath">) => {
-  const { data: user, error, isLoading, isValidating } = useSWR<User | null>(
-    config?.profilePath || "/api/auth/user",
-    (resource: RequestInfo | URL, init?: RequestInit) => fetch(resource, init).then(res => res.json() as Promise<User | null>),
-    {}
-  );
+  const [user, setUser] = useState<User | null | undefined>(undefined);
+  const [error, setError] = useState<unknown>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isValidating, setIsValidating] = useState(true);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const profilePath = config?.profilePath || "/api/auth/user";
+
+    setIsLoading(true);
+    setIsValidating(true);
+    setError(null);
+
+    fetch(profilePath, { signal: controller.signal })
+      .then(async response => {
+        if (!response.ok)
+          throw new Error(`Failed to fetch user profile: ${response.status}`);
+
+        return response.json() as Promise<User | null>;
+      })
+      .then(userData => {
+        setUser(userData);
+      })
+      .catch(fetchError => {
+        if ((fetchError as Error).name !== "AbortError") {
+          setError(fetchError);
+          setUser(null);
+        }
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+          setIsValidating(false);
+        }
+      });
+
+    return () => controller.abort();
+  }, [config?.profilePath]);
 
   return { user: !error ? user : null, error, isLoading, isValidating };
 }
