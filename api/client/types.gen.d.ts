@@ -1,7 +1,7 @@
-import type { Auth } from '../core/auth.gen';
-import type { ServerSentEventsOptions, ServerSentEventsResult } from '../core/serverSentEvents.gen';
-import type { Client as CoreClient, Config as CoreConfig } from '../core/types.gen';
-import type { Middleware } from './utils.gen';
+import type { Auth } from '../core/auth.gen.js';
+import type { ServerSentEventsOptions, ServerSentEventsResult } from '../core/serverSentEvents.gen.js';
+import type { Client as CoreClient, Config as CoreConfig } from '../core/types.gen.js';
+import type { Middleware } from './utils.gen.js';
 export type ResponseStyle = 'data' | 'fields';
 export interface Config<T extends ClientOptions = ClientOptions> extends Omit<RequestInit, 'body' | 'headers' | 'method'>, CoreConfig {
     /**
@@ -85,7 +85,7 @@ export interface ClientOptions {
     throwOnError?: boolean;
 }
 type MethodFn = <TData = unknown, TError = unknown, ThrowOnError extends boolean = false, TResponseStyle extends ResponseStyle = 'fields'>(options: Omit<RequestOptions<TData, TResponseStyle, ThrowOnError>, 'method'>) => RequestResult<TData, TError, ThrowOnError, TResponseStyle>;
-type SseFn = <TData = unknown, TError = unknown, ThrowOnError extends boolean = false, TResponseStyle extends ResponseStyle = 'fields'>(options: Omit<RequestOptions<TData, TResponseStyle, ThrowOnError>, 'method'>) => Promise<ServerSentEventsResult<TData, TError>>;
+type SseFn = <TData = unknown, TError = unknown, ThrowOnError extends boolean = false, TResponseStyle extends ResponseStyle = 'fields'>(options: Omit<RequestOptions<never, TResponseStyle, ThrowOnError>, 'method'>) => Promise<ServerSentEventsResult<TData, TError>>;
 type RequestFn = <TData = unknown, TError = unknown, ThrowOnError extends boolean = false, TResponseStyle extends ResponseStyle = 'fields'>(options: Omit<RequestOptions<TData, TResponseStyle, ThrowOnError>, 'method'> & Pick<Required<RequestOptions<TData, TResponseStyle, ThrowOnError>>, 'method'>) => RequestResult<TData, TError, ThrowOnError, TResponseStyle>;
 type BuildUrlFn = <TData extends {
     body?: unknown;

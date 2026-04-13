@@ -1,8 +1,8 @@
 import Axios from "axios";
 import { AxiosCacheInstance, canStale as axiosCanStale, buildMemoryStorage, buildStorage, setupCache } from 'axios-cache-interceptor';
-import { IncomingMessage, ServerResponse } from "http";
 import { jwtDecrypt } from "jose";
-import { CacheConfig, CallbackParams, CallbackParamsHTTP, ConstructorParams, DirectAuthenticationParams, DirectAuthenticationResponse, ErrorCode, ErrorObject, JWTPayload, LoginParams, LogoutParams, TokenResponse, User } from "./types";
+import { IncomingMessage, ServerResponse } from "node:http";
+import { CacheConfig, CallbackParams, CallbackParamsHTTP, ConstructorParams, DirectAuthenticationParams, DirectAuthenticationResponse, ErrorCode, ErrorObject, JWTPayload, LoginParams, LogoutParams, TokenResponse, User } from "./types.js";
 
 //Reexport of canStale
 export const canStale = axiosCanStale;

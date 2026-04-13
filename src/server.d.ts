@@ -1,6 +1,6 @@
 import { canStale as axiosCanStale } from 'axios-cache-interceptor';
-import { IncomingMessage, ServerResponse } from "http";
-import { CallbackParams, CallbackParamsHTTP, ConstructorParams, DirectAuthenticationParams, DirectAuthenticationResponse, ErrorObject, LoginParams, LogoutParams, User } from "./types";
+import { IncomingMessage, ServerResponse } from "node:http";
+import { CallbackParams, CallbackParamsHTTP, ConstructorParams, DirectAuthenticationParams, DirectAuthenticationResponse, ErrorObject, LoginParams, LogoutParams, User } from "./types.js";
 export declare const canStale: typeof axiosCanStale;
 export declare class ValidationError extends Error {
     private errorCode;

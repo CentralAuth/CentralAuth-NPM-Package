@@ -1,3 +1,37 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,14 +41,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Buffer } from 'buffer';
-import { CryptoDigestAlgorithm, CryptoEncoding, digestStringAsync, randomUUID } from "expo-crypto";
-import { deleteItemAsync, getItem, getItemAsync, setItemAsync } from 'expo-secure-store';
-import * as WebBrowser from "expo-web-browser";
-import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { ValidationError } from "./server.js";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CentralAuthProvider = exports.CentralAuthContext = exports.useCentralAuth = exports.hash = void 0;
+const buffer_1 = require("buffer");
+const expo_crypto_1 = require("expo-crypto");
+const expo_secure_store_1 = require("expo-secure-store");
+const WebBrowser = __importStar(require("expo-web-browser"));
+const react_1 = __importStar(require("react"));
+const server_js_1 = require("./server.js");
 // Polyfill Buffer for React Native
-globalThis.Buffer = Buffer;
+globalThis.Buffer = buffer_1.Buffer;
 /**
  * This function takes a string input, applies SHA256 hashing, and converts the result
  * to base64url encoding by replacing URL-unsafe characters and removing padding.
@@ -28,14 +64,15 @@ globalThis.Buffer = Buffer;
  * console.log(hashedValue); // Returns base64url-encoded hash
  * ```
  */
-export const hash = (string) => __awaiter(void 0, void 0, void 0, function* () {
-    const base64Hash = yield digestStringAsync(CryptoDigestAlgorithm.SHA256, string, { encoding: CryptoEncoding.BASE64 });
+const hash = (string) => __awaiter(void 0, void 0, void 0, function* () {
+    const base64Hash = yield (0, expo_crypto_1.digestStringAsync)(expo_crypto_1.CryptoDigestAlgorithm.SHA256, string, { encoding: expo_crypto_1.CryptoEncoding.BASE64 });
     // Convert base64 to base64url
     return base64Hash
         .replace(/\+/g, '-')
         .replace(/\//g, '_')
         .replace(/=/g, '');
 });
+exports.hash = hash;
 /**
  * Custom React hook for managing CentralAuth authentication in React Native applications.
  *
@@ -69,19 +106,19 @@ export const hash = (string) => __awaiter(void 0, void 0, void 0, function* () {
  * await logout();
  * ```
  */
-export const useCentralAuth = () => {
+const useCentralAuth = () => {
     //Get the auth context data
-    const { clientId, authBaseUrl, callbackUrl, appId, deviceId, accessToken, idToken, setAccessToken, setIdToken, deleteAccessToken, deleteIdToken } = useContext(CentralAuthContext);
+    const { clientId, authBaseUrl, callbackUrl, appId, deviceId, accessToken, idToken, setAccessToken, setIdToken, deleteAccessToken, deleteIdToken } = (0, react_1.useContext)(exports.CentralAuthContext);
     // Handle login logic
-    const login = useCallback((config) => __awaiter(void 0, void 0, void 0, function* () {
+    const login = (0, react_1.useCallback)((config) => __awaiter(void 0, void 0, void 0, function* () {
         //Create a random state and store it in secure storage
-        const state = randomUUID();
-        yield setItemAsync("state", state);
+        const state = (0, expo_crypto_1.randomUUID)();
+        yield (0, expo_secure_store_1.setItemAsync)("state", state);
         //Create a code verifier and store it in secure storage
-        const codeVerifier = randomUUID();
-        yield setItemAsync("code_verifier", codeVerifier);
+        const codeVerifier = (0, expo_crypto_1.randomUUID)();
+        yield (0, expo_secure_store_1.setItemAsync)("code_verifier", codeVerifier);
         //Calculate the SHA256 hash as code challenge
-        const codeChallenge = yield hash(codeVerifier);
+        const codeChallenge = yield (0, exports.hash)(codeVerifier);
         //Build the URL to CentralAuth
         const loginURL = new URL(`${authBaseUrl}/login`);
         if (clientId)
@@ -98,22 +135,22 @@ export const useCentralAuth = () => {
         if (config === null || config === void 0 ? void 0 : config.errorMessage)
             loginURL.searchParams.append("error_description", config.errorMessage);
         if (config === null || config === void 0 ? void 0 : config.translations)
-            loginURL.searchParams.append("translations", Buffer.from(JSON.stringify(config.translations)).toString("base64"));
+            loginURL.searchParams.append("translations", buffer_1.Buffer.from(JSON.stringify(config.translations)).toString("base64"));
         //Open the URL in a Web Browser tab
         yield WebBrowser.openAuthSessionAsync(loginURL.toString(), callbackUrl);
     }), [clientId, authBaseUrl, callbackUrl, appId, deviceId]);
     //Handle the callback from CentralAuth
-    const handleCallback = useCallback((_a) => __awaiter(void 0, [_a], void 0, function* ({ code, state, error, error_description }) {
+    const handleCallback = (0, react_1.useCallback)((_a) => __awaiter(void 0, [_a], void 0, function* ({ code, state, error, error_description }) {
         if (error_description || !code)
-            throw new ValidationError({ errorCode: error || "codeChallengeInvalid", message: error_description || "Code verification failed" });
+            throw new server_js_1.ValidationError({ errorCode: error || "codeChallengeInvalid", message: error_description || "Code verification failed" });
         //Get the code verifier and state from secure storage
-        const codeVerifier = yield getItemAsync("code_verifier");
-        const storedState = yield getItemAsync("state");
+        const codeVerifier = yield (0, expo_secure_store_1.getItemAsync)("code_verifier");
+        const storedState = yield (0, expo_secure_store_1.getItemAsync)("state");
         //Validate the state
         if (!state || !storedState)
-            throw new ValidationError({ errorCode: "stateMissing", message: "State is missing" });
+            throw new server_js_1.ValidationError({ errorCode: "stateMissing", message: "State is missing" });
         if (state !== storedState)
-            throw new ValidationError({ errorCode: "stateInvalid", message: "Invalid state" });
+            throw new server_js_1.ValidationError({ errorCode: "stateInvalid", message: "Invalid state" });
         const formData = new FormData();
         formData.append("code", code);
         formData.append("redirect_uri", callbackUrl);
@@ -125,7 +162,7 @@ export const useCentralAuth = () => {
         });
         if (!response.ok) {
             const error = yield response.json();
-            throw new ValidationError(error);
+            throw new server_js_1.ValidationError(error);
         }
         const data = yield response.json();
         //Set both tokens in the local state and secure storage
@@ -134,14 +171,15 @@ export const useCentralAuth = () => {
         //Return the token response
         return data;
     }), [authBaseUrl, callbackUrl, setAccessToken, setIdToken]);
-    const logout = useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
+    const logout = (0, react_1.useCallback)(() => __awaiter(void 0, void 0, void 0, function* () {
         yield deleteAccessToken();
         yield deleteIdToken();
     }), [deleteAccessToken, deleteIdToken]);
     return { login, handleCallback, logout, accessToken, idToken, setAccessToken, setIdToken, deleteAccessToken, deleteIdToken };
 };
+exports.useCentralAuth = useCentralAuth;
 //Context provider for React Native apps
-export const CentralAuthContext = createContext({
+exports.CentralAuthContext = (0, react_1.createContext)({
     clientId: null,
     appId: "",
     deviceId: null,
@@ -192,32 +230,32 @@ export const CentralAuthContext = createContext({
  * </CentralAuthProvider>
  * ```
  */
-export const CentralAuthProvider = ({ clientId, appId, deviceId, callbackUrl, authBaseUrl, children }) => {
-    const [accessTokenState, setAccessTokenState] = useState();
-    const [idTokenState, setIdTokenState] = useState();
+const CentralAuthProvider = ({ clientId, appId, deviceId, callbackUrl, authBaseUrl, children }) => {
+    const [accessTokenState, setAccessTokenState] = (0, react_1.useState)();
+    const [idTokenState, setIdTokenState] = (0, react_1.useState)();
     //Get the tokens from secure storage and set it in the state the first time the provider renders
-    useEffect(() => {
-        const accessTokenFromStorage = getItem("access_token");
-        const idTokenFromStorage = getItem("id_token");
+    (0, react_1.useEffect)(() => {
+        const accessTokenFromStorage = (0, expo_secure_store_1.getItem)("access_token");
+        const idTokenFromStorage = (0, expo_secure_store_1.getItem)("id_token");
         setAccessTokenState(accessTokenFromStorage);
         setIdTokenState(idTokenFromStorage);
     }, []);
-    const setAccessToken = useCallback((token) => __awaiter(void 0, void 0, void 0, function* () {
-        yield setItemAsync("access_token", token);
+    const setAccessToken = (0, react_1.useCallback)((token) => __awaiter(void 0, void 0, void 0, function* () {
+        yield (0, expo_secure_store_1.setItemAsync)("access_token", token);
         setAccessTokenState(token);
     }), []);
-    const setIdToken = useCallback((token) => __awaiter(void 0, void 0, void 0, function* () {
-        yield setItemAsync("id_token", token);
+    const setIdToken = (0, react_1.useCallback)((token) => __awaiter(void 0, void 0, void 0, function* () {
+        yield (0, expo_secure_store_1.setItemAsync)("id_token", token);
         setIdTokenState(token);
     }), []);
-    const deleteAccessToken = useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield deleteItemAsync("access_token");
+    const deleteAccessToken = (0, react_1.useCallback)(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield (0, expo_secure_store_1.deleteItemAsync)("access_token");
         setAccessTokenState(null);
     }), []);
-    const deleteIdToken = useCallback(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield deleteItemAsync("id_token");
+    const deleteIdToken = (0, react_1.useCallback)(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield (0, expo_secure_store_1.deleteItemAsync)("id_token");
         setIdTokenState(null);
     }), []);
-    return (React.createElement(CentralAuthContext.Provider, { value: { clientId, appId, deviceId, callbackUrl, authBaseUrl, accessToken: accessTokenState, idToken: idTokenState, setAccessToken, setIdToken, deleteAccessToken, deleteIdToken } }, children));
+    return (react_1.default.createElement(exports.CentralAuthContext.Provider, { value: { clientId, appId, deviceId, callbackUrl, authBaseUrl, accessToken: accessTokenState, idToken: idTokenState, setAccessToken, setIdToken, deleteAccessToken, deleteIdToken } }, children));
 };
-//# sourceMappingURL=native.js.map
+exports.CentralAuthProvider = CentralAuthProvider;

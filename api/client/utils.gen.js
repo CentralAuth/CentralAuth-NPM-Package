@@ -19,10 +19,10 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { getAuthToken } from '../core/auth.gen';
-import { jsonBodySerializer } from '../core/bodySerializer.gen';
-import { serializeArrayParam, serializeObjectParam, serializePrimitiveParam, } from '../core/pathSerializer.gen';
-import { getUrl } from '../core/utils.gen';
+import { getAuthToken } from '../core/auth.gen.js';
+import { jsonBodySerializer } from '../core/bodySerializer.gen.js';
+import { serializeArrayParam, serializeObjectParam, serializePrimitiveParam, } from '../core/pathSerializer.gen.js';
+import { getUrl } from '../core/utils.gen.js';
 export const createQuerySerializer = (_a = {}) => {
     var { parameters = {} } = _a, args = __rest(_a, ["parameters"]);
     const querySerializer = (queryParams) => {

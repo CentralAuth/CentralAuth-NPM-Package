@@ -23,7 +23,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-export const createSseClient = (_a) => {
+export function createSseClient(_a) {
     var { onRequest, onSseError, onSseEvent, responseTransformer, responseValidator, sseDefaultRetryDelay, sseMaxRetryAttempts, sseMaxRetryDelay, sseSleepFn, url } = _a, options = __rest(_a, ["onRequest", "onSseError", "onSseEvent", "responseTransformer", "responseValidator", "sseDefaultRetryDelay", "sseMaxRetryAttempts", "sseMaxRetryDelay", "sseSleepFn", "url"]);
     let lastEventId;
     const sleep = sseSleepFn !== null && sseSleepFn !== void 0 ? sseSleepFn : ((ms) => new Promise((resolve) => setTimeout(resolve, ms)));
@@ -75,8 +75,7 @@ export const createSseClient = (_a) => {
                             if (done)
                                 break;
                             buffer += value;
-                            // Normalize line endings: CRLF -> LF, then CR -> LF
-                            buffer = buffer.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+                            buffer = buffer.replace(/\r\n?/g, '\n'); // normalize line endings
                             const chunks = buffer.split('\n\n');
                             buffer = (_c = chunks.pop()) !== null && _c !== void 0 ? _c : '';
                             for (const chunk of chunks) {
@@ -153,5 +152,5 @@ export const createSseClient = (_a) => {
     };
     const stream = createStream();
     return { stream };
-};
+}
 //# sourceMappingURL=serverSentEvents.gen.js.map

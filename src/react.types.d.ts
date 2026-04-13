@@ -1,5 +1,5 @@
 import type { ComponentType, FC, ReactElement, ReactNode } from "react";
-import { BasePaths } from "./types";
+import { BasePaths } from "./types.js";
 export type ReactNativeCallbackParams = {
     code?: string;
     state?: string;

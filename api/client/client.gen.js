@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { createSseClient } from '../core/serverSentEvents.gen';
-import { getValidRequestBody } from '../core/utils.gen';
-import { buildUrl, createConfig, createInterceptors, getParseAs, mergeConfigs, mergeHeaders, setAuthParams, } from './utils.gen';
+import { createSseClient } from '../core/serverSentEvents.gen.js';
+import { getValidRequestBody } from '../core/utils.gen.js';
+import { buildUrl, createConfig, createInterceptors, getParseAs, mergeConfigs, mergeHeaders, setAuthParams, } from './utils.gen.js';
 export const createClient = (config = {}) => {
     let _config = mergeConfigs(createConfig(), config);
     const getConfig = () => (Object.assign({}, _config));
@@ -35,12 +35,12 @@ export const createClient = (config = {}) => {
         if (opts.body === undefined || opts.serializedBody === '') {
             opts.headers.delete('Content-Type');
         }
-        const url = buildUrl(opts);
-        return { opts, url };
+        const resolvedOpts = opts;
+        const url = buildUrl(resolvedOpts);
+        return { opts: resolvedOpts, url };
     });
     const request = (options) => __awaiter(void 0, void 0, void 0, function* () {
         var _a;
-        // @ts-expect-error
         const { opts, url } = yield beforeRequest(options);
         const requestInit = Object.assign(Object.assign({ redirect: 'follow' }, opts), { body: getValidRequestBody(opts) });
         let request = new Request(url, requestInit);

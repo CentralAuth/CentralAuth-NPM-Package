@@ -2,8 +2,8 @@
 
 import { ReactElement, ReactNode, createElement, useEffect, useMemo, useState } from "react";
 import useSWR from "swr";
-import type { WithCentralAuthAutomaticLogin } from "./react.types";
-import type { BasePaths, User } from "./types";
+import type { WithCentralAuthAutomaticLogin } from "./react.types.js";
+import type { BasePaths, User } from "./types.js";
 
 //This component checks if the children need affirmation to be rendered. If so, the user will be redirected to the affirmation API route.
 //Param affirmationNeededAfter is the time in seconds after which the user needs to affirm again. This is checked by comparing the current time with the affirmationDate of the user. If the affirmationDate is older than the affirmationNeededAfter value, the user needs to affirm again.
@@ -39,7 +39,11 @@ export const AffirmationRequired = ({ user, affirmationNeededAfter, config, chil
 //Will return null when the user is not logged in or on error, and undefined when the request is still active
 //The error object will be populated with the fetcher error when the request failed
 export const useUser = (config?: Pick<BasePaths, "profilePath">) => {
-  const { data: user, error, isLoading, isValidating } = useSWR<User | null>(config?.profilePath || "/api/auth/user", (resource, init) => fetch(resource, init).then(res => res.json()), {});
+  const { data: user, error, isLoading, isValidating } = useSWR<User | null>(
+    config?.profilePath || "/api/auth/user",
+    (resource: RequestInfo | URL, init?: RequestInit) => fetch(resource, init).then(res => res.json() as Promise<User | null>),
+    {}
+  );
 
   return { user: !error ? user : null, error, isLoading, isValidating };
 }

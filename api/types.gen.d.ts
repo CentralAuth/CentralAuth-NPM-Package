@@ -10,7 +10,7 @@ export type InvitedUser = {
     readonly created?: string;
     readonly updated?: string;
     role: {
-        id?: 'Admin' | 'OrganizationAdmin' | 'FinancialAdmin' | 'UserAdmin';
+        readonly id?: 'Admin' | 'OrganizationAdmin' | 'FinancialAdmin' | 'UserAdmin';
         name: string;
     };
 };
@@ -215,10 +215,10 @@ export type Tenant = {
     tenantData: TenantData;
 };
 export type Role = {
-    id?: 'Admin' | 'OrganizationAdmin' | 'FinancialAdmin' | 'UserAdmin';
+    readonly id?: 'Admin' | 'OrganizationAdmin' | 'FinancialAdmin' | 'UserAdmin';
     name: string;
     permissions: Array<{
-        id?: 'updateTenant' | 'deleteTenant' | 'createOrganization' | 'updateOrganization' | 'deleteOrganization' | 'manageBilling' | 'createUser' | 'updateUser' | 'deleteUser' | 'viewAllUsers';
+        readonly id?: 'updateTenant' | 'deleteTenant' | 'createOrganization' | 'updateOrganization' | 'deleteOrganization' | 'manageBilling' | 'createUser' | 'updateUser' | 'deleteUser' | 'viewAllUsers';
         name?: string;
     }>;
 };
@@ -231,11 +231,11 @@ export type TenantData = {
     /**
      * The tier of the tenant, used for billing and feature access
      */
-    tier: 'free' | 'basic' | 'pro' | 'enterprise';
+    readonly tier: 'free' | 'basic' | 'pro' | 'enterprise';
     /**
      * The tier to be set at the start of the next billing period
      */
-    nextTier?: 'free' | 'basic' | 'pro' | 'enterprise' | null;
+    readonly nextTier?: 'free' | 'basic' | 'pro' | 'enterprise' | null;
     /**
      * Custom subscription discount percentage for the tenant
      */
@@ -309,11 +309,11 @@ export type Invoice = {
     /**
      * The tier of the tenant for this invoice
      */
-    tier: 'free' | 'basic' | 'pro' | 'enterprise';
+    readonly tier: 'free' | 'basic' | 'pro' | 'enterprise';
     /**
      * The currency of the invoice
      */
-    currency: 'EUR' | 'USD' | 'GBP' | 'JPY' | 'CNY';
+    readonly currency: 'EUR' | 'USD' | 'GBP' | 'JPY' | 'CNY';
     /**
      * Amount of the subscription in the invoice
      */
@@ -329,7 +329,7 @@ export type Invoice = {
     /**
      * The tier used for calculating the amount of the MAU
      */
-    monthlyActiveUserTier: 'free' | 'basic' | 'pro' | 'enterprise';
+    readonly monthlyActiveUserTier: 'free' | 'basic' | 'pro' | 'enterprise';
     /**
      * Discount percentage for the invoice
      */
@@ -337,7 +337,7 @@ export type Invoice = {
     /**
      * Status of the payment
      */
-    status: 'open' | 'pending' | 'authorized' | 'paid' | 'canceled' | 'failed' | 'expired' | 'chargeback';
+    readonly status: 'open' | 'pending' | 'authorized' | 'paid' | 'canceled' | 'failed' | 'expired' | 'chargeback';
     readonly startDate: string;
     readonly endDate: string;
     /**

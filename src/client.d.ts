@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import type { WithCentralAuthAutomaticLogin } from "./react.types";
-import type { BasePaths, User } from "./types";
+import type { WithCentralAuthAutomaticLogin } from "./react.types.js";
+import type { BasePaths, User } from "./types.js";
 export declare const AffirmationRequired: ({ user, affirmationNeededAfter, config, children }: {
     user: User;
     affirmationNeededAfter: number;

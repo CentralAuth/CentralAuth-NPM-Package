@@ -1,4 +1,4 @@
-import type { Config } from './types.gen';
+import type { Config } from './types.gen.js';
 export type ServerSentEventsOptions<TData = unknown> = Omit<RequestInit, 'method'> & Pick<Config, 'method' | 'responseTransformer' | 'responseValidator'> & {
     /**
      * Fetch API implementation. You can use this option to provide a custom
@@ -68,4 +68,4 @@ export interface StreamEvent<TData = unknown> {
 export type ServerSentEventsResult<TData = unknown, TReturn = void, TNext = unknown> = {
     stream: AsyncGenerator<TData extends Record<string, unknown> ? TData[keyof TData] : TData, TReturn, TNext>;
 };
-export declare const createSseClient: <TData = unknown>({ onRequest, onSseError, onSseEvent, responseTransformer, responseValidator, sseDefaultRetryDelay, sseMaxRetryAttempts, sseMaxRetryDelay, sseSleepFn, url, ...options }: ServerSentEventsOptions) => ServerSentEventsResult<TData>;
+export declare function createSseClient<TData = unknown>({ onRequest, onSseError, onSseEvent, responseTransformer, responseValidator, sseDefaultRetryDelay, sseMaxRetryAttempts, sseMaxRetryDelay, sseSleepFn, url, ...options }: ServerSentEventsOptions): ServerSentEventsResult<TData>;

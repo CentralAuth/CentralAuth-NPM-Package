@@ -1,5 +1,5 @@
 import { CacheRequestConfig as AxiosCacheRequestConfig, MaybePromise as AxiosMaybePromise, NotEmptyStorageValue as AxiosNotEmptyStorageValue, StorageValue as AxiosStorageValue, BuildStorage } from "axios-cache-interceptor";
-import { IncomingMessage, ServerResponse } from "http";
+import { IncomingMessage, ServerResponse } from "node:http";
 
 export type NotEmptyStorageValue = AxiosNotEmptyStorageValue;
 export type CacheRequestConfig = AxiosCacheRequestConfig;
