@@ -99,35 +99,36 @@ const checkForExistence = (options, name) => {
     }
     return false;
 };
-export const setAuthParams = (_a) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
-    var { security } = _a, options = __rest(_a, ["security"]);
-    for (const auth of security) {
-        if (checkForExistence(options, auth.name)) {
-            continue;
+export function setAuthParams(options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a, _b;
+        for (const auth of (_a = options.security) !== null && _a !== void 0 ? _a : []) {
+            if (checkForExistence(options, auth.name)) {
+                continue;
+            }
+            const token = yield getAuthToken(auth, options.auth);
+            if (!token) {
+                continue;
+            }
+            const name = (_b = auth.name) !== null && _b !== void 0 ? _b : 'Authorization';
+            switch (auth.in) {
+                case 'query':
+                    if (!options.query) {
+                        options.query = {};
+                    }
+                    options.query[name] = token;
+                    break;
+                case 'cookie':
+                    options.headers.append('Cookie', `${name}=${token}`);
+                    break;
+                case 'header':
+                default:
+                    options.headers.set(name, token);
+                    break;
+            }
         }
-        const token = yield getAuthToken(auth, options.auth);
-        if (!token) {
-            continue;
-        }
-        const name = (_b = auth.name) !== null && _b !== void 0 ? _b : 'Authorization';
-        switch (auth.in) {
-            case 'query':
-                if (!options.query) {
-                    options.query = {};
-                }
-                options.query[name] = token;
-                break;
-            case 'cookie':
-                options.headers.append('Cookie', `${name}=${token}`);
-                break;
-            case 'header':
-            default:
-                options.headers.set(name, token);
-                break;
-        }
-    }
-});
+    });
+}
 export const buildUrl = (options) => getUrl({
     baseUrl: options.baseUrl,
     path: options.path,

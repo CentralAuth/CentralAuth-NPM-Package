@@ -23,7 +23,7 @@ export const createClient = (config = {}) => {
         var _a, _b;
         const opts = Object.assign(Object.assign(Object.assign({}, _config), options), { fetch: (_b = (_a = options.fetch) !== null && _a !== void 0 ? _a : _config.fetch) !== null && _b !== void 0 ? _b : globalThis.fetch, headers: mergeHeaders(_config.headers, options.headers), serializedBody: undefined });
         if (opts.security) {
-            yield setAuthParams(Object.assign(Object.assign({}, opts), { security: opts.security }));
+            yield setAuthParams(opts);
         }
         if (opts.requestValidator) {
             yield opts.requestValidator(opts);
@@ -40,139 +40,127 @@ export const createClient = (config = {}) => {
         return { opts: resolvedOpts, url };
     });
     const request = (options) => __awaiter(void 0, void 0, void 0, function* () {
-        var _a;
-        const { opts, url } = yield beforeRequest(options);
-        const requestInit = Object.assign(Object.assign({ redirect: 'follow' }, opts), { body: getValidRequestBody(opts) });
-        let request = new Request(url, requestInit);
-        for (const fn of interceptors.request.fns) {
-            if (fn) {
-                request = yield fn(request, opts);
-            }
-        }
-        // fetch must be assigned here, otherwise it would throw the error:
-        // TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
-        const _fetch = opts.fetch;
+        var _a, _b, _c;
+        const throwOnError = (_a = options.throwOnError) !== null && _a !== void 0 ? _a : _config.throwOnError;
+        const responseStyle = (_b = options.responseStyle) !== null && _b !== void 0 ? _b : _config.responseStyle;
+        let request;
         let response;
         try {
+            const { opts, url } = yield beforeRequest(options);
+            const requestInit = Object.assign(Object.assign({ redirect: 'follow' }, opts), { body: getValidRequestBody(opts) });
+            request = new Request(url, requestInit);
+            for (const fn of interceptors.request.fns) {
+                if (fn) {
+                    request = yield fn(request, opts);
+                }
+            }
+            // fetch must be assigned here, otherwise it would throw the error:
+            // TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
+            const _fetch = opts.fetch;
             response = yield _fetch(request);
+            for (const fn of interceptors.response.fns) {
+                if (fn) {
+                    response = yield fn(response, request, opts);
+                }
+            }
+            const result = {
+                request,
+                response,
+            };
+            if (response.ok) {
+                const parseAs = (_c = (opts.parseAs === 'auto'
+                    ? getParseAs(response.headers.get('Content-Type'))
+                    : opts.parseAs)) !== null && _c !== void 0 ? _c : 'json';
+                if (response.status === 204 || response.headers.get('Content-Length') === '0') {
+                    let emptyData;
+                    switch (parseAs) {
+                        case 'arrayBuffer':
+                        case 'blob':
+                        case 'text':
+                            emptyData = yield response[parseAs]();
+                            break;
+                        case 'formData':
+                            emptyData = new FormData();
+                            break;
+                        case 'stream':
+                            emptyData = response.body;
+                            break;
+                        case 'json':
+                        default:
+                            emptyData = {};
+                            break;
+                    }
+                    return opts.responseStyle === 'data'
+                        ? emptyData
+                        : Object.assign({ data: emptyData }, result);
+                }
+                let data;
+                switch (parseAs) {
+                    case 'arrayBuffer':
+                    case 'blob':
+                    case 'formData':
+                    case 'text':
+                        data = yield response[parseAs]();
+                        break;
+                    case 'json': {
+                        // Some servers return 200 with no Content-Length and empty body.
+                        // response.json() would throw; read as text and parse if non-empty.
+                        const text = yield response.text();
+                        data = text ? JSON.parse(text) : {};
+                        break;
+                    }
+                    case 'stream':
+                        return opts.responseStyle === 'data'
+                            ? response.body
+                            : Object.assign({ data: response.body }, result);
+                }
+                if (parseAs === 'json') {
+                    if (opts.responseValidator) {
+                        yield opts.responseValidator(data);
+                    }
+                    if (opts.responseTransformer) {
+                        data = yield opts.responseTransformer(data);
+                    }
+                }
+                return opts.responseStyle === 'data'
+                    ? data
+                    : Object.assign({ data }, result);
+            }
+            const textError = yield response.text();
+            let jsonError;
+            try {
+                jsonError = JSON.parse(textError);
+            }
+            catch (_d) {
+                // noop
+            }
+            throw jsonError !== null && jsonError !== void 0 ? jsonError : textError;
         }
         catch (error) {
-            // Handle fetch exceptions (AbortError, network errors, etc.)
             let finalError = error;
             for (const fn of interceptors.error.fns) {
                 if (fn) {
-                    finalError = (yield fn(error, undefined, request, opts));
+                    finalError = yield fn(finalError, response, request, options);
                 }
             }
             finalError = finalError || {};
-            if (opts.throwOnError) {
+            if (throwOnError) {
                 throw finalError;
             }
-            // Return error response
-            return opts.responseStyle === 'data'
+            // TODO: we probably want to return error and improve types
+            return responseStyle === 'data'
                 ? undefined
                 : {
                     error: finalError,
                     request,
-                    response: undefined,
+                    response,
                 };
         }
-        for (const fn of interceptors.response.fns) {
-            if (fn) {
-                response = yield fn(response, request, opts);
-            }
-        }
-        const result = {
-            request,
-            response,
-        };
-        if (response.ok) {
-            const parseAs = (_a = (opts.parseAs === 'auto'
-                ? getParseAs(response.headers.get('Content-Type'))
-                : opts.parseAs)) !== null && _a !== void 0 ? _a : 'json';
-            if (response.status === 204 || response.headers.get('Content-Length') === '0') {
-                let emptyData;
-                switch (parseAs) {
-                    case 'arrayBuffer':
-                    case 'blob':
-                    case 'text':
-                        emptyData = yield response[parseAs]();
-                        break;
-                    case 'formData':
-                        emptyData = new FormData();
-                        break;
-                    case 'stream':
-                        emptyData = response.body;
-                        break;
-                    case 'json':
-                    default:
-                        emptyData = {};
-                        break;
-                }
-                return opts.responseStyle === 'data'
-                    ? emptyData
-                    : Object.assign({ data: emptyData }, result);
-            }
-            let data;
-            switch (parseAs) {
-                case 'arrayBuffer':
-                case 'blob':
-                case 'formData':
-                case 'text':
-                    data = yield response[parseAs]();
-                    break;
-                case 'json': {
-                    // Some servers return 200 with no Content-Length and empty body.
-                    // response.json() would throw; read as text and parse if non-empty.
-                    const text = yield response.text();
-                    data = text ? JSON.parse(text) : {};
-                    break;
-                }
-                case 'stream':
-                    return opts.responseStyle === 'data'
-                        ? response.body
-                        : Object.assign({ data: response.body }, result);
-            }
-            if (parseAs === 'json') {
-                if (opts.responseValidator) {
-                    yield opts.responseValidator(data);
-                }
-                if (opts.responseTransformer) {
-                    data = yield opts.responseTransformer(data);
-                }
-            }
-            return opts.responseStyle === 'data'
-                ? data
-                : Object.assign({ data }, result);
-        }
-        const textError = yield response.text();
-        let jsonError;
-        try {
-            jsonError = JSON.parse(textError);
-        }
-        catch (_b) {
-            // noop
-        }
-        const error = jsonError !== null && jsonError !== void 0 ? jsonError : textError;
-        let finalError = error;
-        for (const fn of interceptors.error.fns) {
-            if (fn) {
-                finalError = (yield fn(error, response, request, opts));
-            }
-        }
-        finalError = finalError || {};
-        if (opts.throwOnError) {
-            throw finalError;
-        }
-        // TODO: we probably want to return error and improve types
-        return opts.responseStyle === 'data'
-            ? undefined
-            : Object.assign({ error: finalError }, result);
     });
     const makeMethodFn = (method) => (options) => request(Object.assign(Object.assign({}, options), { method }));
     const makeSseFn = (method) => (options) => __awaiter(void 0, void 0, void 0, function* () {
         const { opts, url } = yield beforeRequest(options);
-        return createSseClient(Object.assign(Object.assign({}, opts), { body: opts.body, headers: opts.headers, method, onRequest: (url, init) => __awaiter(void 0, void 0, void 0, function* () {
+        return createSseClient(Object.assign(Object.assign({}, opts), { body: opts.body, method, onRequest: (url, init) => __awaiter(void 0, void 0, void 0, function* () {
                 let request = new Request(url, init);
                 for (const fn of interceptors.request.fns) {
                     if (fn) {

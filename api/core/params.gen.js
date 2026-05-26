@@ -39,10 +39,10 @@ const stripEmptySlots = (params) => {
 };
 export const buildClientParams = (args, fields) => {
     const params = {
-        body: {},
-        headers: {},
-        path: {},
-        query: {},
+        body: Object.create(null),
+        headers: Object.create(null),
+        path: Object.create(null),
+        query: Object.create(null),
     };
     const map = buildKeyMap(fields);
     let config;

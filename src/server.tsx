@@ -153,9 +153,10 @@ export class CentralAuthClass {
 
   //Private method to return the client IP address from request headers
   private getIPAddress = (headers: Headers) => {
+    const authIp = headers.get("auth-ip");
     const realIp = headers.get("x-real-ip");
     const forwardedFor = headers.get("x-forwarded-for");
-    const ip = forwardedFor || realIp || null;
+    const ip = authIp || forwardedFor || realIp || null;
     //The IP address might consist of multiple IP addresses, seperated by commas. Only return the first IP address
     return ip ? ip.split(",")[0] : "0.0.0.0";
   }
