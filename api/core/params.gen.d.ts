@@ -34,10 +34,10 @@ export interface Fields {
 }
 export type FieldsConfig = ReadonlyArray<Field | Fields>;
 interface Params {
-    body: unknown;
+    body?: unknown;
     headers: Record<string, unknown>;
     path: Record<string, unknown>;
     query: Record<string, unknown>;
 }
-export declare const buildClientParams: (args: ReadonlyArray<unknown>, fields: FieldsConfig) => Params;
+export declare function buildClientParams(args: ReadonlyArray<unknown>, fields: FieldsConfig): Params;
 export {};

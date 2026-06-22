@@ -1,6 +1,6 @@
 {
   "name": "centralauth",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Official package for CentralAuth",
   "type": "module",
   "exports": {
@@ -59,18 +59,18 @@
   "author": "West IT",
   "license": "MIT",
   "dependencies": {
-    "@hey-api/openapi-ts": "^0.97.3",
-    "axios": "^1.16.1",
+    "@hey-api/openapi-ts": "^0.99.0",
+    "axios": "^1.18.0",
     "axios-cache-interceptor": "^1.12.0",
     "jose": "^6.2.3"
   },
   "peerDependencies": {
     "expo-crypto": "^56.0.0",
     "expo-device": "^56.0.0",
-    "expo-linking": "^56.0.0",
+    "expo-linking": "^56.0.14",
     "expo-secure-store": "^56.0.0",
     "expo-web-browser": "^56.0.0",
-    "react": "^18.0.0 || ^19.0.0"
+    "react": "^19.2.7"
   },
   "peerDependenciesMeta": {
     "expo-crypto": {
@@ -90,8 +90,8 @@
     }
   },
   "devDependencies": {
-    "@types/node": "^25.9.1",
-    "@types/react": "^19.2.15",
+    "@types/node": "^26.0.0",
+    "@types/react": "^19.2.17",
     "expo-crypto": "^56.0.0",
     "expo-device": "^56.0.0",
     "expo-linking": "^56.0.0",

@@ -1,6 +1,6 @@
 import type { QuerySerializerOptions } from '../core/bodySerializer.gen.js';
 import type { Client, ClientOptions, Config, RequestOptions } from './types.gen.js';
-export declare const createQuerySerializer: <T = unknown>({ parameters, ...args }?: QuerySerializerOptions) => (queryParams: T) => string;
+export declare const createQuerySerializer: <T = unknown>({ parameters, ...args }?: QuerySerializerOptions) => ((queryParams: T) => string);
 /**
  * Infers parseAs value from provided Content-Type header.
  */

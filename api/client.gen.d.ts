@@ -1,4 +1,4 @@
-import { type ClientOptions, type Config } from './client/index.js';
+import { type Client, type ClientOptions, type Config } from './client/index.js';
 import type { ClientOptions as ClientOptions2 } from './types.gen.js';
 /**
  * The `createClientConfig()` function will be called on client initialization
@@ -9,4 +9,4 @@ import type { ClientOptions as ClientOptions2 } from './types.gen.js';
  * to ensure your client always has the correct values.
  */
 export type CreateClientConfig<T extends ClientOptions = ClientOptions2> = (override?: Config<ClientOptions & T>) => Config<Required<ClientOptions> & T>;
-export declare const client: import("./client/types.gen.js").Client;
+export declare const client: Client;
