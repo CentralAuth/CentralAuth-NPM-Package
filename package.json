@@ -1,6 +1,6 @@
 {
   "name": "centralauth",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Official package for CentralAuth",
   "type": "module",
   "exports": {
@@ -39,6 +39,30 @@
       "import": "./openapi-ts.config.js",
       "require": "./dist/cjs/openapi-ts.config.js",
       "default": "./openapi-ts.config.js"
+    },
+    "./api": {
+      "types": "./api/index.d.ts",
+      "import": "./api/index.js",
+      "require": "./api/index.js",
+      "default": "./api/index.js"
+    },
+    "./api/client": {
+      "types": "./api/client.gen.d.ts",
+      "import": "./api/client.gen.js",
+      "require": "./api/client.gen.js",
+      "default": "./api/client.gen.js"
+    },
+    "./api/sdk": {
+      "types": "./api/sdk.gen.d.ts",
+      "import": "./api/sdk.gen.js",
+      "require": "./api/sdk.gen.js",
+      "default": "./api/sdk.gen.js"
+    },
+    "./api/types": {
+      "types": "./api/types.gen.d.ts",
+      "import": "./api/types.gen.js",
+      "require": "./api/types.gen.js",
+      "default": "./api/types.gen.js"
     }
   },
   "scripts": {
