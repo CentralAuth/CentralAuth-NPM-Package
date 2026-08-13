@@ -43,14 +43,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CentralAuthProvider = exports.CentralAuthContext = exports.useCentralAuth = exports.hash = void 0;
-const buffer_1 = require("buffer");
+const react_native_buffer_1 = require("@craftzdog/react-native-buffer");
 const expo_crypto_1 = require("expo-crypto");
 const expo_secure_store_1 = require("expo-secure-store");
 const WebBrowser = __importStar(require("expo-web-browser"));
 const react_1 = __importStar(require("react"));
 const server_js_1 = require("./server.js");
-// Polyfill Buffer for React Native
-globalThis.Buffer = buffer_1.Buffer;
 /**
  * This function takes a string input, applies SHA256 hashing, and converts the result
  * to base64url encoding by replacing URL-unsafe characters and removing padding.
@@ -135,7 +133,7 @@ const useCentralAuth = () => {
         if (config === null || config === void 0 ? void 0 : config.errorMessage)
             loginURL.searchParams.append("error_description", config.errorMessage);
         if (config === null || config === void 0 ? void 0 : config.translations)
-            loginURL.searchParams.append("translations", buffer_1.Buffer.from(JSON.stringify(config.translations)).toString("base64"));
+            loginURL.searchParams.append("translations", react_native_buffer_1.Buffer.from(JSON.stringify(config.translations)).toString("base64"));
         //Open the URL in a Web Browser tab
         yield WebBrowser.openAuthSessionAsync(loginURL.toString(), callbackUrl);
     }), [clientId, authBaseUrl, callbackUrl, appId, deviceId]);

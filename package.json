@@ -1,6 +1,6 @@
 {
   "name": "centralauth",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Official package for CentralAuth",
   "type": "module",
   "exports": {
@@ -27,6 +27,12 @@
       "import": "./src/types.js",
       "require": "./dist/cjs/src/types.js",
       "default": "./src/types.js"
+    },
+    "./types.server": {
+      "types": "./src/types.server.d.ts",
+      "import": "./src/types.server.js",
+      "require": "./dist/cjs/src/types.server.js",
+      "default": "./src/types.server.js"
     },
     "./react.types": {
       "types": "./src/react.types.d.ts",
@@ -66,8 +72,8 @@
     }
   },
   "scripts": {
-    "build": "rm -f tsconfig.tsbuildinfo && rm -rf dist/cjs && openapi-ts && npx tsc && npm run build:cjs",
-    "build:cjs": "mkdir -p dist/cjs && printf '{\"type\":\"commonjs\"}\n' > dist/cjs/package.json && npx tsc -p tsconfig.cjs.json"
+    "build": "rm -f tsconfig.tsbuildinfo && rm -rf dist/cjs && openapi-ts && npx tsc && node scripts/add-type-references.cjs && npm run build:cjs",
+    "build:cjs": "mkdir -p dist/cjs && printf '{\"type\":\"commonjs\"}\n' > dist/cjs/package.json && npx tsc -p tsconfig.cjs.json && node scripts/add-type-references.cjs"
   },
   "repository": {
     "type": "git",
@@ -83,17 +89,19 @@
   "author": "West IT",
   "license": "MIT",
   "dependencies": {
+    "@craftzdog/react-native-buffer": "^6.1.2",
     "@hey-api/openapi-ts": "^0.99.0",
-    "axios": "^1.18.0",
-    "axios-cache-interceptor": "^1.12.0",
-    "jose": "^6.2.3"
+    "axios": "^1.19.0",
+    "axios-cache-interceptor": "^1.12.3",
+    "jose": "^6.2.8",
+    "react-native-quick-base64": "^3.0.1"
   },
   "peerDependencies": {
-    "expo-crypto": "^56.0.0",
-    "expo-device": "^56.0.0",
-    "expo-linking": "^56.0.14",
-    "expo-secure-store": "^56.0.0",
-    "expo-web-browser": "^56.0.0",
+    "expo-crypto": "^57.0.0",
+    "expo-device": "^57.0.0",
+    "expo-linking": "^57.0.0",
+    "expo-secure-store": "^57.0.0",
+    "expo-web-browser": "^57.0.0",
     "react": "^19.2.7"
   },
   "peerDependenciesMeta": {
@@ -114,13 +122,13 @@
     }
   },
   "devDependencies": {
-    "@types/node": "^26.0.0",
-    "@types/react": "^19.2.17",
-    "expo-crypto": "^56.0.0",
-    "expo-device": "^56.0.0",
-    "expo-linking": "^56.0.0",
-    "expo-secure-store": "^56.0.0",
-    "expo-web-browser": "^56.0.0",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "expo-crypto": "^57.0.0",
+    "expo-device": "^57.0.0",
+    "expo-linking": "^57.0.0",
+    "expo-secure-store": "^57.0.0",
+    "expo-web-browser": "^57.0.0",
     "typescript": "^6.0.3"
   }
 }

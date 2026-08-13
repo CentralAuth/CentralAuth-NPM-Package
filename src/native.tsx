@@ -1,4 +1,4 @@
-import { Buffer } from 'buffer';
+import { Buffer } from "@craftzdog/react-native-buffer";
 import { CryptoDigestAlgorithm, CryptoEncoding, digestStringAsync, randomUUID } from "expo-crypto";
 import { deleteItemAsync, getItem, getItemAsync, setItemAsync } from 'expo-secure-store';
 import * as WebBrowser from "expo-web-browser";
@@ -6,9 +6,6 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import { CentralAuthProviderProps, ReactNativeCallbackParams } from "./react.types.js";
 import { ValidationError } from "./server.js";
 import { CentralAuthContextInterface, ErrorCode, ErrorObject, LoginParams, TokenResponse } from "./types.js";
-
-// Polyfill Buffer for React Native
-globalThis.Buffer = Buffer;
 
 /**
  * This function takes a string input, applies SHA256 hashing, and converts the result

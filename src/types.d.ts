@@ -1,5 +1,4 @@
 import { CacheRequestConfig as AxiosCacheRequestConfig, MaybePromise as AxiosMaybePromise, NotEmptyStorageValue as AxiosNotEmptyStorageValue, StorageValue as AxiosStorageValue, BuildStorage } from "axios-cache-interceptor";
-import { IncomingMessage, ServerResponse } from "node:http";
 export type NotEmptyStorageValue = AxiosNotEmptyStorageValue;
 export type CacheRequestConfig = AxiosCacheRequestConfig;
 export type MaybePromise<T> = AxiosMaybePromise<T>;
@@ -114,10 +113,6 @@ export type LogoutParams = {
 export type CallbackParams = {
     onStateReceived?: (req: Request, state: string) => Promise<boolean>;
     onAfterCallback?: (req: Request, res: Response, user: User) => Promise<Response | void>;
-};
-export type CallbackParamsHTTP = {
-    onStateReceived?: (req: Request, state: string) => Promise<boolean>;
-    onAfterCallback?: (req: IncomingMessage, originalResponse: ServerResponse, responseToReturn: Response, user: User) => Promise<Response | void>;
 };
 export type ErrorCode = "genericError" | "noPermission" | "tooManyRequests" | "missingFields" | "sessionMissing" | "sessionNotVerified" | "sessionExpired" | "sessionInactive" | "sessionInvalid" | "domainInvalid" | "loginAttemptMissing" | "loginAttemptExpired" | "loginAttemptInvalid" | "passkeyDataMissing" | "passkeyDataExpired" | "passkeyDataInvalid" | "passkeyWrongOrganization" | "callbackUrlInvalid" | "connectionMissing" | "organizationIdMissing" | "callbackUrlMissing" | "tokenMissing" | "tokenInvalid" | "stateMissing" | "stateInvalid" | "codeChallengeMissing" | "codeChallengeInvalid" | "captchaInvalid" | "entityMissing" | "entityInvalid" | "secretMissing" | "authBaseUrlMissing";
 export type ErrorObject = {
