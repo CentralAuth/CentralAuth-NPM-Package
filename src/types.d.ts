@@ -74,6 +74,8 @@ export type Translations = Partial<{
     emailChallengeText: string;
     login: string;
     loginWithPasskey: string;
+    loginWithEmail: string;
+    loginWithCentralAuthApp: string;
     loginLocal: string;
     loginRemote: string;
     loginAttemptBody: string;
