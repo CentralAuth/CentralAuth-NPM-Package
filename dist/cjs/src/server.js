@@ -289,6 +289,9 @@ window.addEventListener("message", ({data}) => document.getElementById("centrala
             //Add translations when given
             if (config === null || config === void 0 ? void 0 : config.translations)
                 authorizationUriParams.translations = Buffer.from(JSON.stringify(config.translations)).toString("base64");
+            //Add theme settings when given
+            if (config === null || config === void 0 ? void 0 : config.themeSettings)
+                authorizationUriParams.theme_settings = Buffer.from(JSON.stringify(config.themeSettings)).toString("base64");
             //Add embed boolean when given
             if (config === null || config === void 0 ? void 0 : config.embed)
                 authorizationUriParams.embed = "1";

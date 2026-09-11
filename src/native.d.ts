@@ -49,7 +49,7 @@ export declare const hash: (string: string) => Promise<string>;
  * ```
  */
 export declare const useCentralAuth: () => {
-    login: (config?: Pick<LoginParams, "email" | "errorMessage" | "translations">) => Promise<void>;
+    login: (config?: Pick<LoginParams, "email" | "errorMessage" | "translations" | "themeSettings">) => Promise<void>;
     handleCallback: ({ code, state, error, error_description }: ReactNativeCallbackParams) => Promise<TokenResponse>;
     logout: () => Promise<void>;
     accessToken: string | null | undefined;

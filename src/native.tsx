@@ -72,7 +72,7 @@ export const useCentralAuth = () => {
   const { clientId, authBaseUrl, callbackUrl, appId, deviceId, accessToken, idToken, setAccessToken, setIdToken, deleteAccessToken, deleteIdToken } = useContext(CentralAuthContext);
 
   // Handle login logic
-  const login = useCallback(async (config?: Pick<LoginParams, "email" | "errorMessage" | "translations">) => {
+  const login = useCallback(async (config?: Pick<LoginParams, "email" | "errorMessage" | "translations" | "themeSettings">) => {
     //Create a random state and store it in secure storage
     const state = randomUUID();
     await setItemAsync("state", state);
@@ -99,6 +99,8 @@ export const useCentralAuth = () => {
       loginURL.searchParams.append("error_description", config.errorMessage);
     if (config?.translations)
       loginURL.searchParams.append("translations", Buffer.from(JSON.stringify(config.translations)).toString("base64"));
+    if (config?.themeSettings)
+      loginURL.searchParams.append("theme_settings", Buffer.from(JSON.stringify(config.themeSettings)).toString("base64"));
 
     //Open the URL in a Web Browser tab
     await WebBrowser.openAuthSessionAsync(loginURL.toString(), callbackUrl);

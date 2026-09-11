@@ -134,6 +134,8 @@ const useCentralAuth = () => {
             loginURL.searchParams.append("error_description", config.errorMessage);
         if (config === null || config === void 0 ? void 0 : config.translations)
             loginURL.searchParams.append("translations", react_native_buffer_1.Buffer.from(JSON.stringify(config.translations)).toString("base64"));
+        if (config === null || config === void 0 ? void 0 : config.themeSettings)
+            loginURL.searchParams.append("theme_settings", react_native_buffer_1.Buffer.from(JSON.stringify(config.themeSettings)).toString("base64"));
         //Open the URL in a Web Browser tab
         yield WebBrowser.openAuthSessionAsync(loginURL.toString(), callbackUrl);
     }), [clientId, authBaseUrl, callbackUrl, appId, deviceId]);

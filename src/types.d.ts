@@ -87,12 +87,23 @@ export type Translations = Partial<{
     loginAttemptUndoError: string;
     undo: string;
 }>;
+export type ThemeSettings = {
+    loginBlockLayout?: "default" | "compact";
+    loginPageLayout?: "default" | "alignLeft" | "alignRight" | "fullLeft" | "fullRight" | "compact";
+    imageUrl?: string;
+    customFont?: string;
+    primaryColor?: string;
+    backgroundColor?: string;
+    contentColor?: string;
+    neutralColor?: string;
+};
 export type LoginParams = {
     returnTo?: string | null;
     email?: string | null;
     state?: string;
     errorMessage?: string | null;
     translations?: Translations | null;
+    themeSettings?: ThemeSettings;
     embed?: boolean | null;
     affirmExistingSession?: boolean;
 };
