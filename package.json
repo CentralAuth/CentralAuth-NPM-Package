@@ -1,6 +1,6 @@
 {
   "name": "centralauth",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Official package for CentralAuth",
   "type": "module",
   "exports": {
@@ -91,18 +91,18 @@
   "dependencies": {
     "@craftzdog/react-native-buffer": "^6.1.2",
     "@hey-api/openapi-ts": "^0.99.0",
-    "axios": "^1.19.0",
-    "axios-cache-interceptor": "^1.12.3",
-    "jose": "^6.2.8",
-    "react-native-quick-base64": "^3.0.1"
+    "axios": "^1.21.1",
+    "axios-cache-interceptor": "^1.13.0",
+    "jose": "^6.2.18",
+    "react-native-quick-base64": "^3.0.2"
   },
   "peerDependencies": {
-    "expo-crypto": "^57.0.0",
-    "expo-device": "^57.0.0",
-    "expo-linking": "^57.0.0",
-    "expo-secure-store": "^57.0.0",
-    "expo-web-browser": "^57.0.0",
-    "react": "^19.2.7"
+    "expo-crypto": "^58.0.0",
+    "expo-device": "^58.0.0",
+    "expo-linking": "^58.0.0",
+    "expo-secure-store": "^58.0.0",
+    "expo-web-browser": "^58.0.0",
+    "react": "^19.3.1"
   },
   "peerDependenciesMeta": {
     "expo-crypto": {
@@ -122,13 +122,13 @@
     }
   },
   "devDependencies": {
-    "@types/node": "^26.2.0",
-    "@types/react": "^19.2.18",
-    "expo-crypto": "^57.0.0",
-    "expo-device": "^57.0.0",
-    "expo-linking": "^57.0.0",
-    "expo-secure-store": "^57.0.0",
-    "expo-web-browser": "^57.0.0",
+    "@types/node": "^26.6.10",
+    "@types/react": "^19.3.1",
+    "expo-crypto": "^58.0.0",
+    "expo-device": "^58.0.0",
+    "expo-linking": "^58.0.0",
+    "expo-secure-store": "^58.0.0",
+    "expo-web-browser": "^58.0.0",
     "typescript": "^6.0.3"
   }
 }
