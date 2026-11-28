@@ -1,6 +1,6 @@
 {
   "name": "centralauth",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Official package for CentralAuth",
   "type": "module",
   "exports": {
